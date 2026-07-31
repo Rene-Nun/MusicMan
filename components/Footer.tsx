@@ -1,66 +1,52 @@
 export default function Footer() {
   return (
-    <footer className="border-t border-line" style={{ backgroundColor: '#117C2E' }}>
+    <footer className="border-t border-line bg-panel">
       <div className="mx-auto grid max-w-6xl gap-10 px-6 py-14 sm:grid-cols-3">
         <div>
-          <div className="flex items-center gap-3">
-            <img 
-              src="/public/icon.PNG" 
-              alt="Fandom" 
-              className="h-12 w-auto"
-              onError={(e) => {
-                e.target.style.display = 'none';
-                const fallback = document.createElement('span');
-                fallback.className = 'font-display text-2xl font-semibold text-white';
-                fallback.textContent = 'FANDOM';
-                e.target.parentNode.appendChild(fallback);
-              }}
-            />
-          </div>
-          <p className="mt-3 text-sm text-white/80">
-            Compra y vende boletos para eventos de forma segura. 
-            Planes de pago accesibles sin buró de crédito.
+          <p className="font-display text-lg font-semibold text-paper">
+            MUSIC<span className="text-brass">MAN</span>
+          </p>
+          <p className="mt-3 text-sm text-muted">
+            Instrumentos musicales seleccionados a mano. Reserva en línea,
+            recoge en tienda el mismo día.
           </p>
         </div>
 
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-white/60">
-            Contacto
+          <p className="text-xs font-semibold uppercase tracking-wider text-muted">
+            Visítanos
           </p>
-          <address className="mt-3 space-y-1 text-sm not-italic text-white">
-            <p>Paso del Norte Labs</p>
+          <address className="mt-3 space-y-1 text-sm not-italic text-paper">
+            <p>Av. Tecnológico 1420, Local 4</p>
             <p>Ciudad Juárez, Chih., México</p>
-            <p className="text-white/60">fandom.soporte@proton.me</p>
+            <p className="text-muted">+52 656 123 4567</p>
+            <p className="text-muted">hola@musicman.mx</p>
           </address>
         </div>
 
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-white/60">
-            Legal
+          <p className="text-xs font-semibold uppercase tracking-wider text-muted">
+            Horario de tienda
           </p>
-          <ul className="mt-3 space-y-2 text-sm">
-            <li>
-              <button 
-                onClick={() => window.openLegal?.('terms')}
-                className="text-white/80 hover:text-white transition-colors duration-200 cursor-pointer"
-              >
-                Términos y Condiciones
-              </button>
+          <ul className="mt-3 space-y-1 text-sm text-paper">
+            <li className="flex justify-between gap-4">
+              <span className="text-muted">Lun – Vie</span>
+              <span>10:00 – 19:00</span>
             </li>
-            <li>
-              <button 
-                onClick={() => window.openLegal?.('privacy')}
-                className="text-white/80 hover:text-white transition-colors duration-200 cursor-pointer"
-              >
-                Política de Privacidad
-              </button>
+            <li className="flex justify-between gap-4">
+              <span className="text-muted">Sábado</span>
+              <span>10:00 – 17:00</span>
+            </li>
+            <li className="flex justify-between gap-4">
+              <span className="text-muted">Domingo</span>
+              <span>Cerrado</span>
             </li>
           </ul>
         </div>
       </div>
 
-      <div className="border-t border-white/10 px-6 py-5 text-center text-xs text-white/60">
-        &copy; {new Date().getFullYear()} Fandom - Paso del Norte Labs. Todos los derechos reservados.
+      <div className="border-t border-line px-6 py-5 text-center text-xs text-muted">
+        © {new Date().getFullYear()} Musicman. Todos los derechos reservados.
       </div>
     </footer>
   );

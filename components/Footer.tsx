@@ -8,9 +8,9 @@ export default function Footer() {
           <Image
             src="/icon.PNG"
             alt="MusicMan Logo"
-            width={48}
-            height={48}
-            className="h-12 w-auto mb-4"
+            width={96}
+            height={96}
+            className="h-24 w-auto mb-4"
             unoptimized={true}
             quality={100}
           />

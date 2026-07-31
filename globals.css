@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #0E0D0C;
+  color: #F3EFE7;
+}
+
+/* Textura sutil tipo grano, evoca el cuerpo de madera de un instrumento */
+.bg-grain-overlay {
+  background-image: radial-gradient(circle at 1px 1px, rgba(243, 239, 231, 0.045) 1px, transparent 0);
+  background-size: 22px 22px;
+}
+
+/* Foco visible accesible, con acento latón de marca */
+:focus-visible {
+  outline: 2px solid #C89B3C;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

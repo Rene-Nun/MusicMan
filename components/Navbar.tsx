@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const navLinks = [
   { href: "#marcas", label: "Marcas" },
@@ -7,18 +10,35 @@ const navLinks = [
 ];
 
 export default function Navbar() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Cierra el menú con Escape y bloquea el scroll del body mientras está abierto
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") setIsMenuOpen(false);
+    }
+    document.addEventListener("keydown", handleKeyDown);
+    document.body.style.overflow = isMenuOpen ? "hidden" : "";
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [isMenuOpen]);
+
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-ink/90 backdrop-blur">
+      {/* Fila superior: siempre visible — logo + navegación (desktop) + iconos + hamburguesa (móvil) */}
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         {/* Izquierda: Logo */}
         <Link
           href="/"
+          onClick={() => setIsMenuOpen(false)}
           className="font-display text-xl font-semibold tracking-wide text-paper"
         >
           MUSIC<span className="text-brass">MAN</span>
         </Link>
 
-        {/* Derecha: navegación + cuenta + carrito */}
+        {/* Derecha: navegación + cuenta + carrito + hamburguesa */}
         <div className="flex items-center gap-8">
           <ul className="hidden items-center gap-7 md:flex">
             {navLinks.map((link) => (
@@ -33,7 +53,7 @@ export default function Navbar() {
             ))}
           </ul>
 
-          {/* Separador entre navegación e íconos */}
+          {/* Separador entre navegación e íconos (solo desktop) */}
           <div className="hidden h-5 w-px bg-line md:block" aria-hidden="true" />
 
           <div className="flex items-center gap-4">
@@ -81,9 +101,62 @@ export default function Navbar() {
                 0
               </span>
             </Link>
+
+            {/* Botón hamburguesa — solo móvil. Se transforma en X al abrir. */}
+            <button
+              type="button"
+              onClick={() => setIsMenuOpen((prev) => !prev)}
+              aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-nav-panel"
+              className="relative flex h-5 w-6 flex-col justify-between md:hidden"
+            >
+              <span
+                className={`h-px w-full bg-paper transition-transform duration-300 ${
+                  isMenuOpen ? "translate-y-[9px] rotate-45" : ""
+                }`}
+              />
+              <span
+                className={`h-px w-full bg-paper transition-opacity duration-200 ${
+                  isMenuOpen ? "opacity-0" : "opacity-100"
+                }`}
+              />
+              <span
+                className={`h-px w-full bg-paper transition-transform duration-300 ${
+                  isMenuOpen ? "-translate-y-[9px] -rotate-45" : ""
+                }`}
+              />
+            </button>
           </div>
         </div>
       </nav>
+
+      {/* Panel inferior: navegación completa, solo móvil */}
+      <div
+        id="mobile-nav-panel"
+        className={`grid overflow-hidden border-line bg-ink transition-[grid-template-rows] duration-300 ease-in-out md:hidden ${
+          isMenuOpen ? "grid-rows-[1fr] border-t" : "grid-rows-[0fr] border-t-0"
+        }`}
+      >
+        <div className="overflow-hidden">
+          <ul className="mx-auto max-w-6xl px-6 py-2">
+            {navLinks.map((link, i) => (
+              <li key={link.href} className={i > 0 ? "border-t border-line" : ""}>
+                <Link
+                  href={link.href}
+                  onClick={() => setIsMenuOpen(false)}
+                  className="group flex items-center justify-between py-4 font-display text-2xl font-medium text-paper transition-colors hover:text-brass"
+                >
+                  {link.label}
+                  <span className="text-brass opacity-0 transition-opacity group-hover:opacity-100">
+                    →
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </header>
   );
 }

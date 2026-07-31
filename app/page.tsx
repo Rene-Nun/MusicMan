@@ -33,9 +33,12 @@ export default function Home() {
             />
           </div>
 
-          {/* Contenido: flujo normal en mobile (debajo de la imagen), flotando sin fondo sobre la costura en desktop */}
-          <div className="relative z-20 mx-auto max-w-xl bg-white px-6 py-12 sm:px-10 sm:py-16 lg:absolute lg:inset-0 lg:m-auto lg:h-fit lg:max-w-md lg:bg-transparent lg:px-0 lg:py-0">
-            <h1 className="font-display text-4xl font-semibold leading-tight text-neutral-900 sm:text-5xl lg:text-white lg:drop-shadow-lg">
+          {/* Scrim: degradado oscuro en el tercio inferior para garantizar contraste del texto, sin importar qué haya detrás — solo desktop */}
+          <div className="pointer-events-none hidden lg:block lg:absolute lg:inset-x-0 lg:bottom-0 lg:z-10 lg:h-2/3 lg:bg-gradient-to-t lg:from-black/80 lg:via-black/25 lg:to-transparent" />
+
+          {/* Contenido: flujo normal en mobile (debajo de la imagen), anclado abajo y centrado sobre el scrim en desktop */}
+          <div className="relative z-20 mx-auto max-w-xl bg-white px-6 py-12 text-center sm:px-10 sm:py-16 lg:absolute lg:inset-x-12 lg:bottom-12 lg:mx-0 lg:max-w-2xl lg:bg-transparent lg:px-0 lg:py-0 lg:text-center">
+            <h1 className="font-display text-4xl font-semibold leading-tight text-neutral-900 sm:text-5xl lg:text-white">
               Aparta tu instrumento en línea.{" "}
               <span className="text-[#117C2E] lg:text-[#4CA5E4]">
                 Pruébalo en tienda
@@ -45,7 +48,7 @@ export default function Home() {
 
             <a
               href="#catalogo"
-              className="mt-8 inline-flex w-fit items-center gap-2 rounded-sm bg-neutral-900 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:bg-[#117C2E]"
+              className="mt-8 inline-flex w-fit items-center gap-2 rounded-sm bg-neutral-900 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:bg-[#117C2E] lg:bg-white lg:text-neutral-900 lg:hover:bg-[#4CA5E4] lg:hover:text-white"
             >
               Ver catálogo
               <span aria-hidden="true">→</span>

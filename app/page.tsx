@@ -33,34 +33,19 @@ export default function Home() {
             />
           </div>
 
-          {/* Contenido: flujo normal en mobile (debajo de la imagen), tarjeta flotando sobre la costura en desktop */}
-          <div className="relative z-20 mx-auto max-w-xl bg-white px-6 py-12 sm:px-10 sm:py-16 lg:absolute lg:inset-0 lg:m-auto lg:h-fit lg:max-w-md lg:rounded-sm lg:px-10 lg:py-10 lg:shadow-2xl">
-            <p className="font-display text-sm font-semibold uppercase tracking-[0.3em] text-[#4CA5E4]">
-              Click &amp; Collect
-            </p>
-            <h1 className="mt-4 font-display text-4xl font-semibold leading-tight text-neutral-900 sm:text-5xl">
+          {/* Contenido: flujo normal en mobile (debajo de la imagen), flotando sin fondo sobre la costura en desktop */}
+          <div className="relative z-20 mx-auto max-w-xl bg-white px-6 py-12 sm:px-10 sm:py-16 lg:absolute lg:inset-0 lg:m-auto lg:h-fit lg:max-w-md lg:bg-transparent lg:px-0 lg:py-0">
+            <h1 className="font-display text-4xl font-semibold leading-tight text-neutral-900 sm:text-5xl lg:text-white lg:drop-shadow-lg">
               Aparta tu instrumento en línea.{" "}
-              <span className="text-[#117C2E]">Pruébalo en tienda</span> hoy
-              mismo.
+              <span className="text-[#117C2E] lg:text-[#4CA5E4]">
+                Pruébalo en tienda
+              </span>{" "}
+              hoy mismo.
             </h1>
-            <p className="mt-6 text-base text-neutral-500 sm:text-lg">
-              Sin envíos, sin esperas. Reserva cualquier guitarra o
-              amplificador de nuestro catálogo y recógelo en Musicman el
-              mismo día.
-            </p>
-
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <span className="rounded-full bg-[#117C2E]/10 px-4 py-1.5 text-sm font-medium text-[#117C2E]">
-                Sin tarjeta de crédito
-              </span>
-              <span className="rounded-full bg-[#4CA5E4]/10 px-4 py-1.5 text-sm font-medium text-[#2E7AB8]">
-                Listo el mismo día
-              </span>
-            </div>
 
             <a
               href="#catalogo"
-              className="mt-10 inline-flex w-fit items-center gap-2 rounded-sm bg-neutral-900 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:bg-[#117C2E]"
+              className="mt-8 inline-flex w-fit items-center gap-2 rounded-sm bg-neutral-900 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:bg-[#117C2E]"
             >
               Ver catálogo
               <span aria-hidden="true">→</span>

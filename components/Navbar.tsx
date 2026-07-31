@@ -113,7 +113,7 @@ export default function Navbar() {
         <div className="overflow-hidden">
           <div className="mx-auto max-w-6xl px-6">
             {/* Iconos */}
-            <div className="flex items-center justify-end gap-6 py-5">
+            <div className="flex items-center gap-6 py-5">
               <Link
                 href="/cuenta"
                 onClick={() => setIsMenuOpen(false)}
@@ -145,12 +145,12 @@ export default function Navbar() {
                   <Link
                     href={link.href}
                     onClick={() => setIsMenuOpen(false)}
-                    className="group flex items-center justify-end gap-3 py-4 font-display text-2xl font-medium text-paper transition-colors hover:text-brass"
+                    className="group flex items-center justify-between py-4 font-display text-2xl font-medium text-paper transition-colors hover:text-brass"
                   >
+                    {link.label}
                     <span className="text-brass opacity-0 transition-opacity group-hover:opacity-100">
                       →
                     </span>
-                    {link.label}
                   </Link>
                 </li>
               ))}

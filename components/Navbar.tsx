@@ -27,7 +27,7 @@ export default function Navbar() {
   }, [isMenuOpen]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/90 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-gray-200 bg-[#FFFFFF] backdrop-blur">
       {/* Fila superior: siempre visible — logo + navegación (desktop) + iconos + hamburguesa (móvil) */}
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         {/* Izquierda: Logo */}
@@ -115,7 +115,7 @@ export default function Navbar() {
       {/* Panel inferior (solo móvil): arriba iconos, línea separadora, abajo navegación */}
       <div
         id="mobile-nav-panel"
-        className={`grid overflow-hidden border-gray-200 bg-white transition-[grid-template-rows] duration-300 ease-in-out md:hidden ${
+        className={`grid overflow-hidden border-gray-200 bg-[#FFFFFF] transition-[grid-template-rows] duration-300 ease-in-out md:hidden ${
           isMenuOpen ? "grid-rows-[1fr] border-t" : "grid-rows-[0fr] border-t-0"
         }`}
       >

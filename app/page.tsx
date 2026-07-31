@@ -55,8 +55,8 @@ export default function Home() {
             <div className="absolute inset-0 bg-gradient-to-t from-[#117C2E]/50 via-[#117C2E]/0 to-transparent lg:bg-gradient-to-l lg:from-[#117C2E]/10 lg:via-transparent lg:to-transparent" />
           </div>
 
-          {/* Tarjeta flotante sobre la costura — solo desktop */}
-          <div className="pointer-events-none absolute left-1/2 top-1/2 z-20 hidden -translate-x-1/2 -translate-y-1/2 lg:block">
+          {/* Tarjeta flotante sobre la costura — anclada abajo, recargada hacia la imagen para no pisar el texto */}
+          <div className="pointer-events-none absolute bottom-12 left-1/2 z-20 hidden -translate-x-[15%] lg:block">
             <div className="pointer-events-auto flex items-center gap-3 rounded-sm border border-neutral-200 bg-white px-5 py-4 shadow-xl">
               <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-[#79992C]" />
               <p className="text-sm font-medium text-neutral-700">

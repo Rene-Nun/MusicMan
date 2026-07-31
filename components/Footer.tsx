@@ -2,13 +2,10 @@ import Image from "next/image";
 
 export default function Footer() {
   return (
-    {/* overflow-hidden oculta cualquier excedente que se salga hacia arriba */}
     <footer className="overflow-hidden border-t border-[#0f6a24] bg-[#117C2E]">
       <div className="mx-auto max-w-6xl px-6 py-8">
-        
         <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-10">
           
-          {/* -mt-10 empuja a la fuerza toda esta columna (logo y texto) hacia arriba */}
           <div className="w-full sm:w-1/3 -mt-10">
             <Image
               src="/icon.PNG"
@@ -25,7 +22,6 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Columna 2: Visítanos */}
           <div className="w-full sm:w-1/3">
             <p className="mb-4 text-xs font-semibold uppercase tracking-wider text-white/60">
               Visítanos
@@ -38,7 +34,6 @@ export default function Footer() {
             </address>
           </div>
 
-          {/* Columna 3: Horarios */}
           <div className="w-full sm:w-1/3">
             <p className="mb-4 text-xs font-semibold uppercase tracking-wider text-white/60">
               Horario de tienda

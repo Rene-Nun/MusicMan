@@ -27,7 +27,7 @@ export default function Navbar() {
   }, [isMenuOpen]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line bg-ink/90 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/90 backdrop-blur">
       {/* Fila superior: siempre visible — logo + navegación (desktop) + iconos + hamburguesa (móvil) */}
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         {/* Izquierda: Logo */}
@@ -54,7 +54,7 @@ export default function Navbar() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="text-sm font-medium text-muted transition-colors hover:text-paper"
+                  className="text-sm font-medium text-gray-600 transition-colors hover:text-gray-900"
                 >
                   {link.label}
                 </Link>
@@ -62,23 +62,23 @@ export default function Navbar() {
             ))}
           </ul>
 
-          <div className="h-5 w-px bg-line" aria-hidden="true" />
+          <div className="h-5 w-px bg-gray-300" aria-hidden="true" />
 
           <div className="flex items-center gap-4">
             <Link
               href="/cuenta"
               aria-label="Mi cuenta"
-              className="text-muted transition-colors hover:text-paper"
+              className="text-gray-600 transition-colors hover:text-gray-900"
             >
               <AccountIcon />
             </Link>
             <Link
               href="/carrito"
               aria-label="Carrito de compras"
-              className="relative text-muted transition-colors hover:text-paper"
+              className="relative text-gray-600 transition-colors hover:text-gray-900"
             >
               <CartIcon />
-              <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-brass text-[10px] font-semibold text-ink">
+              <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-brass text-[10px] font-semibold text-white">
                 0
               </span>
             </Link>
@@ -95,17 +95,17 @@ export default function Navbar() {
           className="relative flex h-5 w-6 flex-col justify-between md:hidden"
         >
           <span
-            className={`h-px w-full bg-paper transition-transform duration-300 ${
+            className={`h-px w-full bg-gray-900 transition-transform duration-300 ${
               isMenuOpen ? "translate-y-[9px] rotate-45" : ""
             }`}
           />
           <span
-            className={`h-px w-full bg-paper transition-opacity duration-200 ${
+            className={`h-px w-full bg-gray-900 transition-opacity duration-200 ${
               isMenuOpen ? "opacity-0" : "opacity-100"
             }`}
           />
           <span
-            className={`h-px w-full bg-paper transition-transform duration-300 ${
+            className={`h-px w-full bg-gray-900 transition-transform duration-300 ${
               isMenuOpen ? "-translate-y-[9px] -rotate-45" : ""
             }`}
           />
@@ -115,7 +115,7 @@ export default function Navbar() {
       {/* Panel inferior (solo móvil): arriba iconos, línea separadora, abajo navegación */}
       <div
         id="mobile-nav-panel"
-        className={`grid overflow-hidden border-line bg-ink transition-[grid-template-rows] duration-300 ease-in-out md:hidden ${
+        className={`grid overflow-hidden border-gray-200 bg-white transition-[grid-template-rows] duration-300 ease-in-out md:hidden ${
           isMenuOpen ? "grid-rows-[1fr] border-t" : "grid-rows-[0fr] border-t-0"
         }`}
       >
@@ -126,7 +126,7 @@ export default function Navbar() {
               <Link
                 href="/cuenta"
                 onClick={() => setIsMenuOpen(false)}
-                className="flex items-center gap-2 text-sm font-medium text-paper transition-colors hover:text-brass"
+                className="flex items-center gap-2 text-sm font-medium text-gray-900 transition-colors hover:text-brass"
               >
                 <AccountIcon />
                 Mi cuenta
@@ -134,27 +134,27 @@ export default function Navbar() {
               <Link
                 href="/carrito"
                 onClick={() => setIsMenuOpen(false)}
-                className="relative flex items-center gap-2 text-sm font-medium text-paper transition-colors hover:text-brass"
+                className="relative flex items-center gap-2 text-sm font-medium text-gray-900 transition-colors hover:text-brass"
               >
                 <CartIcon />
                 Carrito
-                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-brass text-[10px] font-semibold text-ink">
+                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-brass text-[10px] font-semibold text-white">
                   0
                 </span>
               </Link>
             </div>
 
             {/* Línea separadora sutil */}
-            <div className="h-px w-full bg-line" aria-hidden="true" />
+            <div className="h-px w-full bg-gray-200" aria-hidden="true" />
 
             {/* Navegación */}
             <ul className="py-2">
               {navLinks.map((link, i) => (
-                <li key={link.href} className={i > 0 ? "border-t border-line" : ""}>
+                <li key={link.href} className={i > 0 ? "border-t border-gray-200" : ""}>
                   <Link
                     href={link.href}
                     onClick={() => setIsMenuOpen(false)}
-                    className="group flex items-center justify-between py-4 font-display text-2xl font-medium text-paper transition-colors hover:text-brass"
+                    className="group flex items-center justify-between py-4 font-display text-2xl font-medium text-gray-900 transition-colors hover:text-brass"
                   >
                     {link.label}
                     <span className="text-brass opacity-0 transition-opacity group-hover:opacity-100">

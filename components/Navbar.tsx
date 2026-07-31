@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const navLinks = [
@@ -33,9 +34,15 @@ export default function Navbar() {
         <Link
           href="/"
           onClick={() => setIsMenuOpen(false)}
-          className="font-display text-xl font-semibold tracking-wide text-paper"
         >
-          MUSIC<span className="text-brass">MAN</span>
+          <Image
+            src="/logo.PNG"
+            alt="MusicMan Logo"
+            width={40}
+            height={40}
+            className="h-10 w-auto"
+            priority
+          />
         </Link>
 
         {/* Derecha (desktop): navegación + separador + cuenta + carrito */}

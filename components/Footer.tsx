@@ -6,13 +6,13 @@ export default function Footer() {
       <div className="mx-auto max-w-6xl px-6 py-8">
         <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-10">
           
-          <div className="w-full sm:w-1/3 -mt-10">
+          <div className="w-full text-center sm:w-1/3 sm:text-left -mt-10">
             <Image
               src="/icon.PNG"
               alt="MusicMan Logo"
               width={128}
               height={128}
-              className="mb-4 h-32 w-auto object-contain"
+              className="mx-auto mb-4 h-32 w-auto object-contain sm:mx-0"
               unoptimized={true}
               quality={100}
             />

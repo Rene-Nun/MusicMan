@@ -2,20 +2,20 @@ import Image from "next/image";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-[#0f6a24] bg-[#117C2E]">
-      <div className="mx-auto max-w-6xl px-6 py-10">
+    {/* overflow-hidden oculta cualquier excedente que se salga hacia arriba */}
+    <footer className="overflow-hidden border-t border-[#0f6a24] bg-[#117C2E]">
+      <div className="mx-auto max-w-6xl px-6 py-8">
         
-        {/* Usamos flex y items-start para obligar a que todo se clave arriba */}
         <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-10">
           
-          {/* Columna 1: Logo y texto */}
-          <div className="w-full sm:w-1/3">
+          {/* -mt-10 empuja a la fuerza toda esta columna (logo y texto) hacia arriba */}
+          <div className="w-full sm:w-1/3 -mt-10">
             <Image
               src="/icon.PNG"
               alt="MusicMan Logo"
-              width={96}
-              height={96}
-              className="mb-4 h-24 w-auto object-contain"
+              width={128}
+              height={128}
+              className="mb-4 h-32 w-auto object-contain"
               unoptimized={true}
               quality={100}
             />

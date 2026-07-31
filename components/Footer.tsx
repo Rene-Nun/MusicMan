@@ -60,7 +60,8 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-white/10 px-6 py-5 text-center text-xs text-white/60">
-        © {new Date().getFullYear()} Fandom — Paso del Norte Labs. Todos los derechos reservados.
+        &copy; {new Date().getFullYear()} Fandom - Paso del Norte Labs. Todos los derechos reservados.
       </div>
     </footer>
   );
+}

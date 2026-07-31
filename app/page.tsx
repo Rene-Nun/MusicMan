@@ -90,25 +90,3 @@ export default function Home() {
     </>
   );
 }
-      <section id="catalogo" className="mx-auto max-w-6xl bg-white px-6 py-16 sm:py-20">
-        <div className="mb-10 flex items-end justify-between border-b border-neutral-200 pb-6">
-          <div>
-            <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
-              Catálogo disponible
-            </h2>
-            <p className="mt-2 text-sm text-neutral-500">
-              {products.length} instrumentos listos para recoger en tienda.
-            </p>
-          </div>
-          <span className="hidden h-2 w-2 rounded-full bg-[#79992C] sm:block" aria-hidden="true" />
-        </div>
-
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {products.map((product) => (
-            <ProductCard key={product.id} {...product} />
-          ))}
-        </div>
-      </section>
-    </>
-  );
-}

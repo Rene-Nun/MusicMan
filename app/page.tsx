@@ -5,20 +5,45 @@ import Image from "next/image";
 export default function Home() {
   return (
     <>
-      {/* Hero — split layout: contenido a la izquierda, imagen a la derecha */}
-      <section className="relative border-b border-neutral-200 bg-white">
-        <div className="relative mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2 lg:items-stretch">
-          {/* Columna izquierda: contenido */}
-          <div className="relative z-10 flex flex-col justify-center px-6 py-16 sm:py-20 lg:px-16 lg:py-28">
+      {/* Hero — panel de color con foto pequeña | imagen grande a sangre | texto flotando sobre la costura */}
+      <section className="relative border-b border-neutral-200 bg-white lg:overflow-hidden">
+        <div className="relative lg:h-[640px]">
+          {/* Panel izquierdo: fondo de color con una foto pequeña centrada — solo desktop */}
+          <div className="hidden bg-[#117C2E] lg:absolute lg:inset-y-0 lg:left-0 lg:flex lg:w-1/2 lg:items-center lg:justify-center">
+            <div className="relative h-2/3 w-2/3 overflow-hidden rounded-sm shadow-2xl">
+              <Image
+                src="https://images.unsplash.com/photo-1558098329-a11cff621064?w=800&q=80"
+                alt="Detalle de guitarra acústica Musicman"
+                fill
+                sizes="25vw"
+                className="object-cover"
+              />
+            </div>
+          </div>
+
+          {/* Imagen grande a sangre — mobile: bloque superior; desktop: mitad derecha */}
+          <div className="relative h-72 sm:h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:h-full lg:w-1/2">
+            <Image
+              src="https://images.unsplash.com/photo-1550985616-10810253b84d?w=1400&q=80"
+              alt="Guitarra eléctrica disponible en Musicman"
+              fill
+              priority
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="object-cover"
+            />
+          </div>
+
+          {/* Contenido: flujo normal en mobile (debajo de la imagen), tarjeta flotando sobre la costura en desktop */}
+          <div className="relative z-20 mx-auto max-w-xl bg-white px-6 py-12 sm:px-10 sm:py-16 lg:absolute lg:inset-0 lg:m-auto lg:h-fit lg:max-w-md lg:rounded-sm lg:px-10 lg:py-10 lg:shadow-2xl">
             <p className="font-display text-sm font-semibold uppercase tracking-[0.3em] text-[#4CA5E4]">
               Click &amp; Collect
             </p>
-            <h1 className="mt-4 max-w-xl font-display text-4xl font-semibold leading-tight text-neutral-900 sm:text-5xl lg:text-6xl">
+            <h1 className="mt-4 font-display text-4xl font-semibold leading-tight text-neutral-900 sm:text-5xl">
               Aparta tu instrumento en línea.{" "}
               <span className="text-[#117C2E]">Pruébalo en tienda</span> hoy
               mismo.
             </h1>
-            <p className="mt-6 max-w-md text-base text-neutral-500 sm:text-lg">
+            <p className="mt-6 text-base text-neutral-500 sm:text-lg">
               Sin envíos, sin esperas. Reserva cualquier guitarra o
               amplificador de nuestro catálogo y recógelo en Musicman el
               mismo día.
@@ -40,29 +65,6 @@ export default function Home() {
               Ver catálogo
               <span aria-hidden="true">→</span>
             </a>
-          </div>
-
-          {/* Columna derecha: imagen a sangre, con velo de marca */}
-          <div className="relative order-first h-72 sm:h-96 lg:order-none lg:h-auto">
-            <Image
-              src="https://images.unsplash.com/photo-1550985616-10810253b84d?w=1400&q=80"
-              alt="Guitarra eléctrica disponible en Musicman"
-              fill
-              priority
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#117C2E]/50 via-[#117C2E]/0 to-transparent lg:bg-gradient-to-l lg:from-[#117C2E]/10 lg:via-transparent lg:to-transparent" />
-          </div>
-
-          {/* Tarjeta flotante sobre la costura — anclada abajo, recargada hacia la imagen para no pisar el texto */}
-          <div className="pointer-events-none absolute bottom-12 left-1/2 z-20 hidden -translate-x-[15%] lg:block">
-            <div className="pointer-events-auto flex items-center gap-3 rounded-sm border border-neutral-200 bg-white px-5 py-4 shadow-xl">
-              <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-[#79992C]" />
-              <p className="text-sm font-medium text-neutral-700">
-                +40 marcas disponibles en tienda
-              </p>
-            </div>
           </div>
         </div>
       </section>

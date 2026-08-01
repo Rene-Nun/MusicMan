@@ -82,6 +82,9 @@ export default function Home() {
 
       {/* Carrusel de Categorías (Movido debajo del Hero) */}
       <section className="mx-auto mt-12 max-w-6xl bg-white px-6 sm:mt-16">
+        <h2 className="mb-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          Nuestros productos
+        </h2>
         <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {categories.map((category, index) => (
             <div key={index} className="group flex shrink-0 snap-start flex-col items-center gap-3">
@@ -107,8 +110,11 @@ export default function Home() {
           <div className="grid grid-cols-1 items-center bg-[#117C2E] lg:grid-cols-2">
             <div className="px-6 py-12 sm:px-10 sm:py-16">
               <h2 className="font-display text-2xl font-semibold text-white sm:text-3xl">
-                Compra en línea, recoge en tienda
+                Elige en línea y recoge en tienda
               </h2>
+              <p className="mt-3 max-w-md text-sm text-white/80 sm:text-base">
+                Explora nuestro stock sin salir de casa, elige tu compra y pasa por ella a tu Musicman más cercano.
+              </p>
               <a
                 href="#catalogo"
                 className="mt-6 inline-flex w-fit items-center gap-2 rounded-sm bg-neutral-900 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:bg-neutral-800"
@@ -145,7 +151,7 @@ export default function Home() {
       {/* Explora nuestras marcas */}
       <section className="mx-auto mt-12 max-w-6xl bg-white px-6 py-4 sm:mt-16">
         <h2 className="mb-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
-          Explora nuestras marcas
+          Explora por marca
         </h2>
 
         <div className="grid grid-cols-3 gap-x-2 gap-y-10 sm:grid-cols-4 lg:grid-cols-6">

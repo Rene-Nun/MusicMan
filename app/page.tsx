@@ -56,9 +56,9 @@ export default function Home() {
 
       {/* Banner — compra en línea, recoge en tienda */}
       <section className="mx-auto mt-12 max-w-6xl px-6 sm:mt-16">
-        <div className="grid grid-cols-1 items-center overflow-hidden rounded-sm border border-neutral-200 bg-[#117C2E] lg:grid-cols-2">
+        <div className="grid grid-cols-1 items-center overflow-hidden rounded-sm border border-neutral-200 bg-white lg:grid-cols-2">
           <div className="px-6 py-12 sm:px-10 sm:py-16">
-            <h2 className="font-display text-2xl font-semibold text-white sm:text-3xl">
+            <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
               Compra en línea, recoge en tienda
             </h2>
             <a

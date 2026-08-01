@@ -125,7 +125,7 @@ export default function Home() {
 
             <div className="relative h-64 sm:h-80 lg:h-96">
               <Image
-                src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=1200&q=80"
+                src="/Tienda.PNG"
                 alt="Interior de tienda Musicman con instrumentos en exhibición"
                 fill
                 sizes="(min-width: 1024px) 50vw, 100vw"

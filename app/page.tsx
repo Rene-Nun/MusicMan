@@ -37,7 +37,7 @@ export default function Home() {
         <div className="relative lg:h-[640px]">
           {/* Panel izquierdo: fondo de color con una foto pequeña centrada — solo desktop */}
           <div className="hidden bg-red-600 lg:absolute lg:inset-y-0 lg:left-0 lg:flex lg:w-1/2 lg:items-center lg:justify-center">
-            <div className="relative h-2/3 w-2/3 overflow-hidden rounded-sm shadow-2xl">
+            <div className="relative h-3/5 w-3/5 overflow-hidden rounded-sm shadow-2xl">
               <Image
                 src="/Smallhero.jpg"
                 alt="Detalle de guitarra acústica Musicman"

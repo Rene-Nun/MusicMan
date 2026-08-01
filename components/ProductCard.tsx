@@ -12,9 +12,23 @@ export type Product = {
   stock: "en-tienda" | "ultima-unidad";
 };
 
-export default function ProductCard({ id, name, category, price, image, stock }: Product) {
+type ProductCardProps = Product & {
+  variant?: "dark" | "light";
+};
+
+export default function ProductCard({
+  id,
+  name,
+  category,
+  price,
+  image,
+  stock,
+  variant = "dark",
+}: ProductCardProps) {
   const [isReserving, setIsReserving] = useState(false);
   const [reserved, setReserved] = useState(false);
+
+  const isLight = variant === "light";
 
   async function handleReserve() {
     setIsReserving(true);
@@ -32,7 +46,13 @@ export default function ProductCard({ id, name, category, price, image, stock }:
   }
 
   return (
-    <article className="group flex flex-col overflow-hidden rounded-sm border border-line bg-panel transition-colors hover:border-brass/50">
+    <article
+      className={`group flex flex-col overflow-hidden rounded-sm border transition-colors ${
+        isLight
+          ? "border-neutral-200 bg-white hover:border-neutral-300"
+          : "border-line bg-panel hover:border-brass/50"
+      }`}
+    >
       <div className="relative aspect-square overflow-hidden bg-black/30">
         <Image
           src={image}
@@ -42,7 +62,11 @@ export default function ProductCard({ id, name, category, price, image, stock }:
           className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
         {stock === "ultima-unidad" && (
-          <span className="absolute left-3 top-3 rounded-sm bg-brass px-2 py-1 text-xs font-semibold uppercase tracking-wide text-ink">
+          <span
+            className={`absolute left-3 top-3 rounded-sm px-2 py-1 text-xs font-semibold uppercase tracking-wide ${
+              isLight ? "bg-neutral-900 text-white" : "bg-brass text-ink"
+            }`}
+          >
             Última unidad
           </span>
         )}
@@ -50,18 +74,26 @@ export default function ProductCard({ id, name, category, price, image, stock }:
 
       <div className="flex flex-1 flex-col gap-3 p-5">
         <div>
-          <p className="text-xs uppercase tracking-wider text-muted">{category}</p>
-          <h3 className="font-display text-lg font-medium text-paper">{name}</h3>
+          <p className={`text-xs uppercase tracking-wider ${isLight ? "text-neutral-500" : "text-muted"}`}>
+            {category}
+          </p>
+          <h3 className={`font-display text-lg font-medium ${isLight ? "text-neutral-900" : "text-paper"}`}>
+            {name}
+          </h3>
         </div>
 
-        <p className="mt-auto font-display text-xl text-brass">
+        <p className={`mt-auto font-display text-xl ${isLight ? "text-neutral-900" : "text-brass"}`}>
           {price.toLocaleString("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 })}
         </p>
 
         <button
           onClick={handleReserve}
           disabled={isReserving || reserved}
-          className="mt-1 w-full rounded-sm bg-brass px-4 py-3 text-sm font-semibold uppercase tracking-wide text-ink transition-colors hover:bg-paper disabled:cursor-not-allowed disabled:opacity-70"
+          className={`mt-1 w-full rounded-sm px-4 py-3 text-sm font-semibold uppercase tracking-wide transition-colors disabled:cursor-not-allowed disabled:opacity-70 ${
+            isLight
+              ? "bg-neutral-900 text-white hover:bg-neutral-800"
+              : "bg-brass text-ink hover:bg-paper"
+          }`}
         >
           {reserved ? "Reservado ✓" : isReserving ? "Reservando..." : "Reservar y Recoger en Tienda"}
         </button>

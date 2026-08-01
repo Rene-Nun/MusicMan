@@ -85,13 +85,14 @@ export default function Navbar() {
             setIsMenuOpen(false);
             setOpenMenu(null);
           }}
+          className="shrink-0 md:-my-3"
         >
           <Image
             src="/logo.PNG"
             alt="MusicMan Logo"
             width={40}
             height={40}
-            className="h-10 w-auto md:h-14"
+            className="h-10 w-auto md:h-16"
             priority
             unoptimized={true}
             quality={100}

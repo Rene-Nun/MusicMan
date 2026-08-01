@@ -33,8 +33,6 @@ export default function Home() {
             />
           </div>
 
-          {/* Scrim: degradado oscuro en el tercio inferior para garantizar contraste del texto, sin importar qué haya detrás — solo desktop */}
-          <div className="pointer-events-none hidden lg:block lg:absolute lg:inset-x-0 lg:bottom-0 lg:z-10 lg:h-2/3 lg:bg-gradient-to-t lg:from-black/80 lg:via-black/25 lg:to-transparent" />
 
           {/* Contenido: flujo normal en mobile (debajo de la imagen), anclado abajo y centrado sobre el scrim en desktop */}
           <div className="relative z-20 mx-auto max-w-xl bg-white px-6 py-12 text-center sm:px-10 sm:py-16 lg:absolute lg:inset-0 lg:mx-auto lg:flex lg:max-w-2xl lg:flex-col lg:items-center lg:justify-center lg:bg-transparent lg:px-0 lg:py-0 lg:text-center">

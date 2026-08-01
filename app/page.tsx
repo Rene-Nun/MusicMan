@@ -33,6 +33,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-white">
       {/* Hero — ahora en formato 16:9 dentro de un contenedor (no a pantalla completa) */}
+      <section className="relative bg-white">
         <div className="mx-auto max-w-6xl px-0 sm:px-6 sm:pt-8">
           <div className="relative overflow-hidden rounded-sm lg:aspect-[16/6]">
             {/* Panel izquierdo: fondo de color con una foto pequeña centrada — solo desktop */}

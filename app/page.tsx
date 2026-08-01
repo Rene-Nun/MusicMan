@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <>
+    <main className="min-h-screen bg-white">
       {/* Hero — panel de color con foto pequeña | imagen grande a sangre | texto flotando sobre la costura */}
       <section className="relative border-b border-neutral-200 bg-white lg:overflow-hidden">
         <div className="relative lg:h-[640px]">
@@ -55,7 +55,7 @@ export default function Home() {
       </section>
 
       {/* Banner — compra en línea, recoge en tienda */}
-      <section className="bg-white mx-auto mt-12 max-w-6xl px-6 sm:mt-16">
+      <section className="mx-auto mt-12 max-w-6xl bg-white px-6 sm:mt-16">
         <div className="grid grid-cols-1 items-center overflow-hidden rounded-sm border border-neutral-200 bg-[#117C2E] lg:grid-cols-2">
           <div className="px-6 py-12 sm:px-10 sm:py-16">
             <h2 className="font-display text-2xl font-semibold text-white sm:text-3xl">
@@ -101,6 +101,6 @@ export default function Home() {
           ))}
         </div>
       </section>
-    </>
+    </main>
   );
 }

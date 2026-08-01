@@ -32,52 +32,52 @@ const brands = [
 export default function Home() {
   return (
     <main className="min-h-screen bg-white">
-      {/* Hero — formato 16:9 dentro de contenedor */}
-      <section className="mx-auto mt-8 max-w-6xl px-6 sm:mt-12">
-        <div className="relative aspect-video w-full overflow-hidden rounded-sm">
-          {/* Panel izquierdo: fondo de color con una foto pequeña centrada */}
-          <div className="absolute inset-y-0 left-0 hidden w-1/2 items-center justify-center bg-red-600 lg:flex">
-            <div className="relative aspect-[4/5] w-[40%] overflow-hidden rounded-sm shadow-2xl">
+      {/* Hero — ahora en formato 16:9 dentro de un contenedor (no a pantalla completa) */}
+      <section className="relative border-b border-neutral-200 bg-white">
+        <div className="mx-auto max-w-6xl px-0 sm:px-6 sm:pt-8">
+          <div className="relative overflow-hidden rounded-sm lg:aspect-video">
+            {/* Panel izquierdo: fondo de color con una foto pequeña centrada — solo desktop */}
+            <div className="hidden bg-red-600 lg:absolute lg:inset-y-0 lg:left-0 lg:flex lg:w-1/2 lg:items-center lg:justify-center">
+              <div className="relative aspect-[4/5] w-1/2 overflow-hidden rounded-sm shadow-2xl">
+                <Image
+                  src="/Smallhero.jpg"
+                  alt="Detalle de guitarra acústica Musicman"
+                  fill
+                  sizes="25vw"
+                  className="object-cover"
+                />
+              </div>
+            </div>
+
+            {/* Imagen grande a sangre — mobile: bloque superior; desktop: mitad derecha */}
+            <div className="relative h-72 sm:h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:h-full lg:w-1/2">
               <Image
-                src="/Smallhero.jpg"
-                alt="Detalle de guitarra acústica Musicman"
+                src="/Bighero.jpg"
+                alt="Guitarra eléctrica disponible en Musicman"
                 fill
-                sizes="20vw"
+                priority
+                sizes="(min-width: 1024px) 50vw, 100vw"
                 className="object-cover"
               />
             </div>
-          </div>
 
-          {/* Imagen grande — mobile: bloque completo; desktop: mitad derecha */}
-          <div className="absolute inset-0 lg:left-1/2 lg:w-1/2">
-            <Image
-              src="/Bighero.jpg"
-              alt="Guitarra eléctrica disponible en Musicman"
-              fill
-              priority
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover"
-            />
-            {/* Overlay oscuro solo en mobile para mejorar legibilidad del texto */}
-            <div className="absolute inset-0 bg-black/40 lg:hidden" />
-          </div>
+            {/* Contenido: flujo normal en mobile (debajo de la imagen), anclado abajo y centrado sobre el scrim en desktop */}
+            <div className="relative z-20 mx-auto max-w-xl bg-white px-6 py-12 text-center sm:px-10 sm:py-16 lg:absolute lg:inset-0 lg:mx-auto lg:flex lg:max-w-2xl lg:flex-col lg:items-center lg:justify-center lg:bg-transparent lg:px-0 lg:py-0 lg:text-center">
+              <h1 className="font-display text-4xl leading-tight text-neutral-900 sm:text-5xl lg:text-white">
+                <span className="block font-light italic">Gibson</span>
+                <span className="block font-bold text-white lg:text-white">Historic</span>
+                <span className="block font-bold">Collection</span>
+                <span className="block font-bold">arrives</span>
+              </h1>
 
-          {/* Contenido textual centrado sobre la unión de las dos mitades */}
-          <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-center">
-            <h1 className="font-display text-4xl leading-tight text-white sm:text-5xl lg:text-white [text-shadow:0_2px_8px_rgba(0,0,0,0.6)]">
-              <span className="block font-light italic">Gibson</span>
-              <span className="block font-bold">Historic</span>
-              <span className="block font-bold">Collection</span>
-              <span className="block font-bold">arrives</span>
-            </h1>
-
-            <a
-              href="#catalogo"
-              className="mx-auto mt-8 inline-flex w-fit items-center gap-2 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:text-[#4CA5E4]"
-            >
-              Saber más
-              <span aria-hidden="true">→</span>
-            </a>
+              <a
+                href="#catalogo"
+                className="mx-auto mt-8 inline-flex w-fit items-center gap-2 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:text-[#4CA5E4]"
+              >
+                Saber más
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
           </div>
         </div>
       </section>

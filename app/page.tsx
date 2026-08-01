@@ -85,7 +85,7 @@ export default function Home() {
       {/* Carrusel de Categorías (Movido debajo del Hero) */}
       <section className="mx-auto mt-12 max-w-6xl bg-white px-6 sm:mt-16">
         <h2 className="mb-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
-          Nuestros productos
+          ¿Qué estás buscando?
         </h2>
         <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {categories.map((category, index) => (

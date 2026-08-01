@@ -63,8 +63,8 @@ export default function Home() {
           {/* Contenido: flujo normal en mobile (debajo de la imagen), anclado abajo y centrado sobre el scrim en desktop */}
           <div className="relative z-20 mx-auto max-w-xl bg-white px-6 py-12 text-center sm:px-10 sm:py-16 lg:absolute lg:inset-0 lg:mx-auto lg:flex lg:max-w-2xl lg:flex-col lg:items-center lg:justify-center lg:bg-transparent lg:px-0 lg:py-0 lg:text-center">
             <h1 className="font-display text-4xl leading-tight text-neutral-900 sm:text-5xl lg:text-white">
-              <span className="block font-light">Gibson</span>
-              <span className="block font-bold">Historic</span>
+              <span className="block font-light italic">Gibson</span>
+              <span className="block font-bold text-black lg:text-black">Historic</span>
               <span className="block font-bold">Collection</span>
               <span className="block font-bold">arrives</span>
             </h1>

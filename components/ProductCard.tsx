@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
 
 export type Product = {
   id: string;
@@ -25,25 +24,7 @@ export default function ProductCard({
   stock,
   variant = "dark",
 }: ProductCardProps) {
-  const [isReserving, setIsReserving] = useState(false);
-  const [reserved, setReserved] = useState(false);
-
   const isLight = variant === "light";
-
-  async function handleReserve() {
-    setIsReserving(true);
-
-    // TODO: Conectar a webhook de Make.com para mandar a Notion.
-    // Ejemplo de payload esperado por el escenario de Make:
-    // await fetch(process.env.NEXT_PUBLIC_MAKE_WEBHOOK_URL!, {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({ productId: id, productName: name, price, requestedAt: new Date().toISOString() }),
-    // });
-
-    setIsReserving(false);
-    setReserved(true);
-  }
 
   return (
     <article
@@ -86,17 +67,15 @@ export default function ProductCard({
           {price.toLocaleString("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 })}
         </p>
 
-        <button
-          onClick={handleReserve}
-          disabled={isReserving || reserved}
-          className={`mt-1 w-full rounded-sm px-4 py-3 text-sm font-semibold uppercase tracking-wide transition-colors disabled:cursor-not-allowed disabled:opacity-70 ${
+        <span
+          className={`mt-1 inline-block w-full rounded-sm px-4 py-3 text-center text-sm font-semibold uppercase tracking-wide ${
             isLight
-              ? "bg-neutral-900 text-white hover:bg-neutral-800"
-              : "bg-brass text-ink hover:bg-paper"
+              ? "bg-neutral-900 text-white"
+              : "bg-brass text-ink"
           }`}
         >
-          {reserved ? "Reservado ✓" : isReserving ? "Reservando..." : "Reservar y Recoger en Tienda"}
-        </button>
+          Más información
+        </span>
       </div>
     </article>
   );

@@ -39,7 +39,7 @@ export default function Home() {
           <div className="hidden bg-red-600 lg:absolute lg:inset-y-0 lg:left-0 lg:flex lg:w-1/2 lg:items-center lg:justify-center">
             <div className="relative h-2/3 w-2/3 overflow-hidden rounded-sm shadow-2xl">
               <Image
-                src="/Smallhero.jpg"
+                src="/Small.jpg"
                 alt="Detalle de guitarra acústica Musicman"
                 fill
                 sizes="25vw"
@@ -64,7 +64,7 @@ export default function Home() {
           <div className="relative z-20 mx-auto max-w-xl bg-white px-6 py-12 text-center sm:px-10 sm:py-16 lg:absolute lg:inset-0 lg:mx-auto lg:flex lg:max-w-2xl lg:flex-col lg:items-center lg:justify-center lg:bg-transparent lg:px-0 lg:py-0 lg:text-center">
             <h1 className="font-display text-4xl leading-tight text-neutral-900 sm:text-5xl lg:text-white">
               <span className="block font-light italic">Gibson</span>
-              <span className="block font-bold text-black lg:text-black">Historic</span>
+              <span className="block font-bold text-white [-webkit-text-stroke:1.5px_black] lg:text-white">Historic</span>
               <span className="block font-bold">Collection</span>
               <span className="block font-bold">arrives</span>
             </h1>
@@ -73,7 +73,7 @@ export default function Home() {
               href="#catalogo"
               className="mx-auto mt-8 inline-flex w-fit items-center gap-2 rounded-sm bg-neutral-900 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:bg-[#117C2E] lg:bg-white lg:text-neutral-900 lg:hover:bg-[#4CA5E4] lg:hover:text-white"
             >
-              Ver catálogo
+              Saber más
               <span aria-hidden="true">→</span>
             </a>
           </div>

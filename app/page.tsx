@@ -36,7 +36,7 @@ export default function Home() {
 
           {/* Contenido: flujo normal en mobile (debajo de la imagen), anclado abajo y centrado sobre el scrim en desktop */}
           <div className="relative z-20 mx-auto max-w-xl bg-white px-6 py-12 text-center sm:px-10 sm:py-16 lg:absolute lg:inset-0 lg:mx-auto lg:flex lg:max-w-2xl lg:flex-col lg:items-center lg:justify-center lg:bg-transparent lg:px-0 lg:py-0 lg:text-center">
-            <h1 className="font-display text-4xl font-semibold leading-tight text-neutral-900 sm:text-5xl lg:text-white lg:[filter:drop-shadow(0_2px_10px_rgba(0,0,0,0.65))]">
+            <h1 className="font-display text-4xl font-semibold leading-tight text-neutral-900 sm:text-5xl lg:text-white">
               Aparta tu instrumento en línea.{" "}
               <span className="text-[#117C2E] lg:text-[#4CA5E4]">
                 Pruébalo en tienda

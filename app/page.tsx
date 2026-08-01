@@ -35,7 +35,7 @@ export default function Home() {
       {/* Hero — ahora en formato 16:9 dentro de un contenedor (no a pantalla completa) */}
       <section className="relative border-b border-neutral-200 bg-white">
         <div className="mx-auto max-w-6xl px-0 sm:px-6 sm:pt-8">
-          <div className="relative overflow-hidden rounded-sm lg:aspect-video">
+          <div className="relative overflow-hidden rounded-sm lg:aspect-[16/6]">
             {/* Panel izquierdo: fondo de color con una foto pequeña centrada — solo desktop */}
             <div className="hidden bg-red-600 lg:absolute lg:inset-y-0 lg:left-0 lg:flex lg:w-1/2 lg:items-center lg:justify-center">
               <div className="relative aspect-[4/5] w-1/2 overflow-hidden rounded-sm shadow-2xl">

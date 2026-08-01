@@ -133,7 +133,7 @@ export default function Home() {
           <div className="px-6 py-10 sm:px-10 sm:py-12">
             <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
               {products.map((product) => (
-                <div key={product.id} className="w-64 shrink-0 snap-start sm:w-72">
+                <div key={product.id} className="w-48 shrink-0 snap-start sm:w-56">
                   <ProductCard {...product} variant="light" />
                 </div>
               ))}

@@ -36,10 +36,10 @@ export default function Home() {
       <section className="relative border-b border-neutral-200 bg-white lg:overflow-hidden">
         <div className="relative lg:h-[640px]">
           {/* Panel izquierdo: fondo de color con una foto pequeña centrada — solo desktop */}
-          <div className="hidden bg-[#117C2E] lg:absolute lg:inset-y-0 lg:left-0 lg:flex lg:w-1/2 lg:items-center lg:justify-center">
+          <div className="hidden bg-red-600 lg:absolute lg:inset-y-0 lg:left-0 lg:flex lg:w-1/2 lg:items-center lg:justify-center">
             <div className="relative h-2/3 w-2/3 overflow-hidden rounded-sm shadow-2xl">
               <Image
-                src="https://images.unsplash.com/photo-1558098329-a11cff621064?w=800&q=80"
+                src="/Small.jpg"
                 alt="Detalle de guitarra acústica Musicman"
                 fill
                 sizes="25vw"
@@ -51,7 +51,7 @@ export default function Home() {
           {/* Imagen grande a sangre — mobile: bloque superior; desktop: mitad derecha */}
           <div className="relative h-72 sm:h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:h-full lg:w-1/2">
             <Image
-              src="https://images.unsplash.com/photo-1550985616-10810253b84d?w=1400&q=80"
+              src="/Bighero.jpg"
               alt="Guitarra eléctrica disponible en Musicman"
               fill
               priority

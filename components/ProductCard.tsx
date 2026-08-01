@@ -47,10 +47,10 @@ export default function ProductCard({
 
   return (
     <article
-      className={`group flex flex-col overflow-hidden rounded-sm border transition-colors ${
+      className={`group flex flex-col overflow-hidden rounded-sm transition-colors ${
         isLight
-          ? "border-transparent bg-white"
-          : "border-line bg-panel hover:border-brass/50"
+          ? "bg-white"
+          : "border border-line bg-panel hover:border-brass/50"
       }`}
     >
       <div className="relative aspect-square overflow-hidden bg-black/30">

@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const categories = [
   { name: "Guitarras", src: "/Guitarras.PNG" },
-  { name: "Percusión", src: "/Percusión.PNG" },
+  { name: "Percusión", src: "/Percusion.PNG" }, // <- Ruta sin acento
   { name: "Teclados", src: "/Teclados.PNG" },
   { name: "Sonido", src: "/Sonido.PNG" },
   { name: "Aire", src: "/Aire.PNG" },
@@ -66,6 +66,27 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Carrusel de Categorías (Movido debajo del Hero) */}
+      <section className="mx-auto mt-12 max-w-6xl bg-white px-6 sm:mt-16">
+        <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          {categories.map((category, index) => (
+            <div key={index} className="group flex shrink-0 snap-start flex-col items-center gap-3">
+              <div className="relative h-28 w-28 sm:h-32 sm:w-32">
+                <Image
+                  src={category.src}
+                  alt={`Categoría ${category.name}`}
+                  fill
+                  className="object-contain transition-transform duration-300 group-hover:scale-110"
+                />
+              </div>
+              <span className="text-sm font-medium text-neutral-900">
+                {category.name}
+              </span>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* Banner — compra en línea, recoge en tienda */}
       <section className="mx-auto mt-12 max-w-6xl bg-white px-6 sm:mt-16">
         <div className="grid grid-cols-1 items-center overflow-hidden rounded-sm border border-neutral-200 bg-[#117C2E] lg:grid-cols-2">
@@ -90,27 +111,6 @@ export default function Home() {
               className="object-cover"
             />
           </div>
-        </div>
-      </section>
-
-      {/* Carrusel de Categorías (Sin contenedor redondo, solo imagen y texto) */}
-      <section className="mx-auto mt-12 max-w-6xl bg-white px-6 sm:mt-16">
-        <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-          {categories.map((category, index) => (
-            <div key={index} className="group flex shrink-0 snap-start flex-col items-center gap-3">
-              <div className="relative h-28 w-28 sm:h-32 sm:w-32">
-                <Image
-                  src={category.src}
-                  alt={`Categoría ${category.name}`}
-                  fill
-                  className="object-contain transition-transform duration-300 group-hover:scale-110"
-                />
-              </div>
-              <span className="text-sm font-medium text-neutral-900">
-                {category.name}
-              </span>
-            </div>
-          ))}
         </div>
       </section>
 

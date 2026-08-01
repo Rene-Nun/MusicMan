@@ -37,7 +37,7 @@ export default function Home() {
         <div className="relative lg:h-[640px]">
           {/* Panel izquierdo: fondo de color con una foto pequeña centrada — solo desktop */}
           <div className="hidden bg-red-600 lg:absolute lg:inset-y-0 lg:left-0 lg:flex lg:w-1/2 lg:items-center lg:justify-center">
-            <div className="relative aspect-[4/5] w-3/5 overflow-hidden rounded-sm shadow-2xl">
+            <div className="relative aspect-[4/5] w-1/2 overflow-hidden rounded-sm shadow-2xl">
               <Image
                 src="/Smallhero.jpg"
                 alt="Detalle de guitarra acústica Musicman"
@@ -71,7 +71,7 @@ export default function Home() {
 
             <a
               href="#catalogo"
-              className="mx-auto mt-8 inline-flex w-fit items-center gap-2 rounded-sm bg-neutral-900 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:bg-[#117C2E] lg:bg-white lg:text-neutral-900 lg:hover:bg-[#4CA5E4] lg:hover:text-white"
+              className="mx-auto mt-8 inline-flex w-fit items-center gap-2 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:text-[#4CA5E4]"
             >
               Saber más
               <span aria-hidden="true">→</span>

@@ -77,7 +77,7 @@ export default function ProductCard({
           <p className={`text-xs uppercase tracking-wider ${isLight ? "text-neutral-500" : "text-muted"}`}>
             {category}
           </p>
-          <h3 className={`font-display text-lg font-medium ${isLight ? "text-neutral-900" : "text-paper"}`}>
+          <h3 className={`truncate font-display text-lg font-medium ${isLight ? "text-neutral-900" : "text-paper"}`}>
             {name}
           </h3>
         </div>

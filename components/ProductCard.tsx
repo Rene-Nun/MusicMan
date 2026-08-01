@@ -49,7 +49,7 @@ export default function ProductCard({
     <article
       className={`group flex flex-col overflow-hidden rounded-sm border transition-colors ${
         isLight
-          ? "border-neutral-200 bg-white hover:border-neutral-300"
+          ? "border-transparent bg-white"
           : "border-line bg-panel hover:border-brass/50"
       }`}
     >

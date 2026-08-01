@@ -149,11 +149,11 @@ export default function Home() {
           Explora nuestras marcas
         </h2>
 
-        <div className="grid grid-cols-3 gap-x-6 gap-y-10 sm:grid-cols-4 lg:grid-cols-6">
+        <div className="grid grid-cols-3 gap-x-2 gap-y-10 sm:grid-cols-4 lg:grid-cols-6">
           {brands.map((brand, index) => (
             <div key={index} className="group flex flex-col items-center gap-3">
-              <div className="relative flex h-28 w-28 items-center justify-center overflow-hidden rounded-full bg-black shadow-sm transition-transform duration-300 group-hover:scale-105 sm:h-32 sm:w-32">
-                <div className="relative h-24 w-24 sm:h-28 sm:w-28">
+              <div className="relative flex h-32 w-32 items-center justify-center overflow-hidden rounded-full bg-black shadow-sm transition-transform duration-300 group-hover:scale-105 sm:h-40 sm:w-40">
+                <div className="relative h-28 w-28 sm:h-36 sm:w-36">
                   <Image
                     src={brand.src}
                     alt={`Marca ${brand.name}`}

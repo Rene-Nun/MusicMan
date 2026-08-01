@@ -72,8 +72,6 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const activeMenu = dropdownMenus.find((menu) => menu.key === openMenu) ?? null;
-
   return (
     <header ref={headerRef} className="sticky top-0 z-50 bg-[#FFFFFF] backdrop-blur">
       {/* Fila superior: siempre visible — logo + navegación (desktop) + iconos + hamburguesa (móvil) */}
@@ -117,6 +115,28 @@ export default function Navbar() {
                     }`}
                   />
                 </button>
+
+                {/* Pestaña flotante con origen en el clic, no una sección completa */}
+                <div
+                  className={`absolute left-0 top-full z-20 mt-3 w-64 origin-top-left rounded-lg border border-gray-200 bg-white p-4 shadow-lg transition-all duration-150 ease-out ${
+                    openMenu === menu.key
+                      ? "scale-100 opacity-100"
+                      : "pointer-events-none scale-95 opacity-0"
+                  }`}
+                >
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-2.5">
+                    {menu.items.map((item) => (
+                      <Link
+                        key={item}
+                        href="#catalogo"
+                        onClick={() => setOpenMenu(null)}
+                        className="text-sm text-gray-700 transition-colors hover:text-brass"
+                      >
+                        {item}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
               </li>
             ))}
             <li>
@@ -178,37 +198,6 @@ export default function Navbar() {
           />
         </button>
       </nav>
-
-      {/* Mega-menú (solo desktop): se despliega debajo de todo el header, como cascada */}
-      <div
-        className={`hidden overflow-hidden bg-white transition-[grid-template-rows] duration-300 ease-in-out md:grid ${
-          openMenu ? "grid-rows-[1fr] border-t border-gray-200" : "grid-rows-[0fr]"
-        }`}
-      >
-        <div className="overflow-hidden">
-          <div className="mx-auto max-w-6xl px-6 py-8">
-            {activeMenu && (
-              <div>
-                <h3 className="mb-5 text-xs font-semibold uppercase tracking-wide text-gray-400">
-                  {activeMenu.label}
-                </h3>
-                <div className="grid grid-cols-4 gap-x-8 gap-y-4 lg:grid-cols-6">
-                  {activeMenu.items.map((item) => (
-                    <Link
-                      key={item}
-                      href="#catalogo"
-                      onClick={() => setOpenMenu(null)}
-                      className="text-sm font-medium text-gray-700 transition-colors hover:text-brass"
-                    >
-                      {item}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
 
       {/* Panel inferior (solo móvil): iconos, marcas/categorías en acordeón, navegación */}
       <div

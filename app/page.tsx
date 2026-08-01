@@ -93,17 +93,17 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Carrusel de Categorías */}
+      {/* Carrusel de Categorías (Sin contenedor redondo, solo imagen y texto) */}
       <section className="mx-auto mt-12 max-w-6xl bg-white px-6 sm:mt-16">
         <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {categories.map((category, index) => (
             <div key={index} className="group flex shrink-0 snap-start flex-col items-center gap-3">
-              <div className="relative h-28 w-28 overflow-hidden rounded-full bg-neutral-100 sm:h-32 sm:w-32">
+              <div className="relative h-28 w-28 sm:h-32 sm:w-32">
                 <Image
                   src={category.src}
                   alt={`Categoría ${category.name}`}
                   fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-110"
+                  className="object-contain transition-transform duration-300 group-hover:scale-110"
                 />
               </div>
               <span className="text-sm font-medium text-neutral-900">

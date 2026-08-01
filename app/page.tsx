@@ -33,6 +33,33 @@ export default function Home() {
             />
           </div>
 
+          {/* Banner — compra en línea, recoge en tienda */}
+<section className="border-b border-neutral-200 bg-[#117C2E]">
+  <div className="mx-auto grid max-w-6xl grid-cols-1 items-center lg:grid-cols-2">
+    <div className="px-6 py-12 sm:px-10 sm:py-16">
+      <h2 className="font-display text-2xl font-semibold text-white sm:text-3xl">
+        Compra en línea, recoge en tienda
+      </h2>
+      <a
+        href="#catalogo"
+        className="mt-6 inline-flex w-fit items-center gap-2 rounded-sm bg-neutral-900 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:bg-neutral-800"
+      >
+        Visita tu tienda local
+      </a>
+    </div>
+
+    <div className="relative h-64 sm:h-80 lg:h-96">
+      <Image
+        src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=1200&q=80"
+        alt="Interior de tienda Musicman con instrumentos en exhibición"
+        fill
+        sizes="(min-width: 1024px) 50vw, 100vw"
+        className="object-cover"
+      />
+    </div>
+  </div>
+</section>
+
 
           {/* Contenido: flujo normal en mobile (debajo de la imagen), anclado abajo y centrado sobre el scrim en desktop */}
           <div className="relative z-20 mx-auto max-w-xl bg-white px-6 py-12 text-center sm:px-10 sm:py-16 lg:absolute lg:inset-0 lg:mx-auto lg:flex lg:max-w-2xl lg:flex-col lg:items-center lg:justify-center lg:bg-transparent lg:px-0 lg:py-0 lg:text-center">

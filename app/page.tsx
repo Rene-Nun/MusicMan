@@ -102,32 +102,46 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Banner — compra en línea, recoge en tienda */}
+      {/* Banner — compra en línea, recoge en tienda + carrusel de productos */}
       <section className="mx-auto mt-12 max-w-6xl bg-white px-6 sm:mt-16">
-        <div className="grid grid-cols-1 items-center overflow-hidden rounded-sm border border-neutral-200 bg-[#117C2E] lg:grid-cols-2">
-          <div className="px-6 py-12 sm:px-10 sm:py-16">
-            <h2 className="font-display text-2xl font-semibold text-white sm:text-3xl">
-              Compra en línea, recoge en tienda
-            </h2>
-            <a
-              href="#catalogo"
-              className="mt-6 inline-flex w-fit items-center gap-2 rounded-sm bg-neutral-900 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:bg-neutral-800"
-            >
-              Visita tu tienda local
-            </a>
+        <div className="overflow-hidden rounded-sm border border-neutral-200 bg-[#79992C]">
+          <div className="grid grid-cols-1 items-center bg-[#117C2E] lg:grid-cols-2">
+            <div className="px-6 py-12 sm:px-10 sm:py-16">
+              <h2 className="font-display text-2xl font-semibold text-white sm:text-3xl">
+                Compra en línea, recoge en tienda
+              </h2>
+              <a
+                href="#catalogo"
+                className="mt-6 inline-flex w-fit items-center gap-2 rounded-sm bg-neutral-900 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:bg-neutral-800"
+              >
+                Visita tu tienda local
+              </a>
+            </div>
+
+            <div className="relative h-64 sm:h-80 lg:h-96">
+              <Image
+                src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=1200&q=80"
+                alt="Interior de tienda Musicman con instrumentos en exhibición"
+                fill
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                className="object-cover"
+              />
+            </div>
           </div>
 
-          <div className="relative h-64 sm:h-80 lg:h-96">
-            <Image
-              src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=1200&q=80"
-              alt="Interior de tienda Musicman con instrumentos en exhibición"
-              fill
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover"
-            />
+          {/* Carrusel de productos — fondo #79992C, cards en blanco */}
+          <div className="px-6 py-10 sm:px-10 sm:py-12">
+            <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+              {products.map((product) => (
+                <div key={product.id} className="w-64 shrink-0 snap-start sm:w-72">
+                  <ProductCard {...product} variant="light" />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
+
 
       {/* Explora nuestras marcas */}
       <section className="mx-auto mt-12 max-w-6xl bg-white px-6 py-4 sm:mt-16">

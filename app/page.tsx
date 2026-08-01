@@ -138,8 +138,8 @@ export default function Home() {
         <div className="grid grid-cols-3 gap-x-6 gap-y-10 sm:grid-cols-4 lg:grid-cols-6">
           {brands.map((brand, index) => (
             <div key={index} className="group flex flex-col items-center gap-3">
-              <div className="relative flex h-28 w-28 items-center justify-center overflow-hidden rounded-full bg-gradient-to-b from-neutral-100 to-neutral-200 shadow-sm transition-transform duration-300 group-hover:scale-105 sm:h-32 sm:w-32">
-                <div className="relative h-16 w-16 sm:h-20 sm:w-20">
+              <div className="relative flex h-28 w-28 items-center justify-center overflow-hidden rounded-full bg-black shadow-sm transition-transform duration-300 group-hover:scale-105 sm:h-32 sm:w-32">
+                <div className="relative h-24 w-24 sm:h-28 sm:w-28">
                   <Image
                     src={brand.src}
                     alt={`Marca ${brand.name}`}

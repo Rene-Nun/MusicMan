@@ -119,7 +119,7 @@ export default function Home() {
                 href="#catalogo"
                 className="mt-6 inline-flex w-fit items-center gap-2 rounded-sm bg-neutral-900 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:bg-neutral-800"
               >
-                Visita tu tienda local
+                Ver ubicaciones
               </a>
             </div>
 

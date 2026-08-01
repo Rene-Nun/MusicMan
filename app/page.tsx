@@ -14,6 +14,21 @@ const categories = [
   { name: "Merch", src: "/Merch.PNG" },
 ];
 
+const brands = [
+  { name: "Vicfirth", src: "/Vicfirth.PNG" },
+  { name: "Mxr", src: "/Mxr.PNG" },
+  { name: "Marshall", src: "/Marshall.PNG" },
+  { name: "Hartke", src: "/Hartke.PNG" },
+  { name: "Jbl", src: "/Jbl.PNG" },
+  { name: "Ernie", src: "/Ernie.PNG" },
+  { name: "Casio", src: "/Casio.PNG" },
+  { name: "Prs", src: "/Prs.PNG" },
+  { name: "Dean", src: "/Dean.PNG" },
+  { name: "Gibson", src: "/Gibson.PNG" },
+  { name: "Digitech", src: "/Digitech.PNG" },
+  { name: "Pearl", src: "/Pearl.PNG" },
+];
+
 export default function Home() {
   return (
     <main className="min-h-screen bg-white">
@@ -111,6 +126,33 @@ export default function Home() {
               className="object-cover"
             />
           </div>
+        </div>
+      </section>
+
+      {/* Explora nuestras marcas */}
+      <section className="mx-auto mt-12 max-w-6xl bg-white px-6 py-4 sm:mt-16">
+        <h2 className="mb-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          Explora nuestras marcas
+        </h2>
+
+        <div className="grid grid-cols-3 gap-x-6 gap-y-10 sm:grid-cols-4 lg:grid-cols-6">
+          {brands.map((brand, index) => (
+            <div key={index} className="group flex flex-col items-center gap-3">
+              <div className="relative flex h-28 w-28 items-center justify-center overflow-hidden rounded-full bg-gradient-to-b from-neutral-100 to-neutral-200 shadow-sm transition-transform duration-300 group-hover:scale-105 sm:h-32 sm:w-32">
+                <div className="relative h-16 w-16 sm:h-20 sm:w-20">
+                  <Image
+                    src={brand.src}
+                    alt={`Marca ${brand.name}`}
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+              </div>
+              <span className="text-sm font-medium text-neutral-900">
+                {brand.name}
+              </span>
+            </div>
+          ))}
         </div>
       </section>
 

@@ -2,21 +2,56 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-const navLinks = [
-  { href: "#marcas", label: "Marcas" },
-  { href: "#categorias", label: "Categorías" },
-  { href: "#mas-vendidos", label: "Los más vendidos" },
+// Mismas categorías y marcas que en page.tsx
+const categories = [
+  "Guitarras",
+  "Percusión",
+  "Teclados",
+  "Sonido",
+  "Aire",
+  "Accesorios",
+  "Remplazos",
+  "Mantenimiento",
+  "Merch",
 ];
 
-export default function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+const brands = [
+  "Vicfirth",
+  "Mxr",
+  "Marshall",
+  "Hartke",
+  "Jbl",
+  "Ernie",
+  "Casio",
+  "Prs",
+  "Dean",
+  "Gibson",
+  "Digitech",
+  "Pearl",
+];
 
-  // Cierra el menú con Escape y bloquea el scroll del body mientras está abierto
+const dropdownMenus = [
+  { key: "marcas", label: "Marcas", items: brands },
+  { key: "categorias", label: "Categorías", items: categories },
+] as const;
+
+type DropdownKey = (typeof dropdownMenus)[number]["key"];
+
+export default function Navbar() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // panel móvil (hamburguesa)
+  const [openMenu, setOpenMenu] = useState<DropdownKey | null>(null); // mega-menú desktop
+  const [mobileExpandedMenu, setMobileExpandedMenu] = useState<DropdownKey | null>(null); // acordeón móvil
+  const headerRef = useRef<HTMLElement>(null);
+
+  // Cierra los menús con Escape y bloquea el scroll del body mientras el panel móvil está abierto
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape") setIsMenuOpen(false);
+      if (e.key === "Escape") {
+        setIsMenuOpen(false);
+        setOpenMenu(null);
+      }
     }
     document.addEventListener("keydown", handleKeyDown);
     document.body.style.overflow = isMenuOpen ? "hidden" : "";
@@ -26,21 +61,37 @@ export default function Navbar() {
     };
   }, [isMenuOpen]);
 
+  // Cierra el mega-menú de desktop al hacer clic fuera del header
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (headerRef.current && !headerRef.current.contains(e.target as Node)) {
+        setOpenMenu(null);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const activeMenu = dropdownMenus.find((menu) => menu.key === openMenu) ?? null;
+
   return (
-    <header className="sticky top-0 z-50 border-b border-gray-200 bg-[#FFFFFF] backdrop-blur">
+    <header ref={headerRef} className="sticky top-0 z-50 bg-[#FFFFFF] backdrop-blur">
       {/* Fila superior: siempre visible — logo + navegación (desktop) + iconos + hamburguesa (móvil) */}
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        {/* Izquierda: Logo */}
+        {/* Izquierda: Logo — más grande exclusivamente en desktop */}
         <Link
           href="/"
-          onClick={() => setIsMenuOpen(false)}
+          onClick={() => {
+            setIsMenuOpen(false);
+            setOpenMenu(null);
+          }}
         >
           <Image
             src="/logo.PNG"
             alt="MusicMan Logo"
             width={40}
             height={40}
-            className="h-10 w-auto"
+            className="h-10 w-auto md:h-14"
             priority
             unoptimized={true}
             quality={100}
@@ -50,16 +101,31 @@ export default function Navbar() {
         {/* Derecha (desktop): navegación + separador + cuenta + carrito */}
         <div className="hidden items-center gap-8 md:flex">
           <ul className="flex items-center gap-7">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className="text-sm font-medium text-gray-600 transition-colors hover:text-gray-900"
+            {dropdownMenus.map((menu) => (
+              <li key={menu.key} className="relative">
+                <button
+                  type="button"
+                  onClick={() => setOpenMenu((prev) => (prev === menu.key ? null : menu.key))}
+                  aria-expanded={openMenu === menu.key}
+                  className="flex items-center gap-1.5 text-sm font-medium text-gray-600 transition-colors hover:text-gray-900"
                 >
-                  {link.label}
-                </Link>
+                  {menu.label}
+                  <ChevronIcon
+                    className={`h-3 w-3 transition-transform duration-200 ${
+                      openMenu === menu.key ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
               </li>
             ))}
+            <li>
+              <Link
+                href="#mas-vendidos"
+                className="text-sm font-medium text-gray-600 transition-colors hover:text-gray-900"
+              >
+                Los más vendidos
+              </Link>
+            </li>
           </ul>
 
           <div className="h-5 w-px bg-gray-300" aria-hidden="true" />
@@ -112,11 +178,42 @@ export default function Navbar() {
         </button>
       </nav>
 
-      {/* Panel inferior (solo móvil): arriba iconos, línea separadora, abajo navegación */}
+      {/* Mega-menú (solo desktop): se despliega debajo de todo el header, como cascada */}
+      <div
+        className={`hidden overflow-hidden bg-white transition-[grid-template-rows] duration-300 ease-in-out md:grid ${
+          openMenu ? "grid-rows-[1fr] border-t border-gray-200" : "grid-rows-[0fr]"
+        }`}
+      >
+        <div className="overflow-hidden">
+          <div className="mx-auto max-w-6xl px-6 py-8">
+            {activeMenu && (
+              <div>
+                <h3 className="mb-5 text-xs font-semibold uppercase tracking-wide text-gray-400">
+                  {activeMenu.label}
+                </h3>
+                <div className="grid grid-cols-4 gap-x-8 gap-y-4 lg:grid-cols-6">
+                  {activeMenu.items.map((item) => (
+                    <Link
+                      key={item}
+                      href="#catalogo"
+                      onClick={() => setOpenMenu(null)}
+                      className="text-sm font-medium text-gray-700 transition-colors hover:text-brass"
+                    >
+                      {item}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Panel inferior (solo móvil): iconos, marcas/categorías en acordeón, navegación */}
       <div
         id="mobile-nav-panel"
-        className={`grid overflow-hidden border-gray-200 bg-[#FFFFFF] transition-[grid-template-rows] duration-300 ease-in-out md:hidden ${
-          isMenuOpen ? "grid-rows-[1fr] border-t" : "grid-rows-[0fr] border-t-0"
+        className={`grid overflow-hidden bg-[#FFFFFF] transition-[grid-template-rows] duration-300 ease-in-out md:hidden ${
+          isMenuOpen ? "grid-rows-[1fr] border-t border-gray-200" : "grid-rows-[0fr]"
         }`}
       >
         <div className="overflow-hidden">
@@ -149,25 +246,82 @@ export default function Navbar() {
 
             {/* Navegación */}
             <ul className="py-2">
-              {navLinks.map((link, i) => (
-                <li key={link.href} className={i > 0 ? "border-t border-gray-200" : ""}>
-                  <Link
-                    href={link.href}
-                    onClick={() => setIsMenuOpen(false)}
-                    className="group flex items-center justify-between py-4 font-display text-2xl font-medium text-gray-900 transition-colors hover:text-brass"
+              {dropdownMenus.map((menu) => (
+                <li key={menu.key} className="border-t border-gray-200 first:border-t-0">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setMobileExpandedMenu((prev) => (prev === menu.key ? null : menu.key))
+                    }
+                    aria-expanded={mobileExpandedMenu === menu.key}
+                    className="flex w-full items-center justify-between py-4 font-display text-2xl font-medium text-gray-900 transition-colors hover:text-brass"
                   >
-                    {link.label}
-                    <span className="text-brass opacity-0 transition-opacity group-hover:opacity-100">
-                      →
-                    </span>
-                  </Link>
+                    {menu.label}
+                    <ChevronIcon
+                      className={`h-4 w-4 shrink-0 transition-transform duration-200 ${
+                        mobileExpandedMenu === menu.key ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+                  <div
+                    className={`grid overflow-hidden transition-[grid-template-rows] duration-300 ease-in-out ${
+                      mobileExpandedMenu === menu.key ? "grid-rows-[1fr] pb-5" : "grid-rows-[0fr]"
+                    }`}
+                  >
+                    <div className="overflow-hidden">
+                      <div className="grid grid-cols-2 gap-x-4 gap-y-3">
+                        {menu.items.map((item) => (
+                          <Link
+                            key={item}
+                            href="#catalogo"
+                            onClick={() => {
+                              setIsMenuOpen(false);
+                              setMobileExpandedMenu(null);
+                            }}
+                            className="text-sm text-gray-600 transition-colors hover:text-brass"
+                          >
+                            {item}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
                 </li>
               ))}
+              <li className="border-t border-gray-200">
+                <Link
+                  href="#mas-vendidos"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="group flex items-center justify-between py-4 font-display text-2xl font-medium text-gray-900 transition-colors hover:text-brass"
+                >
+                  Los más vendidos
+                  <span className="text-brass opacity-0 transition-opacity group-hover:opacity-100">
+                    →
+                  </span>
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
       </div>
     </header>
+  );
+}
+
+function ChevronIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="m6 9 6 6 6-6" />
+    </svg>
   );
 }
 

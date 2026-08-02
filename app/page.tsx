@@ -30,9 +30,9 @@ const brands = [
 ];
 
 const banners = [
-  { name: "Banner", src: "/Banner.PNG" },
-  { name: "Sucursales", src: "/Sucursales.PNG" },
   { name: "Fest", src: "/Fest.PNG" },
+  { name: "Sucursales", src: "/Sucursales.PNG" },
+  { name: "Banner", src: "/Banner.PNG" },
 ];
 
 export default function Home() {
@@ -88,22 +88,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Banners promocionales — carrusel de 3 banners pequeños debajo del hero */}
+      {/* Banners promocionales — carrusel de 3 banners, a su tamaño original (sin recortar) */}
       <section className="mx-auto mt-6 max-w-6xl bg-white px-6 sm:mt-8">
-        <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+        <div className="flex snap-x snap-mandatory items-start gap-4 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {banners.map((banner) => (
-            <a
-              key={banner.name}
-              href="#catalogo"
-              className="group relative h-48 w-[85%] shrink-0 snap-start overflow-hidden rounded-sm sm:h-56 sm:w-[47%] lg:h-64 lg:w-[calc((100%-2rem)/3)]"
-            >
-              <Image
-                src={banner.src}
-                alt={banner.name}
-                fill
-                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 85vw"
-                className="object-cover transition-transform duration-300 group-hover:scale-105"
-              />
+            <a key={banner.name} href="#catalogo" className="shrink-0 snap-start">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={banner.src} alt={banner.name} className="h-auto max-w-none" />
             </a>
           ))}
         </div>

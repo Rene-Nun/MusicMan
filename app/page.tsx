@@ -64,27 +64,15 @@ const banners = [
 // la alineación real del mismo contenedor mx-auto max-w-6xl que usa el hero).
 const rightBleed = "max(1.5rem, calc((100vw - 1152px) / 2 + 1.5rem))";
 
-// Mismo inset izquierdo que usa el hero (sm:px-6 = 1.5rem). En vez de usar
-// padding-left en el contenedor con scroll (hay navegadores con bugs de
-// renderizado de padding en scroll containers), se agrega como un div
-// "espaciador" invisible de primer hijo del flex. Esto es a prueba de bugs
-// de navegador y garantiza que el primer elemento real del carrusel quede
-// exactamente alineado con el borde del hero.
-//
-// IMPORTANTE: "w-6" es una clase real de la escala de Tailwind (1.5rem/24px),
-// pero números fuera de esa escala (como el "w-50" que probaste) NO generan
-// ningún CSS — Tailwind los ignora en silencio.
-//
-// "lg:w-16" (4rem/64px) SÍ es una clase estándar de Tailwind, garantizada.
-// Le puse un fondo rojo temporal (bg-red-500) para que sea imposible no ver
-// si este spacer realmente está creciendo en tu pantalla. Si después de
-// desplegar esto TODAVÍA no ves un bloque rojo antes del primer banner en
-// desktop, el problema no está en este componente — es que el navegador
-// sigue sirviendo una versión vieja del sitio (revisa que el deploy haya
-// terminado y haz un refresh forzado / modo incógnito).
-function LeftSpacer() {
-  return <div className="w-6 shrink-0 bg-red-500 lg:w-16" aria-hidden="true" />;
-}
+// Mismo inset izquierdo que usa el hero (sm:px-6 = 1.5rem, con un empujón
+// extra a 4rem en desktop). Antes esto se hacía con un div "espaciador"
+// como primer hijo del flex, pero eso rompe el scroll-snap en Safari/iOS:
+// como ese div no tiene "snap-start", el navegador lo salta apenas carga la
+// página y ancla el scroll directo al primer banner real — por eso no se
+// veía nada hasta deslizar manualmente. La solución correcta es usar
+// padding-left en el propio contenedor con scroll: no es un elemento que el
+// snap pueda saltarse, así que el inset queda visible desde el primer frame.
+const leftInsetClass = "pl-6 lg:pl-16";
 
 export default function Home() {
   return (
@@ -144,13 +132,12 @@ export default function Home() {
       <section className="mt-6 bg-white sm:mt-8">
         <div className="mx-auto max-w-6xl">
           <div
-            className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+            className={`flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] ${leftInsetClass}`}
             style={{
               marginRight: `calc(-1 * ${rightBleed})`,
               paddingRight: rightBleed,
             }}
           >
-            <LeftSpacer />
             {banners.map((banner) => (
               <a
                 key={banner.name}
@@ -204,13 +191,12 @@ export default function Home() {
         </h2>
         <div className="mx-auto max-w-6xl">
           <div
-            className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+            className={`flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] ${leftInsetClass}`}
             style={{
               marginRight: `calc(-1 * ${rightBleed})`,
               paddingRight: rightBleed,
             }}
           >
-            <LeftSpacer />
             {categories.map((category, index) => (
               <div key={index} className="group flex shrink-0 snap-start flex-col items-center gap-3">
                 <div className="relative h-28 w-28 sm:h-32 sm:w-32">
@@ -262,14 +248,14 @@ export default function Home() {
 
           {/* Carrusel de productos — fondo #79992C, cards en blanco */}
           <div className="py-10 sm:py-12">
-            <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-              <LeftSpacer />
+            <div
+              className={`flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] ${leftInsetClass} pr-6 lg:pr-16`}
+            >
               {products.map((product) => (
                 <div key={product.id} className="w-48 shrink-0 snap-start sm:w-56">
                   <ProductCard {...product} variant="light" />
                 </div>
               ))}
-              <LeftSpacer />
             </div>
           </div>
         </div>

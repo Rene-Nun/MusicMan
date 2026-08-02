@@ -111,13 +111,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Banners promocionales — ALINEACIÓN GARANTIZADA MEDIANTE ESPACIADORES */}
+      {/* Banners promocionales — Alineación CSS Matemática */}
       <section className="mt-6 w-full bg-white sm:mt-8">
-        <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-          
-          {/* Espaciador Izquierdo (Compensa gap-3 sumando 12px) */}
-          <div className="hidden shrink-0 sm:block" style={{ width: 'calc(max(0px, (100vw - 1152px) / 2) + 12px)' }} aria-hidden="true" />
-
+        <div 
+          className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+          style={{
+            paddingLeft: "max(1.5rem, calc(50% - 552px))",
+            paddingRight: "max(1.5rem, calc(50% - 552px))"
+          }}
+        >
           {banners.map((banner) => (
             <a
               key={banner.name}
@@ -160,13 +162,10 @@ export default function Home() {
               )}
             </a>
           ))}
-
-          {/* Espaciador Derecho */}
-          <div className="hidden shrink-0 sm:block" style={{ width: 'calc(max(0px, (100vw - 1152px) / 2) + 12px)' }} aria-hidden="true" />
         </div>
       </section>
 
-      {/* Carrusel de Categorías — ALINEACIÓN GARANTIZADA MEDIANTE ESPACIADORES */}
+      {/* Carrusel de Categorías — Alineación CSS Matemática */}
       <section className="mt-12 w-full bg-white sm:mt-16">
         <div className="mx-auto max-w-6xl px-6">
           <h2 className="mb-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
@@ -174,11 +173,13 @@ export default function Home() {
           </h2>
         </div>
         
-        <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-          
-          {/* Espaciador Izquierdo (Compensa gap-6 anulando el excedente a 0) */}
-          <div className="hidden shrink-0 sm:block" style={{ width: 'max(0px, calc((100vw - 1152px) / 2))' }} aria-hidden="true" />
-
+        <div 
+          className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+          style={{
+            paddingLeft: "max(1.5rem, calc(50% - 552px))",
+            paddingRight: "max(1.5rem, calc(50% - 552px))"
+          }}
+        >
           {categories.map((category, index) => (
             <div key={index} className="group flex shrink-0 snap-start flex-col items-center gap-3">
               <div className="relative h-28 w-28 sm:h-32 sm:w-32">
@@ -194,9 +195,6 @@ export default function Home() {
               </span>
             </div>
           ))}
-
-          {/* Espaciador Derecho */}
-          <div className="hidden shrink-0 sm:block" style={{ width: 'max(0px, calc((100vw - 1152px) / 2))' }} aria-hidden="true" />
         </div>
       </section>
 
@@ -230,7 +228,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Carrusel de productos (Se mantiene en su propio contenedor verde) */}
+          {/* Carrusel de productos */}
           <div className="px-6 py-10 sm:px-10 sm:py-12">
             <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
               {products.map((product) => (

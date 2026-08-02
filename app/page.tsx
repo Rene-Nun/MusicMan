@@ -90,18 +90,18 @@ export default function Home() {
 
       {/* Banners promocionales — cards pequeñas en carrusel, ~2 y fracción visibles en desktop, sin recortar las imágenes */}
       <section className="mx-auto mt-6 max-w-6xl bg-white px-6 sm:mt-8">
-        <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+        <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {banners.map((banner) => (
             <a
               key={banner.name}
               href="#catalogo"
-              className="relative h-44 w-[80%] shrink-0 snap-start overflow-hidden rounded-sm sm:h-48 sm:w-[60%] lg:h-52 lg:w-[42%]"
+              className="relative h-52 w-[88%] shrink-0 snap-start overflow-hidden rounded-sm sm:h-60 sm:w-[64%] lg:h-64 lg:w-[47%]"
             >
               <Image
                 src={banner.src}
                 alt={banner.name}
                 fill
-                sizes="(min-width: 1024px) 42vw, (min-width: 640px) 60vw, 80vw"
+                sizes="(min-width: 1024px) 47vw, (min-width: 640px) 64vw, 88vw"
                 className="object-contain"
               />
             </a>

@@ -64,6 +64,12 @@ const banners = [
 // la alineación real del mismo contenedor mx-auto max-w-6xl que usa el hero).
 const rightBleed = "max(1.5rem, calc((100vw - 1152px) / 2 + 1.5rem))";
 
+// Mismo inset izquierdo que usa el hero (sm:px-6 = 1.5rem). Se aplica como
+// paddingLeft explícito en cada carrusel para que el primer elemento quede
+// SIEMPRE alineado con el borde del hero, sin depender de que dos utilidades
+// distintas de Tailwind (px-6 vs pl-6) coincidan "por casualidad".
+const leftInset = "1.5rem";
+
 export default function Home() {
   return (
     <main className="min-h-screen bg-white">
@@ -122,8 +128,9 @@ export default function Home() {
       <section className="mt-6 bg-white sm:mt-8">
         <div className="mx-auto max-w-6xl">
           <div
-            className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 pl-0 sm:pl-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+            className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
             style={{
+              paddingLeft: leftInset,
               marginRight: `calc(-1 * ${rightBleed})`,
               paddingRight: rightBleed,
             }}
@@ -181,8 +188,9 @@ export default function Home() {
         </h2>
         <div className="mx-auto max-w-6xl">
           <div
-            className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 pl-0 sm:pl-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+            className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
             style={{
+              paddingLeft: leftInset,
               marginRight: `calc(-1 * ${rightBleed})`,
               paddingRight: rightBleed,
             }}
@@ -238,7 +246,13 @@ export default function Home() {
 
           {/* Carrusel de productos — fondo #79992C, cards en blanco */}
           <div className="py-10 sm:py-12">
-            <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 pl-6 pr-6 sm:pl-8 sm:pr-8 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            <div
+              className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+              style={{
+                paddingLeft: leftInset,
+                paddingRight: leftInset,
+              }}
+            >
               {products.map((product) => (
                 <div key={product.id} className="w-48 shrink-0 snap-start sm:w-56">
                   <ProductCard {...product} variant="light" />

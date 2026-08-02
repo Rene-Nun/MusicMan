@@ -106,16 +106,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Banners - SIN BORDES */}
+      {/* Banners */}
       <section className="mt-6 bg-white sm:mt-8">
-        <div className="relative">
-          <div className="absolute left-0 top-0 h-full w-6 bg-white z-10" />
-          <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+        <div className="overflow-x-scroll pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <div className="flex gap-3 pl-6 pr-0">
             {banners.map((banner) => (
               <a
                 key={banner.name}
                 href="#catalogo"
-                className="relative h-52 shrink-0 snap-start overflow-hidden rounded-sm sm:h-60 lg:h-64 first:ml-6 last:mr-6"
+                className="relative h-52 shrink-0 snap-start overflow-hidden rounded-sm sm:h-60 lg:h-64 last:pr-6"
               >
                 <img src={banner.src} alt={banner.name} className="h-full w-auto" />
 
@@ -156,18 +155,17 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Categorías - SIN BORDES */}
+      {/* Categorías */}
       <section className="mt-12 bg-white sm:mt-16">
         <h2 className="mb-10 px-6 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
           Nuestros productos
         </h2>
-        <div className="relative">
-          <div className="absolute left-0 top-0 h-full w-6 bg-white z-10" />
-          <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+        <div className="overflow-x-scroll pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <div className="flex gap-6 pl-6 pr-0">
             {categories.map((category, index) => (
               <div
                 key={index}
-                className="group flex shrink-0 snap-start flex-col items-center gap-3 first:ml-6 last:mr-6"
+                className="group flex shrink-0 snap-start flex-col items-center gap-3 last:pr-6"
               >
                 <div className="relative h-28 w-28 sm:h-32 sm:w-32">
                   <Image
@@ -186,7 +184,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Banner tienda + productos - SIN BORDES */}
+      {/* Banner tienda + productos */}
       <section className="mt-12 bg-white sm:mt-16">
         <div className="mx-6 overflow-hidden rounded-sm border border-neutral-200 bg-[#79992C]">
           <div className="grid grid-cols-1 items-center bg-[#117C2E] lg:grid-cols-2">
@@ -217,13 +215,12 @@ export default function Home() {
           </div>
 
           <div className="py-10 sm:py-12">
-            <div className="relative">
-              <div className="absolute left-0 top-0 h-full w-6 bg-[#79992C] z-10" />
-              <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            <div className="overflow-x-scroll pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+              <div className="flex gap-6 pl-6 pr-0">
                 {products.map((product) => (
                   <div
                     key={product.id}
-                    className="w-48 shrink-0 snap-start sm:w-56 first:ml-6 last:mr-6"
+                    className="w-48 shrink-0 snap-start sm:w-56 last:pr-6"
                   >
                     <ProductCard {...product} variant="light" />
                   </div>

@@ -106,15 +106,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Banners - Alineado con el logo del header */}
+      {/* Banners - Con padding en ambos lados */}
       <section className="mt-6 bg-white sm:mt-8">
-        <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-          <div className="flex gap-3 pl-6 pr-0">
+        <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto px-6 pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <div className="flex gap-3">
             {banners.map((banner) => (
               <a
                 key={banner.name}
                 href="#catalogo"
-                className="relative h-52 shrink-0 snap-start overflow-hidden rounded-sm sm:h-60 lg:h-64 last:pr-6"
+                className="relative h-52 shrink-0 snap-start overflow-hidden rounded-sm sm:h-60 lg:h-64"
               >
                 <img src={banner.src} alt={banner.name} className="h-full w-auto" />
 
@@ -155,17 +155,17 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Categorías - Alineado con el logo del header */}
+      {/* Categorías - Con padding en ambos lados */}
       <section className="mt-12 bg-white sm:mt-16">
-        <div className="pl-6 pr-0">
+        <div className="px-6">
           <h2 className="mb-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
             Nuestros productos
           </h2>
         </div>
-        <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-          <div className="flex gap-6 pl-6 pr-0">
+        <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto px-6 pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <div className="flex gap-6">
             {categories.map((category, index) => (
-              <div key={index} className="group flex shrink-0 snap-start flex-col items-center gap-3 last:pr-6">
+              <div key={index} className="group flex shrink-0 snap-start flex-col items-center gap-3">
                 <div className="relative h-28 w-28 sm:h-32 sm:w-32">
                   <Image
                     src={category.src}
@@ -183,7 +183,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Banner tienda + productos - Alineado con el logo del header */}
+      {/* Banner tienda + productos - Con padding en ambos lados */}
       <section className="mt-12 bg-white sm:mt-16">
         <div className="mx-6 overflow-hidden rounded-sm border border-neutral-200 bg-[#79992C]">
           <div className="grid grid-cols-1 items-center bg-[#117C2E] lg:grid-cols-2">
@@ -214,10 +214,10 @@ export default function Home() {
           </div>
 
           <div className="py-10 sm:py-12">
-            <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-              <div className="flex gap-6 pl-6 pr-0">
+            <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto px-6 pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+              <div className="flex gap-6">
                 {products.map((product) => (
-                  <div key={product.id} className="w-48 shrink-0 snap-start sm:w-56 last:pr-6">
+                  <div key={product.id} className="w-48 shrink-0 snap-start sm:w-56">
                     <ProductCard {...product} variant="light" />
                   </div>
                 ))}
@@ -227,7 +227,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Marcas - Alineado con el logo del header */}
+      {/* Marcas - Con padding en ambos lados */}
       <section className="mt-12 bg-white px-6 py-4 sm:mt-16">
         <h2 className="mb-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
           Explora por marca
@@ -254,7 +254,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Escaparate - Alineado con el logo del header */}
+      {/* Escaparate - Con padding en ambos lados */}
       <section id="catalogo" className="bg-white px-6 py-16 sm:py-20">
         <div className="mb-10 flex items-end justify-between border-b border-neutral-200 pb-6">
           <div>

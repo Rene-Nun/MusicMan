@@ -112,8 +112,8 @@ export default function Home() {
       </section>
 
       {/* Banners promocionales — altura fija, ancho automático según su proporción real (sin recortar y sin franjas en blanco) */}
-      <section className="mx-auto mt-6 max-w-6xl bg-white px-6 sm:mt-8">
-        <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+      <section className="mx-auto mt-6 max-w-6xl bg-white sm:mt-8">
+        <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto px-6 pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {banners.map((banner) => (
             <a
               key={banner.name}
@@ -160,11 +160,11 @@ export default function Home() {
       </section>
 
       {/* Carrusel de Categorías (Movido debajo del Hero) */}
-      <section className="mx-auto mt-12 max-w-6xl bg-white px-6 sm:mt-16">
-        <h2 className="mb-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
+      <section className="mx-auto mt-12 max-w-6xl bg-white sm:mt-16">
+        <h2 className="mb-10 px-6 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
           Nuestros productos
         </h2>
-        <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+        <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto px-6 pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {categories.map((category, index) => (
             <div key={index} className="group flex shrink-0 snap-start flex-col items-center gap-3">
               <div className="relative h-28 w-28 sm:h-32 sm:w-32">
@@ -214,8 +214,8 @@ export default function Home() {
           </div>
 
           {/* Carrusel de productos — fondo #79992C, cards en blanco */}
-          <div className="px-6 py-10 sm:px-10 sm:py-12">
-            <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <div className="py-10 sm:py-12">
+            <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto px-6 pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
               {products.map((product) => (
                 <div key={product.id} className="w-48 shrink-0 snap-start sm:w-56">
                   <ProductCard {...product} variant="light" />

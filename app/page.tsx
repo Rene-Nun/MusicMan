@@ -29,6 +29,12 @@ const brands = [
   { name: "Pearl", src: "/Pearl.PNG" },
 ];
 
+const banners = [
+  { name: "Banner", src: "/Banner.PNG" },
+  { name: "Sucursales", src: "/Sucursales.PNG" },
+  { name: "Fest", src: "/Fest.PNG" },
+];
+
 export default function Home() {
   return (
     <main className="min-h-screen bg-white">
@@ -82,10 +88,31 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Banners promocionales — carrusel de 3 banners pequeños debajo del hero */}
+      <section className="mx-auto mt-6 max-w-6xl bg-white px-6 sm:mt-8">
+        <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          {banners.map((banner) => (
+            <a
+              key={banner.name}
+              href="#catalogo"
+              className="group relative h-48 w-[85%] shrink-0 snap-start overflow-hidden rounded-sm sm:h-56 sm:w-[47%] lg:h-64 lg:w-[calc((100%-2rem)/3)]"
+            >
+              <Image
+                src={banner.src}
+                alt={banner.name}
+                fill
+                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 85vw"
+                className="object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+            </a>
+          ))}
+        </div>
+      </section>
+
       {/* Carrusel de Categorías (Movido debajo del Hero) */}
       <section className="mx-auto mt-12 max-w-6xl bg-white px-6 sm:mt-16">
         <h2 className="mb-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
-          ¿Qué estás buscando?
+          Nuestros productos
         </h2>
         <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {categories.map((category, index) => (

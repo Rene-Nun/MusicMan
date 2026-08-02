@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const banners = [
   {
@@ -77,7 +76,7 @@ export default function BannerCarousel() {
               aria-label="Anterior"
               className="flex h-9 w-9 items-center justify-center rounded-full border border-neutral-300 text-neutral-700 transition-colors hover:bg-neutral-100"
             >
-              <ChevronLeft className="h-4 w-4" />
+              <ChevronLeftIcon />
             </button>
             <button
               type="button"
@@ -85,7 +84,7 @@ export default function BannerCarousel() {
               aria-label="Siguiente"
               className="flex h-9 w-9 items-center justify-center rounded-full border border-neutral-300 text-neutral-700 transition-colors hover:bg-neutral-100"
             >
-              <ChevronRight className="h-4 w-4" />
+              <ChevronRightIcon />
             </button>
           </div>
         </div>
@@ -139,5 +138,39 @@ export default function BannerCarousel() {
         </div>
       </div>
     </section>
+  );
+}
+
+function ChevronLeftIcon() {
+  return (
+    <svg
+      className="h-4 w-4"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M15 18l-6-6 6-6" />
+    </svg>
+  );
+}
+
+function ChevronRightIcon() {
+  return (
+    <svg
+      className="h-4 w-4"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M9 18l6-6-6-6" />
+    </svg>
   );
 }

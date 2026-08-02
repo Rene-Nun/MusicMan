@@ -111,11 +111,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Banners promocionales — full-bleed: el div de scroll ya no está limitado por max-w-6xl,
-          así las tarjetas llegan hasta el borde real de la pantalla */}
+      {/* Banners promocionales — full-bleed, primer item alineado al resto del contenido */}
       <section className="mt-6 bg-white sm:mt-8">
         <div className="relative left-1/2 w-screen -translate-x-1/2">
-          <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 pl-6 pr-6 sm:pl-8 sm:pr-8 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 pl-[max(1.5rem,calc((100vw_-_1152px)/2_+_1.5rem))] pr-6 sm:pr-8 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {banners.map((banner) => (
               <a
                 key={banner.name}
@@ -162,14 +161,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Carrusel de Categorías (Movido debajo del Hero) — mismo fix full-bleed,
-          el título se queda centrado en max-w-6xl, solo el scroll se sale */}
+      {/* Carrusel de Categorías (Movido debajo del Hero) — full-bleed, primer item alineado al resto del contenido */}
       <section className="mt-12 bg-white sm:mt-16">
         <h2 className="mx-auto mb-10 max-w-6xl px-6 font-display text-2xl font-semibold text-neutral-900 sm:px-6 sm:text-3xl">
           Nuestros productos
         </h2>
         <div className="relative left-1/2 w-screen -translate-x-1/2">
-          <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 pl-6 pr-6 sm:pl-8 sm:pr-8 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 pl-[max(1.5rem,calc((100vw_-_1152px)/2_+_1.5rem))] pr-6 sm:pr-8 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {categories.map((category, index) => (
               <div key={index} className="group flex shrink-0 snap-start flex-col items-center gap-3">
                 <div className="relative h-28 w-28 sm:h-32 sm:w-32">

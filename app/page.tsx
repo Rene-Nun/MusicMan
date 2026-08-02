@@ -48,7 +48,14 @@ const banners = [
       cta: "Saber más",
     },
   },
-  { name: "Sucursales", src: "/Sucursales.PNG" },
+  {
+    name: "Sucursales",
+    src: "/Sucursales.PNG",
+    overlay: {
+      variant: "cta-only" as const,
+      cta: "Ver el mapa",
+    },
+  },
 ];
 
 export default function Home() {
@@ -132,7 +139,17 @@ export default function Home() {
               )}
 
               {banner.overlay?.variant === "badge" && (
-                <span className="absolute bottom-4 left-4 inline-flex w-fit items-center gap-1.5 rounded-full bg-black/70 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-white sm:text-sm">
+                <>
+                  <div className="absolute inset-0 bg-black/40" />
+                  <span className="absolute bottom-4 left-4 inline-flex w-fit items-center gap-1.5 rounded-full bg-white px-4 py-2 text-xs font-semibold uppercase tracking-wide text-neutral-900 sm:text-sm">
+                    {banner.overlay.cta}
+                    <span aria-hidden="true">→</span>
+                  </span>
+                </>
+              )}
+
+              {banner.overlay?.variant === "cta-only" && (
+                <span className="absolute bottom-4 right-4 inline-flex w-fit items-center gap-2 text-xs font-semibold uppercase tracking-wide text-white drop-shadow sm:text-sm">
                   {banner.overlay.cta}
                   <span aria-hidden="true">→</span>
                 </span>

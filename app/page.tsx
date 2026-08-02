@@ -132,7 +132,7 @@ export default function Home() {
       <section className="mt-6 bg-white sm:mt-8">
         <div className="mx-auto max-w-6xl">
           <div
-            className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+            className="flex snap-x snap-proximity gap-3 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
             style={{
               marginRight: `calc(-1 * ${rightBleed})`,
               paddingRight: rightBleed,
@@ -193,7 +193,7 @@ export default function Home() {
         </h2>
         <div className="mx-auto max-w-6xl">
           <div
-            className={`flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] ${leftInsetClass}`}
+            className={`flex snap-x snap-proximity gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] ${leftInsetClass}`}
             style={{
               marginRight: `calc(-1 * ${rightBleed})`,
               paddingRight: rightBleed,
@@ -251,7 +251,7 @@ export default function Home() {
           {/* Carrusel de productos — fondo #79992C, cards en blanco */}
           <div className="py-10 sm:py-12">
             <div
-              className={`flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] ${leftInsetClass} pr-6 lg:pr-16`}
+              className={`flex snap-x snap-proximity gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] ${leftInsetClass} pr-6 lg:pr-16`}
             >
               {products.map((product) => (
                 <div key={product.id} className="w-48 shrink-0 snap-start sm:w-56">

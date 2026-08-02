@@ -1,277 +1,351 @@
-import ProductCard from "@/components/ProductCard";
-import { products } from "@/lib/mockData";
+import Link from "next/link";
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 
+// Mismas categorías y marcas que en page.tsx
 const categories = [
-  { name: "Guitarras", src: "/Guitarras.PNG" },
-  { name: "Percusión", src: "/Percusion.PNG" },
-  { name: "Teclados", src: "/Teclados.PNG" },
-  { name: "Sonido", src: "/Sonido.PNG" },
-  { name: "Aire", src: "/Aire.PNG" },
-  { name: "Accesorios", src: "/Accesorios.PNG" },
-  { name: "Remplazos", src: "/Remplazos.PNG" },
-  { name: "Mantenimiento", src: "/Mantenimiento.PNG" },
-  { name: "Merch", src: "/Merch.PNG" },
+  "Guitarras",
+  "Percusión",
+  "Teclados",
+  "Sonido",
+  "Aire",
+  "Accesorios",
+  "Remplazos",
+  "Mantenimiento",
+  "Merch",
 ];
 
 const brands = [
-  { name: "Vicfirth", src: "/Vicfirth.PNG" },
-  { name: "Mxr", src: "/Mxr.PNG" },
-  { name: "Marshall", src: "/Marshall.PNG" },
-  { name: "Hartke", src: "/Hartke.PNG" },
-  { name: "Jbl", src: "/Jbl.PNG" },
-  { name: "Ernie", src: "/Ernie.PNG" },
-  { name: "Casio", src: "/Casio.PNG" },
-  { name: "Prs", src: "/Prs.PNG" },
-  { name: "Dean", src: "/Dean.PNG" },
-  { name: "Gibson", src: "/Gibson.PNG" },
-  { name: "Digitech", src: "/Digitech.PNG" },
-  { name: "Pearl", src: "/Pearl.PNG" },
+  "Vicfirth",
+  "Mxr",
+  "Marshall",
+  "Hartke",
+  "Jbl",
+  "Ernie",
+  "Casio",
+  "Prs",
+  "Dean",
+  "Gibson",
+  "Digitech",
+  "Pearl",
 ];
 
-const banners = [
-  {
-    name: "Banner",
-    src: "/Banner.PNG",
-    overlay: {
-      variant: "gradient" as const,
-      title: "Si no lo tenemos, lo conseguimos",
-      subtitle: "Déjanos la búsqueda a nosotros",
-      cta: "Hacer pedido",
-    },
-  },
-  {
-    name: "Fest",
-    src: "/Fest.PNG",
-    overlay: {
-      variant: "badge" as const,
-      cta: "Saber más",
-    },
-  },
-  {
-    name: "Sucursales",
-    src: "/Sucursales.PNG",
-    overlay: {
-      variant: "cta-only" as const,
-      cta: "Ver el mapa",
-    },
-  },
-];
+const dropdownMenus = [
+  { key: "marcas", label: "Marcas", items: brands },
+  { key: "categorias", label: "Categorías", items: categories },
+] as const;
 
-export default function Home() {
+type DropdownKey = (typeof dropdownMenus)[number]["key"];
+
+export default function Navbar() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // panel móvil (hamburguesa)
+  const [openMenu, setOpenMenu] = useState<DropdownKey | null>(null); // mega-menú desktop
+  const [mobileExpandedMenu, setMobileExpandedMenu] = useState<DropdownKey | null>(null); // acordeón móvil
+  const headerRef = useRef<HTMLElement>(null);
+
+  // Cierra los menús con Escape y bloquea el scroll del body mientras el panel móvil está abierto
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        setIsMenuOpen(false);
+        setOpenMenu(null);
+      }
+    }
+    document.addEventListener("keydown", handleKeyDown);
+    document.body.style.overflow = isMenuOpen ? "hidden" : "";
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [isMenuOpen]);
+
+  // Cierra el mega-menú de desktop al hacer clic fuera del header
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (headerRef.current && !headerRef.current.contains(e.target as Node)) {
+        setOpenMenu(null);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   return (
-    <main className="min-h-screen bg-white">
-      {/* Hero - FULL WIDTH */}
-      <section className="relative bg-white">
-        <div className="relative overflow-hidden lg:aspect-[16/6]">
-          <div className="hidden bg-red-600 lg:absolute lg:inset-y-0 lg:left-0 lg:flex lg:w-1/2 lg:items-center lg:justify-center">
-            <div className="relative aspect-[4/5] w-1/2 overflow-hidden rounded-sm shadow-2xl">
-              <Image
-                src="/Smallhero.jpg"
-                alt="Detalle de guitarra acústica Musicman"
-                fill
-                sizes="25vw"
-                className="object-cover"
-              />
-            </div>
-          </div>
+    <header ref={headerRef} className="sticky top-0 z-50 bg-[#FFFFFF] backdrop-blur">
+      {/* Fila superior: siempre visible — logo + navegación (desktop) + iconos + hamburguesa (móvil) */}
+      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+        {/* Izquierda: Logo — más grande exclusivamente en desktop */}
+        <Link
+          href="/"
+          onClick={() => {
+            setIsMenuOpen(false);
+            setOpenMenu(null);
+          }}
+          className="shrink-0 md:-my-2"
+        >
+          <Image
+            src="/logo.PNG"
+            alt="MusicMan Logo"
+            width={40}
+            height={40}
+            className="h-10 w-auto md:h-14"
+            priority
+            unoptimized={true}
+            quality={100}
+          />
+        </Link>
 
-          <div className="relative h-72 sm:h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:h-full lg:w-1/2">
-            <Image
-              src="/Bighero.jpg"
-              alt="Guitarra eléctrica disponible en Musicman"
-              fill
-              priority
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover"
-            />
-          </div>
+        {/* Derecha (desktop): navegación + separador + cuenta + carrito */}
+        <div className="hidden items-center gap-8 md:flex">
+          <ul className="flex items-center gap-7">
+            {dropdownMenus.map((menu) => (
+              <li key={menu.key} className="relative">
+                <button
+                  type="button"
+                  onClick={() => setOpenMenu((prev) => (prev === menu.key ? null : menu.key))}
+                  aria-expanded={openMenu === menu.key}
+                  className="flex items-center gap-1.5 text-sm font-medium text-gray-600 transition-colors hover:text-gray-900"
+                >
+                  {menu.label}
+                  <ChevronIcon
+                    className={`h-3 w-3 transition-transform duration-200 ${
+                      openMenu === menu.key ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
 
-          <div className="relative z-20 mx-auto max-w-xl bg-white px-6 py-12 text-center sm:px-10 sm:py-16 lg:absolute lg:inset-0 lg:mx-auto lg:flex lg:max-w-2xl lg:flex-col lg:items-center lg:justify-center lg:bg-transparent lg:px-0 lg:py-0 lg:text-center">
-            <h1 className="font-display text-4xl leading-tight text-neutral-900 sm:text-5xl lg:text-white">
-              <span className="block font-light italic">Gibson</span>
-              <span className="block font-bold text-white lg:text-white">Historic</span>
-              <span className="block font-bold">Collection</span>
-              <span className="block font-bold">arrives</span>
-            </h1>
+                {/* Pestaña flotante con origen en el clic, no una sección completa */}
+                <div
+                  className={`absolute left-0 top-full z-20 mt-3 w-64 origin-top-left rounded-lg border border-gray-200 bg-white p-4 shadow-lg transition-all duration-150 ease-out ${
+                    openMenu === menu.key
+                      ? "scale-100 opacity-100"
+                      : "pointer-events-none scale-95 opacity-0"
+                  }`}
+                >
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-2.5">
+                    {menu.items.map((item) => (
+                      <Link
+                        key={item}
+                        href="#catalogo"
+                        onClick={() => setOpenMenu(null)}
+                        className="text-sm text-gray-700 transition-colors hover:text-brass"
+                      >
+                        {item}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </li>
+            ))}
+            <li>
+              <Link
+                href="#mas-vendidos"
+                className="text-sm font-medium text-gray-600 transition-colors hover:text-gray-900"
+              >
+                Los más vendidos
+              </Link>
+            </li>
+          </ul>
 
-            <a
-              href="#catalogo"
-              className="mx-auto mt-8 inline-flex w-fit items-center gap-2 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:text-[#4CA5E4]"
+          <div className="h-5 w-px bg-gray-300" aria-hidden="true" />
+
+          <div className="flex items-center gap-4">
+            <Link
+              href="/cuenta"
+              aria-label="Mi cuenta"
+              className="text-gray-600 transition-colors hover:text-gray-900"
             >
-              Saber más
-              <span aria-hidden="true">→</span>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* Banners - PADDING EN EL PADRE */}
-      <section className="mt-6 bg-white px-6 sm:mt-8">
-        <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-          <div className="flex gap-3">
-            {banners.map((banner) => (
-              <a
-                key={banner.name}
-                href="#catalogo"
-                className="relative h-52 shrink-0 snap-start overflow-hidden rounded-sm sm:h-60 lg:h-64"
-              >
-                <img src={banner.src} alt={banner.name} className="h-full w-auto" />
-
-                {banner.overlay?.variant === "gradient" && (
-                  <div className="absolute inset-0 flex flex-col justify-center gap-2 bg-gradient-to-r from-black/75 via-black/40 to-transparent px-6 sm:px-8">
-                    <h3 className="max-w-[60%] font-display text-lg font-bold leading-snug text-white sm:text-xl lg:text-2xl">
-                      {banner.overlay.title}
-                    </h3>
-                    <p className="max-w-[60%] text-xs text-white/80 sm:text-sm">
-                      {banner.overlay.subtitle}
-                    </p>
-                    <span className="mt-2 inline-flex w-fit items-center gap-2 text-xs font-semibold uppercase tracking-wide text-white sm:text-sm">
-                      {banner.overlay.cta}
-                      <span aria-hidden="true">→</span>
-                    </span>
-                  </div>
-                )}
-
-                {banner.overlay?.variant === "badge" && (
-                  <>
-                    <div className="absolute inset-0 bg-black/40" />
-                    <span className="absolute bottom-4 left-1/2 inline-flex w-fit -translate-x-1/2 items-center gap-1.5 rounded-full bg-white px-4 py-2 text-xs font-semibold uppercase tracking-wide text-neutral-900 sm:text-sm">
-                      {banner.overlay.cta}
-                      <span aria-hidden="true">→</span>
-                    </span>
-                  </>
-                )}
-
-                {banner.overlay?.variant === "cta-only" && (
-                  <span className="absolute bottom-4 right-4 inline-flex w-fit items-center gap-2 text-xs font-semibold uppercase tracking-wide text-white drop-shadow sm:text-sm">
-                    {banner.overlay.cta}
-                    <span aria-hidden="true">→</span>
-                  </span>
-                )}
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Categorías - PADDING EN EL PADRE */}
-      <section className="mt-12 bg-white px-6 sm:mt-16">
-        <h2 className="mb-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
-          Nuestros productos
-        </h2>
-        <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-          <div className="flex gap-6">
-            {categories.map((category, index) => (
-              <div key={index} className="group flex shrink-0 snap-start flex-col items-center gap-3">
-                <div className="relative h-28 w-28 sm:h-32 sm:w-32">
-                  <Image
-                    src={category.src}
-                    alt={`Categoría ${category.name}`}
-                    fill
-                    className="object-contain transition-transform duration-300 group-hover:scale-110"
-                  />
-                </div>
-                <span className="text-sm font-medium text-neutral-900">
-                  {category.name}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Banner tienda + productos - PADDING EN EL PADRE */}
-      <section className="mt-12 bg-white px-6 sm:mt-16">
-        <div className="overflow-hidden rounded-sm border border-neutral-200 bg-[#79992C]">
-          <div className="grid grid-cols-1 items-center bg-[#117C2E] lg:grid-cols-2">
-            <div className="px-6 py-12 sm:px-10 sm:py-16">
-              <h2 className="font-display text-2xl font-semibold text-white sm:text-3xl">
-                Elige en línea y recoge en tienda
-              </h2>
-              <p className="mt-3 max-w-md text-sm text-white/80 sm:text-base">
-                Explora nuestro stock sin salir de casa, elige tu compra y pasa por ella a tu Musicman más cercano.
-              </p>
-              <a
-                href="#catalogo"
-                className="mt-6 inline-flex w-fit items-center gap-2 rounded-sm bg-neutral-900 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:bg-neutral-800"
-              >
-                Ver ubicaciones
-              </a>
-            </div>
-
-            <div className="relative h-64 sm:h-80 lg:h-96">
-              <Image
-                src="/Tienda.PNG"
-                alt="Interior de tienda Musicman con instrumentos en exhibición"
-                fill
-                sizes="(min-width: 1024px) 50vw, 100vw"
-                className="object-cover"
-              />
-            </div>
-          </div>
-
-          <div className="py-10 sm:py-12">
-            <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-              <div className="flex gap-6">
-                {products.map((product) => (
-                  <div key={product.id} className="w-48 shrink-0 snap-start sm:w-56">
-                    <ProductCard {...product} variant="light" />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Marcas */}
-      <section className="mt-12 bg-white px-6 py-4 sm:mt-16">
-        <h2 className="mb-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
-          Explora por marca
-        </h2>
-
-        <div className="grid grid-cols-3 gap-x-2 gap-y-10 sm:grid-cols-4 lg:grid-cols-6">
-          {brands.map((brand, index) => (
-            <div key={index} className="group flex flex-col items-center gap-3">
-              <div className="relative flex h-32 w-32 items-center justify-center overflow-hidden rounded-full bg-black shadow-sm transition-transform duration-300 group-hover:scale-105 sm:h-40 sm:w-40">
-                <div className="relative h-28 w-28 sm:h-36 sm:w-36">
-                  <Image
-                    src={brand.src}
-                    alt={`Marca ${brand.name}`}
-                    fill
-                    className="object-contain"
-                  />
-                </div>
-              </div>
-              <span className="text-sm font-medium text-neutral-900">
-                {brand.name}
+              <AccountIcon />
+            </Link>
+            <Link
+              href="/carrito"
+              aria-label="Carrito de compras"
+              className="relative text-gray-600 transition-colors hover:text-gray-900"
+            >
+              <CartIcon />
+              <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-brass text-[10px] font-semibold text-white">
+                0
               </span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Escaparate */}
-      <section id="catalogo" className="bg-white px-6 py-16 sm:py-20">
-        <div className="mb-10 flex items-end justify-between border-b border-neutral-200 pb-6">
-          <div>
-            <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
-              Catálogo disponible
-            </h2>
-            <p className="mt-2 text-sm text-neutral-500">
-              {products.length} instrumentos listos para recoger en tienda.
-            </p>
+            </Link>
           </div>
-          <span className="hidden h-2 w-2 rounded-full bg-[#79992C] sm:block" aria-hidden="true" />
         </div>
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {products.map((product) => (
-            <ProductCard key={product.id} {...product} />
-          ))}
+        {/* Derecha (móvil): únicamente el botón hamburguesa. Se transforma en X al abrir. */}
+        <button
+          type="button"
+          onClick={() => setIsMenuOpen((prev) => !prev)}
+          aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
+          aria-expanded={isMenuOpen}
+          aria-controls="mobile-nav-panel"
+          className="relative flex h-5 w-6 flex-col justify-between md:hidden"
+        >
+          <span
+            className={`h-px w-full bg-gray-900 transition-transform duration-300 ${
+              isMenuOpen ? "translate-y-[9px] rotate-45" : ""
+            }`}
+          />
+          <span
+            className={`h-px w-full bg-gray-900 transition-opacity duration-200 ${
+              isMenuOpen ? "opacity-0" : "opacity-100"
+            }`}
+          />
+          <span
+            className={`h-px w-full bg-gray-900 transition-transform duration-300 ${
+              isMenuOpen ? "-translate-y-[9px] -rotate-45" : ""
+            }`}
+          />
+        </button>
+      </nav>
+
+      {/* Panel inferior (solo móvil): iconos, marcas/categorías en acordeón, navegación */}
+      <div
+        id="mobile-nav-panel"
+        className={`grid overflow-hidden bg-[#FFFFFF] transition-[grid-template-rows] duration-300 ease-in-out md:hidden ${
+          isMenuOpen ? "grid-rows-[1fr] border-t border-gray-200" : "grid-rows-[0fr]"
+        }`}
+      >
+        <div className="overflow-hidden">
+          <div className="mx-auto max-w-6xl px-6">
+            {/* Iconos */}
+            <div className="flex items-center gap-6 py-5">
+              <Link
+                href="/cuenta"
+                onClick={() => setIsMenuOpen(false)}
+                className="flex items-center gap-2 text-sm font-medium text-gray-900 transition-colors hover:text-brass"
+              >
+                <AccountIcon />
+                Mi cuenta
+              </Link>
+              <Link
+                href="/carrito"
+                onClick={() => setIsMenuOpen(false)}
+                className="relative flex items-center gap-2 text-sm font-medium text-gray-900 transition-colors hover:text-brass"
+              >
+                <CartIcon />
+                Carrito
+                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-brass text-[10px] font-semibold text-white">
+                  0
+                </span>
+              </Link>
+            </div>
+
+            {/* Línea separadora sutil */}
+            <div className="h-px w-full bg-gray-200" aria-hidden="true" />
+
+            {/* Navegación */}
+            <ul className="py-2">
+              {dropdownMenus.map((menu) => (
+                <li key={menu.key} className="border-t border-gray-200 first:border-t-0">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setMobileExpandedMenu((prev) => (prev === menu.key ? null : menu.key))
+                    }
+                    aria-expanded={mobileExpandedMenu === menu.key}
+                    className="flex w-full items-center justify-between py-4 font-display text-2xl font-medium text-gray-900 transition-colors hover:text-brass"
+                  >
+                    {menu.label}
+                    <ChevronIcon
+                      className={`h-4 w-4 shrink-0 transition-transform duration-200 ${
+                        mobileExpandedMenu === menu.key ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+                  <div
+                    className={`grid overflow-hidden transition-[grid-template-rows] duration-300 ease-in-out ${
+                      mobileExpandedMenu === menu.key ? "grid-rows-[1fr] pb-5" : "grid-rows-[0fr]"
+                    }`}
+                  >
+                    <div className="overflow-hidden">
+                      <div className="grid grid-cols-2 gap-x-4 gap-y-3">
+                        {menu.items.map((item) => (
+                          <Link
+                            key={item}
+                            href="#catalogo"
+                            onClick={() => {
+                              setIsMenuOpen(false);
+                              setMobileExpandedMenu(null);
+                            }}
+                            className="text-sm text-gray-600 transition-colors hover:text-brass"
+                          >
+                            {item}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              ))}
+              <li className="border-t border-gray-200">
+                <Link
+                  href="#mas-vendidos"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="group flex items-center justify-between py-4 font-display text-2xl font-medium text-gray-900 transition-colors hover:text-brass"
+                >
+                  Los más vendidos
+                  <span className="text-brass opacity-0 transition-opacity group-hover:opacity-100">
+                    →
+                  </span>
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
-      </section>
-    </main>
+      </div>
+    </header>
+  );
+}
+
+function ChevronIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="m6 9 6 6 6-6" />
+    </svg>
+  );
+}
+
+function AccountIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.75}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="h-5 w-5 shrink-0"
+    >
+      <path d="M20 21a8 8 0 0 0-16 0" />
+      <circle cx="12" cy="8" r="5" />
+    </svg>
+  );
+}
+
+function CartIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.75}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="h-5 w-5 shrink-0"
+    >
+      <circle cx="8" cy="21" r="1" />
+      <circle cx="19" cy="21" r="1" />
+      <path d="M2.5 2.5h2l2.6 13a2 2 0 0 0 2 1.6h8.4a2 2 0 0 0 2-1.6L21.5 6.5h-16" />
+    </svg>
   );
 }

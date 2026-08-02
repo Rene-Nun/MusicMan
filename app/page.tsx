@@ -58,9 +58,11 @@ const banners = [
   },
 ];
 
-// Padding izquierdo que replica dónde arranca el contenido real
-// (el borde de max-w-6xl centrado + el px-6 del resto de secciones).
-const edgeAlignedPaddingLeft = "max(1.5rem, calc((100vw - 1152px) / 2 + 1.5rem))";
+// Sangrado hacia la derecha: cuánto le "sobra" al contenedor max-w-6xl centrado
+// respecto al borde de pantalla. Se usa como margin-right negativo para que el
+// scroll se salga por la derecha, SIN tocar el borde izquierdo (que hereda
+// la alineación real del mismo contenedor mx-auto max-w-6xl que usa el hero).
+const rightBleed = "max(1.5rem, calc((100vw - 1152px) / 2 + 1.5rem))";
 
 export default function Home() {
   return (
@@ -115,82 +117,92 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Banners promocionales — ya no necesita el hack left-1/2/w-screen porque
-          la sección ya no tiene max-w-6xl que lo limite */}
+      {/* Banners promocionales — mismo contenedor mx-auto max-w-6xl que el hero para
+          garantizar que el borde izquierdo coincide siempre; solo la derecha sangra */}
       <section className="mt-6 bg-white sm:mt-8">
-        <div
-          className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 pr-6 sm:pr-8 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
-          style={{ paddingLeft: edgeAlignedPaddingLeft }}
-        >
-          {banners.map((banner) => (
-            <a
-              key={banner.name}
-              href="#catalogo"
-              className="relative h-52 shrink-0 snap-start overflow-hidden rounded-sm sm:h-60 lg:h-64"
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={banner.src} alt={banner.name} className="h-full w-auto" />
+        <div className="mx-auto max-w-6xl">
+          <div
+            className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 pl-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+            style={{
+              marginRight: `calc(-1 * ${rightBleed})`,
+              paddingRight: rightBleed,
+            }}
+          >
+            {banners.map((banner) => (
+              <a
+                key={banner.name}
+                href="#catalogo"
+                className="relative h-52 shrink-0 snap-start overflow-hidden rounded-sm sm:h-60 lg:h-64"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={banner.src} alt={banner.name} className="h-full w-auto" />
 
-              {banner.overlay?.variant === "gradient" && (
-                <div className="absolute inset-0 flex flex-col justify-center gap-2 bg-gradient-to-r from-black/75 via-black/40 to-transparent px-6 sm:px-8">
-                  <h3 className="max-w-[60%] font-display text-lg font-bold leading-snug text-white sm:text-xl lg:text-2xl">
-                    {banner.overlay.title}
-                  </h3>
-                  <p className="max-w-[60%] text-xs text-white/80 sm:text-sm">
-                    {banner.overlay.subtitle}
-                  </p>
-                  <span className="mt-2 inline-flex w-fit items-center gap-2 text-xs font-semibold uppercase tracking-wide text-white sm:text-sm">
+                {banner.overlay?.variant === "gradient" && (
+                  <div className="absolute inset-0 flex flex-col justify-center gap-2 bg-gradient-to-r from-black/75 via-black/40 to-transparent px-6 sm:px-8">
+                    <h3 className="max-w-[60%] font-display text-lg font-bold leading-snug text-white sm:text-xl lg:text-2xl">
+                      {banner.overlay.title}
+                    </h3>
+                    <p className="max-w-[60%] text-xs text-white/80 sm:text-sm">
+                      {banner.overlay.subtitle}
+                    </p>
+                    <span className="mt-2 inline-flex w-fit items-center gap-2 text-xs font-semibold uppercase tracking-wide text-white sm:text-sm">
+                      {banner.overlay.cta}
+                      <span aria-hidden="true">→</span>
+                    </span>
+                  </div>
+                )}
+
+                {banner.overlay?.variant === "badge" && (
+                  <>
+                    <div className="absolute inset-0 bg-black/40" />
+                    <span className="absolute bottom-4 left-1/2 inline-flex w-fit -translate-x-1/2 items-center gap-1.5 rounded-full bg-white px-4 py-2 text-xs font-semibold uppercase tracking-wide text-neutral-900 sm:text-sm">
+                      {banner.overlay.cta}
+                      <span aria-hidden="true">→</span>
+                    </span>
+                  </>
+                )}
+
+                {banner.overlay?.variant === "cta-only" && (
+                  <span className="absolute bottom-4 right-4 inline-flex w-fit items-center gap-2 text-xs font-semibold uppercase tracking-wide text-white drop-shadow sm:text-sm">
                     {banner.overlay.cta}
                     <span aria-hidden="true">→</span>
                   </span>
-                </div>
-              )}
-
-              {banner.overlay?.variant === "badge" && (
-                <>
-                  <div className="absolute inset-0 bg-black/40" />
-                  <span className="absolute bottom-4 left-1/2 inline-flex w-fit -translate-x-1/2 items-center gap-1.5 rounded-full bg-white px-4 py-2 text-xs font-semibold uppercase tracking-wide text-neutral-900 sm:text-sm">
-                    {banner.overlay.cta}
-                    <span aria-hidden="true">→</span>
-                  </span>
-                </>
-              )}
-
-              {banner.overlay?.variant === "cta-only" && (
-                <span className="absolute bottom-4 right-4 inline-flex w-fit items-center gap-2 text-xs font-semibold uppercase tracking-wide text-white drop-shadow sm:text-sm">
-                  {banner.overlay.cta}
-                  <span aria-hidden="true">→</span>
-                </span>
-              )}
-            </a>
-          ))}
+                )}
+              </a>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Carrusel de Categorías — mismo fix, sin el hack de left-1/2/w-screen */}
+      {/* Carrusel de Categorías — mismo criterio: contenedor idéntico al hero */}
       <section className="mt-12 bg-white sm:mt-16">
         <h2 className="mx-auto mb-10 max-w-6xl px-6 font-display text-2xl font-semibold text-neutral-900 sm:px-6 sm:text-3xl">
           Nuestros productos
         </h2>
-        <div
-          className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 pr-6 sm:pr-8 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
-          style={{ paddingLeft: edgeAlignedPaddingLeft }}
-        >
-          {categories.map((category, index) => (
-            <div key={index} className="group flex shrink-0 snap-start flex-col items-center gap-3">
-              <div className="relative h-28 w-28 sm:h-32 sm:w-32">
-                <Image
-                  src={category.src}
-                  alt={`Categoría ${category.name}`}
-                  fill
-                  className="object-contain transition-transform duration-300 group-hover:scale-110"
-                />
+        <div className="mx-auto max-w-6xl">
+          <div
+            className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 pl-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+            style={{
+              marginRight: `calc(-1 * ${rightBleed})`,
+              paddingRight: rightBleed,
+            }}
+          >
+            {categories.map((category, index) => (
+              <div key={index} className="group flex shrink-0 snap-start flex-col items-center gap-3">
+                <div className="relative h-28 w-28 sm:h-32 sm:w-32">
+                  <Image
+                    src={category.src}
+                    alt={`Categoría ${category.name}`}
+                    fill
+                    className="object-contain transition-transform duration-300 group-hover:scale-110"
+                  />
+                </div>
+                <span className="text-sm font-medium text-neutral-900">
+                  {category.name}
+                </span>
               </div>
-              <span className="text-sm font-medium text-neutral-900">
-                {category.name}
-              </span>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 

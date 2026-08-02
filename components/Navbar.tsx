@@ -106,9 +106,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Banners - Con padding en ambos lados */}
-      <section className="mt-6 bg-white sm:mt-8">
-        <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto px-6 pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+      {/* Banners - PADDING EN EL PADRE */}
+      <section className="mt-6 bg-white px-6 sm:mt-8">
+        <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           <div className="flex gap-3">
             {banners.map((banner) => (
               <a
@@ -155,14 +155,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Categorías - Con padding en ambos lados */}
-      <section className="mt-12 bg-white sm:mt-16">
-        <div className="px-6">
-          <h2 className="mb-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
-            Nuestros productos
-          </h2>
-        </div>
-        <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto px-6 pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+      {/* Categorías - PADDING EN EL PADRE */}
+      <section className="mt-12 bg-white px-6 sm:mt-16">
+        <h2 className="mb-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          Nuestros productos
+        </h2>
+        <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           <div className="flex gap-6">
             {categories.map((category, index) => (
               <div key={index} className="group flex shrink-0 snap-start flex-col items-center gap-3">
@@ -183,9 +181,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Banner tienda + productos - Con padding en ambos lados */}
-      <section className="mt-12 bg-white sm:mt-16">
-        <div className="mx-6 overflow-hidden rounded-sm border border-neutral-200 bg-[#79992C]">
+      {/* Banner tienda + productos - PADDING EN EL PADRE */}
+      <section className="mt-12 bg-white px-6 sm:mt-16">
+        <div className="overflow-hidden rounded-sm border border-neutral-200 bg-[#79992C]">
           <div className="grid grid-cols-1 items-center bg-[#117C2E] lg:grid-cols-2">
             <div className="px-6 py-12 sm:px-10 sm:py-16">
               <h2 className="font-display text-2xl font-semibold text-white sm:text-3xl">
@@ -214,7 +212,7 @@ export default function Home() {
           </div>
 
           <div className="py-10 sm:py-12">
-            <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto px-6 pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
               <div className="flex gap-6">
                 {products.map((product) => (
                   <div key={product.id} className="w-48 shrink-0 snap-start sm:w-56">
@@ -227,7 +225,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Marcas - Con padding en ambos lados */}
+      {/* Marcas */}
       <section className="mt-12 bg-white px-6 py-4 sm:mt-16">
         <h2 className="mb-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
           Explora por marca
@@ -254,7 +252,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Escaparate - Con padding en ambos lados */}
+      {/* Escaparate */}
       <section id="catalogo" className="bg-white px-6 py-16 sm:py-20">
         <div className="mb-10 flex items-end justify-between border-b border-neutral-200 pb-6">
           <div>

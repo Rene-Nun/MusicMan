@@ -64,15 +64,16 @@ const banners = [
 // la alineación real del mismo contenedor mx-auto max-w-6xl que usa el hero).
 const rightBleed = "max(1.5rem, calc((100vw - 1152px) / 2 + 1.5rem))";
 
-// Mismo inset izquierdo que usa el hero (sm:px-6 = 1.5rem, con un empujón
-// extra a 4rem en desktop). Antes esto se hacía con un div "espaciador"
-// como primer hijo del flex, pero eso rompe el scroll-snap en Safari/iOS:
-// como ese div no tiene "snap-start", el navegador lo salta apenas carga la
-// página y ancla el scroll directo al primer banner real — por eso no se
-// veía nada hasta deslizar manualmente. La solución correcta es usar
-// padding-left en el propio contenedor con scroll: no es un elemento que el
-// snap pueda saltarse, así que el inset queda visible desde el primer frame.
-const leftInsetClass = "pl-6 lg:pl-16";
+// Inset izquierdo (equivalente al sm:px-6 del hero, con empujón extra en
+// desktop). Ni un div "espaciador" como primer hijo del flex, ni padding en
+// el propio contenedor con scroll, funcionan de forma confiable en Safari/
+// iOS: en ambos casos, apenas carga la página, el navegador ajusta el scroll
+// para pegar el primer elemento con "snap-start" al borde, ignorando
+// cualquier padding o espaciador previo — por eso no se veía nada hasta
+// deslizar manualmente. La solución que sí funciona: poner el margen
+// directamente en el PRIMER ELEMENTO REAL (el que tiene snap-start). Como el
+// margen es parte de ese mismo elemento, Safari no lo puede saltar.
+const leftInsetFirstItemClass = "ml-6 lg:ml-16";
 
 export default function Home() {
   return (
@@ -132,19 +133,19 @@ export default function Home() {
       <section className="mt-6 bg-white sm:mt-8">
         <div className="mx-auto max-w-6xl">
           <div
-            className="flex snap-x snap-proximity gap-3 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+            className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
             style={{
               marginRight: `calc(-1 * ${rightBleed})`,
               paddingRight: rightBleed,
-              paddingLeft: "80px",
-              backgroundColor: "yellow",
             }}
           >
-            {banners.map((banner) => (
+            {banners.map((banner, index) => (
               <a
                 key={banner.name}
                 href="#catalogo"
-                className="relative h-52 shrink-0 snap-start overflow-hidden rounded-sm sm:h-60 lg:h-64"
+                className={`relative h-52 shrink-0 snap-start overflow-hidden rounded-sm sm:h-60 lg:h-64 ${
+                  index === 0 ? leftInsetFirstItemClass : ""
+                }`}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={banner.src} alt={banner.name} className="h-full w-auto" />
@@ -193,14 +194,19 @@ export default function Home() {
         </h2>
         <div className="mx-auto max-w-6xl">
           <div
-            className={`flex snap-x snap-proximity gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] ${leftInsetClass}`}
+            className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
             style={{
               marginRight: `calc(-1 * ${rightBleed})`,
               paddingRight: rightBleed,
             }}
           >
             {categories.map((category, index) => (
-              <div key={index} className="group flex shrink-0 snap-start flex-col items-center gap-3">
+              <div
+                key={index}
+                className={`group flex shrink-0 snap-start flex-col items-center gap-3 ${
+                  index === 0 ? leftInsetFirstItemClass : ""
+                }`}
+              >
                 <div className="relative h-28 w-28 sm:h-32 sm:w-32">
                   <Image
                     src={category.src}
@@ -250,11 +256,14 @@ export default function Home() {
 
           {/* Carrusel de productos — fondo #79992C, cards en blanco */}
           <div className="py-10 sm:py-12">
-            <div
-              className={`flex snap-x snap-proximity gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] ${leftInsetClass} pr-6 lg:pr-16`}
-            >
-              {products.map((product) => (
-                <div key={product.id} className="w-48 shrink-0 snap-start sm:w-56">
+            <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+              {products.map((product, index) => (
+                <div
+                  key={product.id}
+                  className={`w-48 shrink-0 snap-start sm:w-56 ${
+                    index === 0 ? leftInsetFirstItemClass : ""
+                  } ${index === products.length - 1 ? "mr-6 lg:mr-16" : ""}`}
+                >
                   <ProductCard {...product} variant="light" />
                 </div>
               ))}

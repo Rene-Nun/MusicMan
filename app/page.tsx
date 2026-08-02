@@ -122,7 +122,7 @@ export default function Home() {
       <section className="mt-6 bg-white sm:mt-8">
         <div className="mx-auto max-w-6xl">
           <div
-            className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 pl-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+            className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 pl-0 sm:pl-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
             style={{
               marginRight: `calc(-1 * ${rightBleed})`,
               paddingRight: rightBleed,
@@ -181,7 +181,7 @@ export default function Home() {
         </h2>
         <div className="mx-auto max-w-6xl">
           <div
-            className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 pl-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+            className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 pl-0 sm:pl-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
             style={{
               marginRight: `calc(-1 * ${rightBleed})`,
               paddingRight: rightBleed,

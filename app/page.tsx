@@ -64,11 +64,17 @@ const banners = [
 // la alineación real del mismo contenedor mx-auto max-w-6xl que usa el hero).
 const rightBleed = "max(1.5rem, calc((100vw - 1152px) / 2 + 1.5rem))";
 
-// Mismo inset izquierdo que usa el hero (sm:px-6 = 1.5rem). Se aplica como
-// paddingLeft explícito en cada carrusel para que el primer elemento quede
-// SIEMPRE alineado con el borde del hero, sin depender de que dos utilidades
-// distintas de Tailwind (px-6 vs pl-6) coincidan "por casualidad".
+// Mismo inset izquierdo que usa el hero (sm:px-6 = 1.5rem). En vez de usar
+// padding-left en el contenedor con scroll (hay navegadores con bugs de
+// renderizado de padding en scroll containers), se agrega como un div
+// "espaciador" invisible de primer hijo del flex. Esto es a prueba de bugs
+// de navegador y garantiza que el primer elemento real del carrusel quede
+// exactamente alineado con el borde del hero.
 const leftInset = "1.5rem";
+
+function LeftSpacer() {
+  return <div style={{ width: leftInset, flexShrink: 0 }} aria-hidden="true" />;
+}
 
 export default function Home() {
   return (
@@ -130,11 +136,11 @@ export default function Home() {
           <div
             className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
             style={{
-              paddingLeft: leftInset,
               marginRight: `calc(-1 * ${rightBleed})`,
               paddingRight: rightBleed,
             }}
           >
+            <LeftSpacer />
             {banners.map((banner) => (
               <a
                 key={banner.name}
@@ -190,11 +196,11 @@ export default function Home() {
           <div
             className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
             style={{
-              paddingLeft: leftInset,
               marginRight: `calc(-1 * ${rightBleed})`,
               paddingRight: rightBleed,
             }}
           >
+            <LeftSpacer />
             {categories.map((category, index) => (
               <div key={index} className="group flex shrink-0 snap-start flex-col items-center gap-3">
                 <div className="relative h-28 w-28 sm:h-32 sm:w-32">
@@ -246,18 +252,14 @@ export default function Home() {
 
           {/* Carrusel de productos — fondo #79992C, cards en blanco */}
           <div className="py-10 sm:py-12">
-            <div
-              className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
-              style={{
-                paddingLeft: leftInset,
-                paddingRight: leftInset,
-              }}
-            >
+            <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+              <LeftSpacer />
               {products.map((product) => (
                 <div key={product.id} className="w-48 shrink-0 snap-start sm:w-56">
                   <ProductCard {...product} variant="light" />
                 </div>
               ))}
+              <LeftSpacer />
             </div>
           </div>
         </div>

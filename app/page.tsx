@@ -76,7 +76,16 @@ const rightBleed = "max(1.5rem, calc((100vw - 1152px) / 2 + 1.5rem))";
 // deslizar manualmente. La solución que sí funciona: poner el margen
 // directamente en el PRIMER ELEMENTO REAL (el que tiene snap-start). Como el
 // margen es parte de ese mismo elemento, Safari no lo puede saltar.
-const leftInsetFirstItemClass = "ml-6 lg:ml-16";
+// IMPORTANTE: estos breakpoints deben coincidir EXACTAMENTE con los del
+// hero ("px-0 sm:px-6" — ver más abajo). Antes este valor era
+// "ml-6 lg:ml-16", que no coincidía con el hero en ningún punto: en mobile
+// el hero tiene 0px de inset pero esto tenía 24px, y al cruzar el
+// breakpoint lg (1024px) esto saltaba a 64px mientras el hero se quedaba en
+// 24px. Ese desfase es lo que se ve al cambiar el ancho de la ventana
+// (Slide Over / Split View / pantalla completa en iPad): el carrusel y el
+// hero dejan de coincidir justo al cruzar 1024px de ancho.
+const leftInsetFirstItemClass = "sm:ml-6";
+const rightInsetLastItemClass = "sm:mr-6";
 
 /**
  * Fix para el bug de Safari/iOS donde el navegador reposiciona el scroll

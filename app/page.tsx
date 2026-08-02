@@ -77,7 +77,7 @@ const rightBleed = "max(1.5rem, calc((100vw - 1152px) / 2 + 1.5rem))";
 // carrusel se veía un poco más a la izquierda que el hero. Si en tu pantalla
 // todavía no queda perfecto, ajusta solo ese valor (w-9 → w-8 o w-10).
 function LeftSpacer() {
-  return <div className="w-6 shrink-0 lg:w-9" aria-hidden="true" />;
+  return <div className="w-6 shrink-0 lg:w-12" aria-hidden="true" />;
 }
 
 export default function Home() {

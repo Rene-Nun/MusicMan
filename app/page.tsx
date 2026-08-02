@@ -1,21 +1,6 @@
-"use client";
-
 import ProductCard from "@/components/ProductCard";
 import { products } from "@/lib/mockData";
 import Image from "next/image";
-import { useLayoutEffect, useRef } from "react";
-
-const categories = [
-  { name: "Guitarras", src: "/Guitarras.PNG" },
-  { name: "Percusión", src: "/Percusion.PNG" },
-  { name: "Teclados", src: "/Teclados.PNG" },
-  { name: "Sonido", src: "/Sonido.PNG" },
-  { name: "Aire", src: "/Aire.PNG" },
-  { name: "Accesorios", src: "/Accesorios.PNG" },
-  { name: "Remplazos", src: "/Remplazos.PNG" },
-  { name: "Mantenimiento", src: "/Mantenimiento.PNG" },
-  { name: "Merch", src: "/Merch.PNG" },
-];
 
 const brands = [
   { name: "Vicfirth", src: "/Vicfirth.PNG" },
@@ -32,160 +17,12 @@ const brands = [
   { name: "Pearl", src: "/Pearl.PNG" },
 ];
 
-const banners = [
-  {
-    name: "Banner",
-    src: "/Banner.PNG",
-    overlay: {
-      variant: "gradient" as const,
-      title: "Si no lo tenemos, lo conseguimos",
-      subtitle: "Déjanos la búsqueda a nosotros",
-      cta: "Hacer pedido",
-    },
-  },
-  {
-    name: "Fest",
-    src: "/Fest.PNG",
-    overlay: {
-      variant: "badge" as const,
-      cta: "Saber más",
-    },
-  },
-  {
-    name: "Sucursales",
-    src: "/Sucursales.PNG",
-    overlay: {
-      variant: "cta-only" as const,
-      cta: "Ver el mapa",
-    },
-  },
-];
-
-// Sangrado hacia la derecha: cuánto le "sobra" al contenedor max-w-6xl centrado
-// respecto al borde de pantalla. Se usa como margin-right negativo para que el
-// scroll se salga por la derecha, SIN tocar el borde izquierdo (que hereda
-// la alineación real del mismo contenedor mx-auto max-w-6xl que usa el hero).
-const rightBleed = "max(1.5rem, calc((100vw - 1152px) / 2 + 1.5rem))";
-
-// Inset izquierdo (equivalente al sm:px-6 del hero, con empujón extra en
-// desktop). Ni un div "espaciador" como primer hijo del flex, ni padding en
-// el propio contenedor con scroll, funcionan de forma confiable en Safari/
-// iOS: en ambos casos, apenas carga la página, el navegador ajusta el scroll
-// para pegar el primer elemento con "snap-start" al borde, ignorando
-// cualquier padding o espaciador previo — por eso no se veía nada hasta
-// deslizar manualmente. La solución que sí funciona: poner el margen
-// directamente en el PRIMER ELEMENTO REAL (el que tiene snap-start). Como el
-// margen es parte de ese mismo elemento, Safari no lo puede saltar.
-// IMPORTANTE: en vez de replicar el mismo breakpoint por separado en el
-// hero (con clases Tailwind px-0 sm:px-6) y en los carruseles (con clases
-// Tailwind ml-6/mr-6), lo que causó dos rondas de desalineación porque cada
-// lado resolvía el breakpoint de forma distinta, ahora AMBOS leen la MISMA
-// variable CSS (--container-pad, definida en globals.css — ver
-// instrucciones al final). El hero la usa como padding, los carruseles la
-// usan como margin en el primer/último ítem. Como es la misma variable,
-// literalmente no pueden desalinearse.
-const containerPadStyle = { paddingLeft: "var(--container-pad)", paddingRight: "var(--container-pad)" } as const;
-const firstItemInsetStyle = { marginLeft: "var(--container-pad)" } as const;
-const lastItemInsetStyle = { marginRight: "var(--container-pad)" } as const;
-
-/**
- * Fix para el bug de Safari/iOS donde el navegador reposiciona el scroll
- * horizontal de un contenedor con overflow-x-auto (con scroll-snap) después
- * de que carga la página, sin importar qué CSS (padding, margin, spacer) se
- * le haya puesto antes del primer elemento.
- *
- * La primera versión de este fix solo forzaba scrollLeft = 0 en un puñado
- * de timers cortos (hasta 150ms). Eso no basta cuando los elementos del
- * carrusel tienen ancho variable que depende de una imagen (como los
- * banners, con `w-auto` según el aspect ratio real de la imagen): en cuanto
- * cada <img> termina de decodificar, el ancho del contenido cambia, el
- * navegador recalcula el snap, y puede volver a mover el scroll — después
- * de que nuestros timers ya habían corrido.
- *
- * Esta versión resetea scrollLeft en TODOS los eventos que pueden disparar
- * ese recálculo:
- *   1. Inmediatamente (useLayoutEffect, antes del paint)
- *   2. En el siguiente frame (requestAnimationFrame)
- *   3. En una serie de timers escalonados (hasta 2s), por si acaso
- *   4. En el evento `load` de CADA <img> dentro del carrusel
- *   5. En el evento `load` de la ventana completa
- *   6. Vía ResizeObserver, si el propio contenedor cambia de tamaño
- *
- * Y se "apaga" en cuanto detecta que el usuario tocó o hizo scroll manual
- * (touchstart / wheel), para no pelearle el control al usuario.
- */
-function useScrollResetFix<T extends HTMLElement>() {
-  const ref = useRef<T>(null);
-
-  useLayoutEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    let userInteracted = false;
-
-    const forceReset = () => {
-      if (el && !userInteracted) {
-        el.scrollLeft = 0;
-      }
-    };
-
-    const markInteracted = () => {
-      userInteracted = true;
-    };
-
-    el.addEventListener("touchstart", markInteracted, { passive: true });
-    el.addEventListener("wheel", markInteracted, { passive: true });
-
-    // 1. Inmediato
-    forceReset();
-
-    // 2. Siguiente frame
-    const raf = requestAnimationFrame(forceReset);
-
-    // 3. Timers escalonados
-    const timeouts = [50, 150, 300, 600, 1000, 2000].map((delay) =>
-      setTimeout(forceReset, delay)
-    );
-
-    // 4. Load de cada imagen dentro del carrusel (las que aún no cargan)
-    const imgs = Array.from(el.querySelectorAll("img"));
-    imgs.forEach((img) => {
-      if (!img.complete) {
-        img.addEventListener("load", forceReset);
-      }
-    });
-
-    // 5. Load de la ventana completa
-    window.addEventListener("load", forceReset);
-
-    // 6. Cualquier cambio de tamaño del contenedor
-    const resizeObserver = new ResizeObserver(forceReset);
-    resizeObserver.observe(el);
-
-    return () => {
-      cancelAnimationFrame(raf);
-      timeouts.forEach(clearTimeout);
-      imgs.forEach((img) => img.removeEventListener("load", forceReset));
-      window.removeEventListener("load", forceReset);
-      resizeObserver.disconnect();
-      el.removeEventListener("touchstart", markInteracted);
-      el.removeEventListener("wheel", markInteracted);
-    };
-  }, []);
-
-  return ref;
-}
-
 export default function Home() {
-  const bannersScrollRef = useScrollResetFix<HTMLDivElement>();
-  const categoriesScrollRef = useScrollResetFix<HTMLDivElement>();
-  const productsScrollRef = useScrollResetFix<HTMLDivElement>();
-
   return (
     <main className="min-h-screen bg-white">
       {/* Hero — ahora en formato 16:9 dentro de un contenedor (no a pantalla completa) */}
       <section className="relative bg-white">
-        <div className="mx-auto max-w-6xl sm:pt-8" style={containerPadStyle}>
+        <div className="mx-auto max-w-6xl px-0 sm:px-6 sm:pt-8">
           <div className="relative overflow-hidden rounded-sm lg:aspect-[16/6]">
             {/* Panel izquierdo: fondo de color con una foto pequeña centrada — solo desktop */}
             <div className="hidden bg-red-600 lg:absolute lg:inset-y-0 lg:left-0 lg:flex lg:w-1/2 lg:items-center lg:justify-center">
@@ -233,103 +70,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Banners promocionales — mismo contenedor mx-auto max-w-6xl que el hero para
-          garantizar que el borde izquierdo coincide siempre; solo la derecha sangra */}
-      <section className="mt-6 bg-white sm:mt-8">
-        <div className="mx-auto max-w-6xl">
-          <div
-            ref={bannersScrollRef}
-            className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
-            style={{
-              marginRight: `calc(-1 * ${rightBleed})`,
-              paddingRight: rightBleed,
-            }}
-          >
-            {banners.map((banner, index) => (
-              <a
-                key={banner.name}
-                href="#catalogo"
-                className="relative h-52 shrink-0 snap-start overflow-hidden rounded-sm sm:h-60 lg:h-64"
-                style={index === 0 ? firstItemInsetStyle : undefined}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={banner.src} alt={banner.name} className="h-full w-auto" />
-
-                {banner.overlay?.variant === "gradient" && (
-                  <div className="absolute inset-0 flex flex-col justify-center gap-2 bg-gradient-to-r from-black/75 via-black/40 to-transparent px-6 sm:px-8">
-                    <h3 className="max-w-[60%] font-display text-lg font-bold leading-snug text-white sm:text-xl lg:text-2xl">
-                      {banner.overlay.title}
-                    </h3>
-                    <p className="max-w-[60%] text-xs text-white/80 sm:text-sm">
-                      {banner.overlay.subtitle}
-                    </p>
-                    <span className="mt-2 inline-flex w-fit items-center gap-2 text-xs font-semibold uppercase tracking-wide text-white sm:text-sm">
-                      {banner.overlay.cta}
-                      <span aria-hidden="true">→</span>
-                    </span>
-                  </div>
-                )}
-
-                {banner.overlay?.variant === "badge" && (
-                  <>
-                    <div className="absolute inset-0 bg-black/40" />
-                    <span className="absolute bottom-4 left-1/2 inline-flex w-fit -translate-x-1/2 items-center gap-1.5 rounded-full bg-white px-4 py-2 text-xs font-semibold uppercase tracking-wide text-neutral-900 sm:text-sm">
-                      {banner.overlay.cta}
-                      <span aria-hidden="true">→</span>
-                    </span>
-                  </>
-                )}
-
-                {banner.overlay?.variant === "cta-only" && (
-                  <span className="absolute bottom-4 right-4 inline-flex w-fit items-center gap-2 text-xs font-semibold uppercase tracking-wide text-white drop-shadow sm:text-sm">
-                    {banner.overlay.cta}
-                    <span aria-hidden="true">→</span>
-                  </span>
-                )}
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Carrusel de Categorías — mismo criterio: contenedor idéntico al hero */}
-      <section className="mt-12 bg-white sm:mt-16">
-        <h2 className="mx-auto mb-10 max-w-6xl px-6 font-display text-2xl font-semibold text-neutral-900 sm:px-6 sm:text-3xl">
-          Nuestros productos
-        </h2>
-        <div className="mx-auto max-w-6xl">
-          <div
-            ref={categoriesScrollRef}
-            className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
-            style={{
-              marginRight: `calc(-1 * ${rightBleed})`,
-              paddingRight: rightBleed,
-            }}
-          >
-            {categories.map((category, index) => (
-              <div
-                key={index}
-                className="group flex shrink-0 snap-start flex-col items-center gap-3"
-                style={index === 0 ? firstItemInsetStyle : undefined}
-              >
-                <div className="relative h-28 w-28 sm:h-32 sm:w-32">
-                  <Image
-                    src={category.src}
-                    alt={`Categoría ${category.name}`}
-                    fill
-                    className="object-contain transition-transform duration-300 group-hover:scale-110"
-                  />
-                </div>
-                <span className="text-sm font-medium text-neutral-900">
-                  {category.name}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Banner — compra en línea, recoge en tienda + carrusel de productos */}
+      {/* Banner — compra en línea, recoge en tienda + productos destacados (grid estática, sin carrusel) */}
       <section className="mx-auto mt-12 max-w-6xl bg-white sm:mt-16">
         <div className="overflow-hidden rounded-sm border border-neutral-200 bg-[#79992C]">
           <div className="grid grid-cols-1 items-center bg-[#117C2E] lg:grid-cols-2">
@@ -359,23 +100,11 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Carrusel de productos — fondo #79992C, cards en blanco */}
-          <div className="py-10 sm:py-12">
-            <div
-              ref={productsScrollRef}
-              className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
-            >
-              {products.map((product, index) => (
-                <div
-                  key={product.id}
-                  className="w-48 shrink-0 snap-start sm:w-56"
-                  style={{
-                    ...(index === 0 ? firstItemInsetStyle : {}),
-                    ...(index === products.length - 1 ? lastItemInsetStyle : {}),
-                  }}
-                >
-                  <ProductCard {...product} variant="light" />
-                </div>
+          {/* Productos destacados — grid estática, sin scroll ni snap */}
+          <div className="px-6 py-10 sm:px-10 sm:py-12">
+            <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
+              {products.map((product) => (
+                <ProductCard key={product.id} {...product} variant="light" />
               ))}
             </div>
           </div>

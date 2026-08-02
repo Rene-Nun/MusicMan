@@ -30,8 +30,24 @@ const brands = [
 ];
 
 const banners = [
-  { name: "Banner", src: "/Banner.PNG" },
-  { name: "Fest", src: "/Fest.PNG" },
+  {
+    name: "Banner",
+    src: "/Banner.PNG",
+    overlay: {
+      variant: "gradient" as const,
+      title: "Si no lo tenemos, lo conseguimos",
+      subtitle: "Déjanos la búsqueda a nosotros",
+      cta: "Hacer pedido",
+    },
+  },
+  {
+    name: "Fest",
+    src: "/Fest.PNG",
+    overlay: {
+      variant: "badge" as const,
+      cta: "Saber más",
+    },
+  },
   { name: "Sucursales", src: "/Sucursales.PNG" },
 ];
 
@@ -90,15 +106,37 @@ export default function Home() {
 
       {/* Banners promocionales — altura fija, ancho automático según su proporción real (sin recortar y sin franjas en blanco) */}
       <section className="mx-auto mt-6 max-w-6xl bg-white px-6 sm:mt-8">
-        <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+        <div className="flex snap-x snap-mandatory gap-1 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {banners.map((banner) => (
             <a
               key={banner.name}
               href="#catalogo"
-              className="h-52 shrink-0 snap-start overflow-hidden rounded-sm sm:h-60 lg:h-64"
+              className="relative h-52 shrink-0 snap-start overflow-hidden rounded-sm sm:h-60 lg:h-64"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={banner.src} alt={banner.name} className="h-full w-auto" />
+
+              {banner.overlay?.variant === "gradient" && (
+                <div className="absolute inset-0 flex flex-col justify-center gap-2 bg-gradient-to-r from-black/75 via-black/40 to-transparent px-6 sm:px-8">
+                  <h3 className="max-w-[60%] font-display text-lg font-bold leading-snug text-white sm:text-xl lg:text-2xl">
+                    {banner.overlay.title}
+                  </h3>
+                  <p className="max-w-[60%] text-xs text-white/80 sm:text-sm">
+                    {banner.overlay.subtitle}
+                  </p>
+                  <span className="mt-2 inline-flex w-fit items-center gap-2 text-xs font-semibold uppercase tracking-wide text-white sm:text-sm">
+                    {banner.overlay.cta}
+                    <span aria-hidden="true">→</span>
+                  </span>
+                </div>
+              )}
+
+              {banner.overlay?.variant === "badge" && (
+                <span className="absolute bottom-4 left-4 inline-flex w-fit items-center gap-1.5 rounded-full bg-black/70 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-white sm:text-sm">
+                  {banner.overlay.cta}
+                  <span aria-hidden="true">→</span>
+                </span>
+              )}
             </a>
           ))}
         </div>

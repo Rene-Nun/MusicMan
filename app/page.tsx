@@ -111,15 +111,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Banners promocionales — Alineación CSS Matemática */}
+      {/* Banners promocionales */}
       <section className="mt-6 w-full bg-white sm:mt-8">
-        <div 
-          className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
-          style={{
-            paddingLeft: "max(1.5rem, calc(50% - 552px))",
-            paddingRight: "max(1.5rem, calc(50% - 552px))"
-          }}
-        >
+        <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 px-6 [@media(min-width:1152px)]:px-[calc(50%-552px)] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {banners.map((banner) => (
             <a
               key={banner.name}
@@ -165,7 +159,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Carrusel de Categorías — Alineación CSS Matemática */}
+      {/* Carrusel de Categorías */}
       <section className="mt-12 w-full bg-white sm:mt-16">
         <div className="mx-auto max-w-6xl px-6">
           <h2 className="mb-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
@@ -173,13 +167,7 @@ export default function Home() {
           </h2>
         </div>
         
-        <div 
-          className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
-          style={{
-            paddingLeft: "max(1.5rem, calc(50% - 552px))",
-            paddingRight: "max(1.5rem, calc(50% - 552px))"
-          }}
-        >
+        <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 px-6 [@media(min-width:1152px)]:px-[calc(50%-552px)] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {categories.map((category, index) => (
             <div key={index} className="group flex shrink-0 snap-start flex-col items-center gap-3">
               <div className="relative h-28 w-28 sm:h-32 sm:w-32">

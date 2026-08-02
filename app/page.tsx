@@ -71,13 +71,17 @@ const rightBleed = "max(1.5rem, calc((100vw - 1152px) / 2 + 1.5rem))";
 // de navegador y garantiza que el primer elemento real del carrusel quede
 // exactamente alineado con el borde del hero.
 //
-// Usamos clases de Tailwind (no rem calculado en JS) para que el valor sea
-// idéntico, sin redondeos, al que genera "sm:px-6" en el hero. El "lg:w-9"
-// agrega un empujón extra (+0.75rem / 12px) solo en desktop, donde el
-// carrusel se veía un poco más a la izquierda que el hero. Si en tu pantalla
-// todavía no queda perfecto, ajusta solo ese valor (w-9 → w-8 o w-10).
+// IMPORTANTE: "w-6" es una clase real de la escala de Tailwind (1.5rem/24px),
+// pero números fuera de esa escala (como el "w-50" que probaste) NO generan
+// ningún CSS — Tailwind los ignora en silencio, por eso no se movía nada.
+// Para valores libres hay que usar la sintaxis de corchetes "w-[Npx]", que
+// siempre se genera sin importar el número.
+//
+// Empieza probando un valor exagerado como lg:w-[120px] para confirmar que
+// SÍ se mueve. Una vez confirmado, baja el número hasta que quede alineado
+// con el borde del hero (prueba en pasos de 8px).
 function LeftSpacer() {
-  return <div className="w-6 shrink-0 lg:w-50" aria-hidden="true" />;
+  return <div className="w-6 shrink-0 lg:w-[64px]" aria-hidden="true" />;
 }
 
 export default function Home() {

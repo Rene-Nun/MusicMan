@@ -106,84 +106,85 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Banners - Alineado con el logo del header */}
+      {/* Banners - SIN BORDES */}
       <section className="mt-6 bg-white sm:mt-8">
         <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-          <div className="flex gap-3 pl-6 pr-0">
-            {banners.map((banner) => (
-              <a
-                key={banner.name}
-                href="#catalogo"
-                className="relative h-52 shrink-0 snap-start overflow-hidden rounded-sm sm:h-60 lg:h-64 last:pr-6"
-              >
-                <img src={banner.src} alt={banner.name} className="h-full w-auto" />
+          {banners.map((banner, index) => (
+            <a
+              key={banner.name}
+              href="#catalogo"
+              className={`relative h-52 shrink-0 snap-start overflow-hidden rounded-sm sm:h-60 lg:h-64 ${
+                index === 0 ? "pl-6" : ""
+              } ${index === banners.length - 1 ? "pr-6" : ""}`}
+            >
+              <img src={banner.src} alt={banner.name} className="h-full w-auto" />
 
-                {banner.overlay?.variant === "gradient" && (
-                  <div className="absolute inset-0 flex flex-col justify-center gap-2 bg-gradient-to-r from-black/75 via-black/40 to-transparent px-6 sm:px-8">
-                    <h3 className="max-w-[60%] font-display text-lg font-bold leading-snug text-white sm:text-xl lg:text-2xl">
-                      {banner.overlay.title}
-                    </h3>
-                    <p className="max-w-[60%] text-xs text-white/80 sm:text-sm">
-                      {banner.overlay.subtitle}
-                    </p>
-                    <span className="mt-2 inline-flex w-fit items-center gap-2 text-xs font-semibold uppercase tracking-wide text-white sm:text-sm">
-                      {banner.overlay.cta}
-                      <span aria-hidden="true">→</span>
-                    </span>
-                  </div>
-                )}
-
-                {banner.overlay?.variant === "badge" && (
-                  <>
-                    <div className="absolute inset-0 bg-black/40" />
-                    <span className="absolute bottom-4 left-1/2 inline-flex w-fit -translate-x-1/2 items-center gap-1.5 rounded-full bg-white px-4 py-2 text-xs font-semibold uppercase tracking-wide text-neutral-900 sm:text-sm">
-                      {banner.overlay.cta}
-                      <span aria-hidden="true">→</span>
-                    </span>
-                  </>
-                )}
-
-                {banner.overlay?.variant === "cta-only" && (
-                  <span className="absolute bottom-4 right-4 inline-flex w-fit items-center gap-2 text-xs font-semibold uppercase tracking-wide text-white drop-shadow sm:text-sm">
+              {banner.overlay?.variant === "gradient" && (
+                <div className="absolute inset-0 flex flex-col justify-center gap-2 bg-gradient-to-r from-black/75 via-black/40 to-transparent px-6 sm:px-8">
+                  <h3 className="max-w-[60%] font-display text-lg font-bold leading-snug text-white sm:text-xl lg:text-2xl">
+                    {banner.overlay.title}
+                  </h3>
+                  <p className="max-w-[60%] text-xs text-white/80 sm:text-sm">
+                    {banner.overlay.subtitle}
+                  </p>
+                  <span className="mt-2 inline-flex w-fit items-center gap-2 text-xs font-semibold uppercase tracking-wide text-white sm:text-sm">
                     {banner.overlay.cta}
                     <span aria-hidden="true">→</span>
                   </span>
-                )}
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Categorías - Alineado con el logo del header */}
-      <section className="mt-12 bg-white sm:mt-16">
-        <div className="pl-6 pr-0">
-          <h2 className="mb-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
-            Nuestros productos
-          </h2>
-        </div>
-        <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-          <div className="flex gap-6 pl-6 pr-0">
-            {categories.map((category, index) => (
-              <div key={index} className="group flex shrink-0 snap-start flex-col items-center gap-3 last:pr-6">
-                <div className="relative h-28 w-28 sm:h-32 sm:w-32">
-                  <Image
-                    src={category.src}
-                    alt={`Categoría ${category.name}`}
-                    fill
-                    className="object-contain transition-transform duration-300 group-hover:scale-110"
-                  />
                 </div>
-                <span className="text-sm font-medium text-neutral-900">
-                  {category.name}
+              )}
+
+              {banner.overlay?.variant === "badge" && (
+                <>
+                  <div className="absolute inset-0 bg-black/40" />
+                  <span className="absolute bottom-4 left-1/2 inline-flex w-fit -translate-x-1/2 items-center gap-1.5 rounded-full bg-white px-4 py-2 text-xs font-semibold uppercase tracking-wide text-neutral-900 sm:text-sm">
+                    {banner.overlay.cta}
+                    <span aria-hidden="true">→</span>
+                  </span>
+                </>
+              )}
+
+              {banner.overlay?.variant === "cta-only" && (
+                <span className="absolute bottom-4 right-4 inline-flex w-fit items-center gap-2 text-xs font-semibold uppercase tracking-wide text-white drop-shadow sm:text-sm">
+                  {banner.overlay.cta}
+                  <span aria-hidden="true">→</span>
                 </span>
-              </div>
-            ))}
-          </div>
+              )}
+            </a>
+          ))}
         </div>
       </section>
 
-      {/* Banner tienda + productos - Alineado con el logo del header */}
+      {/* Categorías - SIN BORDES */}
+      <section className="mt-12 bg-white sm:mt-16">
+        <h2 className="mb-10 px-6 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          Nuestros productos
+        </h2>
+        <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          {categories.map((category, index) => (
+            <div
+              key={index}
+              className={`group flex shrink-0 snap-start flex-col items-center gap-3 ${
+                index === 0 ? "pl-6" : ""
+              } ${index === categories.length - 1 ? "pr-6" : ""}`}
+            >
+              <div className="relative h-28 w-28 sm:h-32 sm:w-32">
+                <Image
+                  src={category.src}
+                  alt={`Categoría ${category.name}`}
+                  fill
+                  className="object-contain transition-transform duration-300 group-hover:scale-110"
+                />
+              </div>
+              <span className="text-sm font-medium text-neutral-900">
+                {category.name}
+              </span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Banner tienda + productos - SIN BORDES */}
       <section className="mt-12 bg-white sm:mt-16">
         <div className="mx-6 overflow-hidden rounded-sm border border-neutral-200 bg-[#79992C]">
           <div className="grid grid-cols-1 items-center bg-[#117C2E] lg:grid-cols-2">
@@ -215,19 +216,22 @@ export default function Home() {
 
           <div className="py-10 sm:py-12">
             <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-              <div className="flex gap-6 pl-6 pr-0">
-                {products.map((product) => (
-                  <div key={product.id} className="w-48 shrink-0 snap-start sm:w-56 last:pr-6">
-                    <ProductCard {...product} variant="light" />
-                  </div>
-                ))}
-              </div>
+              {products.map((product, index) => (
+                <div
+                  key={product.id}
+                  className={`w-48 shrink-0 snap-start sm:w-56 ${
+                    index === 0 ? "pl-6" : ""
+                  } ${index === products.length - 1 ? "pr-6" : ""}`}
+                >
+                  <ProductCard {...product} variant="light" />
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Marcas - Alineado con el logo del header */}
+      {/* Marcas */}
       <section className="mt-12 bg-white px-6 py-4 sm:mt-16">
         <h2 className="mb-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
           Explora por marca
@@ -254,7 +258,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Escaparate - Alineado con el logo del header */}
+      {/* Escaparate */}
       <section id="catalogo" className="bg-white px-6 py-16 sm:py-20">
         <div className="mb-10 flex items-end justify-between border-b border-neutral-200 pb-6">
           <div>

@@ -1,3 +1,13 @@
+:root {
+  --container-pad: 0px;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --container-pad: 1.5rem;
+  }
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

@@ -132,10 +132,12 @@ export default function Home() {
       <section className="mt-6 bg-white sm:mt-8">
         <div className="mx-auto max-w-6xl">
           <div
-            className={`flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] ${leftInsetClass}`}
+            className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
             style={{
               marginRight: `calc(-1 * ${rightBleed})`,
               paddingRight: rightBleed,
+              paddingLeft: "80px",
+              backgroundColor: "yellow",
             }}
           >
             {banners.map((banner) => (

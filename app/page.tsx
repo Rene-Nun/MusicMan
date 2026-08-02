@@ -113,20 +113,18 @@ export default function Home() {
 
       {/* Banners promocionales */}
       <section className="mt-6 w-full bg-white sm:mt-8">
-        <div className="flex snap-x snap-mandatory overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+        {/* Aquí está la magia: scroll-pl-6 asegura el snap correcto, y usamos la sintaxis válida con guiones bajos */}
+        <div className="flex snap-x snap-mandatory overflow-x-auto pb-2 scroll-pl-6 min-[1152px]:scroll-pl-[calc(50vw_-_552px)] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           
-          {/* Espaciador Físico Izquierdo (Garantiza alineación) */}
-          <div 
-            className="shrink-0" 
-            style={{ width: "max(1.5rem, calc(50vw - 552px))" }} 
-            aria-hidden="true" 
-          />
+          <div className="w-6 shrink-0 min-[1152px]:w-[calc(50vw_-_552px)]" aria-hidden="true"></div>
 
-          {banners.map((banner) => (
+          {banners.map((banner, index) => (
             <a
               key={banner.name}
               href="#catalogo"
-              className="mr-3 relative h-52 shrink-0 snap-start overflow-hidden rounded-sm sm:h-60 lg:h-64"
+              className={`relative h-52 shrink-0 snap-start overflow-hidden rounded-sm sm:h-60 lg:h-64 ${
+                index !== banners.length - 1 ? "mr-3" : ""
+              }`}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={banner.src} alt={banner.name} className="h-full w-auto" />
@@ -165,12 +163,7 @@ export default function Home() {
             </a>
           ))}
 
-          {/* Espaciador Físico Derecho */}
-          <div 
-            className="shrink-0" 
-            style={{ width: "max(1.5rem, calc(50vw - 552px))" }} 
-            aria-hidden="true" 
-          />
+          <div className="w-6 shrink-0 min-[1152px]:w-[calc(50vw_-_552px)]" aria-hidden="true"></div>
         </div>
       </section>
 
@@ -182,17 +175,18 @@ export default function Home() {
           </h2>
         </div>
         
-        <div className="flex snap-x snap-mandatory overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+        {/* Exactamente el mismo control de scroll-padding */}
+        <div className="flex snap-x snap-mandatory overflow-x-auto pb-4 scroll-pl-6 min-[1152px]:scroll-pl-[calc(50vw_-_552px)] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           
-          {/* Espaciador Físico Izquierdo (Garantiza alineación) */}
-          <div 
-            className="shrink-0" 
-            style={{ width: "max(1.5rem, calc(50vw - 552px))" }} 
-            aria-hidden="true" 
-          />
+          <div className="w-6 shrink-0 min-[1152px]:w-[calc(50vw_-_552px)]" aria-hidden="true"></div>
 
           {categories.map((category, index) => (
-            <div key={index} className="mr-6 group flex shrink-0 snap-start flex-col items-center gap-3">
+            <div 
+              key={index} 
+              className={`group flex shrink-0 snap-start flex-col items-center gap-3 ${
+                index !== categories.length - 1 ? "mr-6" : ""
+              }`}
+            >
               <div className="relative h-28 w-28 sm:h-32 sm:w-32">
                 <Image
                   src={category.src}
@@ -207,12 +201,7 @@ export default function Home() {
             </div>
           ))}
 
-          {/* Espaciador Físico Derecho */}
-          <div 
-            className="shrink-0" 
-            style={{ width: "max(1.5rem, calc(50vw - 552px))" }} 
-            aria-hidden="true" 
-          />
+          <div className="w-6 shrink-0 min-[1152px]:w-[calc(50vw_-_552px)]" aria-hidden="true"></div>
         </div>
       </section>
 

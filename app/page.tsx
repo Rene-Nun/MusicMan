@@ -1,6 +1,9 @@
+"use client";
+
 import ProductCard from "@/components/ProductCard";
 import { products } from "@/lib/mockData";
 import Image from "next/image";
+import { useLayoutEffect, useRef } from "react";
 
 const categories = [
   { name: "Guitarras", src: "/Guitarras.PNG" },
@@ -75,7 +78,54 @@ const rightBleed = "max(1.5rem, calc((100vw - 1152px) / 2 + 1.5rem))";
 // margen es parte de ese mismo elemento, Safari no lo puede saltar.
 const leftInsetFirstItemClass = "ml-6 lg:ml-16";
 
+/**
+ * Fix para el bug de Safari/iOS donde el navegador reposiciona el scroll
+ * horizontal de un contenedor con overflow-x-auto justo después de que
+ * carga la página, sin importar qué CSS (padding, margin, spacer) se le
+ * haya puesto antes del primer elemento.
+ *
+ * Como es un comportamiento del navegador que ocurre DESPUÉS del render,
+ * ningún CSS puede prevenirlo de forma confiable — hay que forzar
+ * scrollLeft = 0 con JavaScript después de que el navegador termine de
+ * "corregir" el scroll por su cuenta.
+ *
+ * Se fuerza en 3 momentos porque el reposicionamiento de Safari no siempre
+ * ocurre en el mismo punto del ciclo de carga:
+ *  1. Inmediatamente (useLayoutEffect, antes del paint)
+ *  2. En el siguiente frame (requestAnimationFrame)
+ *  3. Con un pequeño retraso (setTimeout), por si Safari ajusta el scroll
+ *     después de que las imágenes terminen de cargar/reflow
+ */
+function useScrollResetFix<T extends HTMLElement>() {
+  const ref = useRef<T>(null);
+
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const forceReset = () => {
+      if (el) el.scrollLeft = 0;
+    };
+
+    forceReset();
+
+    const raf = requestAnimationFrame(forceReset);
+    const timeout = setTimeout(forceReset, 150);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(timeout);
+    };
+  }, []);
+
+  return ref;
+}
+
 export default function Home() {
+  const bannersScrollRef = useScrollResetFix<HTMLDivElement>();
+  const categoriesScrollRef = useScrollResetFix<HTMLDivElement>();
+  const productsScrollRef = useScrollResetFix<HTMLDivElement>();
+
   return (
     <main className="min-h-screen bg-white">
       {/* Hero — ahora en formato 16:9 dentro de un contenedor (no a pantalla completa) */}
@@ -133,6 +183,7 @@ export default function Home() {
       <section className="mt-6 bg-white sm:mt-8">
         <div className="mx-auto max-w-6xl">
           <div
+            ref={bannersScrollRef}
             className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
             style={{
               marginRight: `calc(-1 * ${rightBleed})`,
@@ -194,6 +245,7 @@ export default function Home() {
         </h2>
         <div className="mx-auto max-w-6xl">
           <div
+            ref={categoriesScrollRef}
             className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
             style={{
               marginRight: `calc(-1 * ${rightBleed})`,
@@ -256,7 +308,10 @@ export default function Home() {
 
           {/* Carrusel de productos — fondo #79992C, cards en blanco */}
           <div className="py-10 sm:py-12">
-            <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            <div
+              ref={productsScrollRef}
+              className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+            >
               {products.map((product, index) => (
                 <div
                   key={product.id}

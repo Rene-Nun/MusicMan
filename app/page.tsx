@@ -70,10 +70,14 @@ const rightBleed = "max(1.5rem, calc((100vw - 1152px) / 2 + 1.5rem))";
 // "espaciador" invisible de primer hijo del flex. Esto es a prueba de bugs
 // de navegador y garantiza que el primer elemento real del carrusel quede
 // exactamente alineado con el borde del hero.
-const leftInset = "1.5rem";
-
+//
+// Usamos clases de Tailwind (no rem calculado en JS) para que el valor sea
+// idéntico, sin redondeos, al que genera "sm:px-6" en el hero. El "lg:w-9"
+// agrega un empujón extra (+0.75rem / 12px) solo en desktop, donde el
+// carrusel se veía un poco más a la izquierda que el hero. Si en tu pantalla
+// todavía no queda perfecto, ajusta solo ese valor (w-9 → w-8 o w-10).
 function LeftSpacer() {
-  return <div style={{ width: leftInset, flexShrink: 0 }} aria-hidden="true" />;
+  return <div className="w-6 shrink-0 lg:w-9" aria-hidden="true" />;
 }
 
 export default function Home() {

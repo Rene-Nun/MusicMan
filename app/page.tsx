@@ -1,4 +1,5 @@
 import ProductCard from "@/components/ProductCard";
+import BannerCarousel from "@/components/BannerCarousel";
 import { products } from "@/lib/mockData";
 import Image from "next/image";
 
@@ -69,6 +70,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <BannerCarousel />
 
       {/* Banner — compra en línea, recoge en tienda + productos destacados (grid estática, sin carrusel) */}
       <section className="mx-auto mt-12 max-w-6xl bg-white sm:mt-16">

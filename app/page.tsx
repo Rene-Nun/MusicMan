@@ -30,9 +30,9 @@ const brands = [
 ];
 
 const banners = [
+  { name: "Banner", src: "/Banner.PNG" },
   { name: "Fest", src: "/Fest.PNG" },
   { name: "Sucursales", src: "/Sucursales.PNG" },
-  { name: "Banner", src: "/Banner.PNG" },
 ];
 
 export default function Home() {
@@ -90,7 +90,7 @@ export default function Home() {
 
       {/* Banners promocionales — altura fija, ancho automático según su proporción real (sin recortar y sin franjas en blanco) */}
       <section className="mx-auto mt-6 max-w-6xl bg-white px-6 sm:mt-8">
-        <div className="flex snap-x snap-mandatory gap-1 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+        <div className="flex snap-x snap-mandatory gap-2 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {banners.map((banner) => (
             <a
               key={banner.name}

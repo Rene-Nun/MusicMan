@@ -111,22 +111,22 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Banners promocionales — HACK WEB-KIT (MARGEN EN ELEMENTO) */}
+      {/* Banners promocionales */}
       <section className="mt-6 w-full bg-white sm:mt-8">
         <div className="flex snap-x snap-mandatory overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-          {banners.map((banner, index) => (
+          
+          {/* Espaciador Físico Izquierdo (Garantiza alineación) */}
+          <div 
+            className="shrink-0" 
+            style={{ width: "max(1.5rem, calc(50vw - 552px))" }} 
+            aria-hidden="true" 
+          />
+
+          {banners.map((banner) => (
             <a
               key={banner.name}
               href="#catalogo"
-              className={`relative h-52 shrink-0 snap-start overflow-hidden rounded-sm sm:h-60 lg:h-64 ${
-                index === 0
-                  ? "ml-6 min-[1152px]:ml-[calc(50vw-552px)]"
-                  : "ml-3"
-              } ${
-                index === banners.length - 1
-                  ? "mr-6 min-[1152px]:mr-[calc(50vw-552px)]"
-                  : ""
-              }`}
+              className="mr-3 relative h-52 shrink-0 snap-start overflow-hidden rounded-sm sm:h-60 lg:h-64"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={banner.src} alt={banner.name} className="h-full w-auto" />
@@ -164,10 +164,17 @@ export default function Home() {
               )}
             </a>
           ))}
+
+          {/* Espaciador Físico Derecho */}
+          <div 
+            className="shrink-0" 
+            style={{ width: "max(1.5rem, calc(50vw - 552px))" }} 
+            aria-hidden="true" 
+          />
         </div>
       </section>
 
-      {/* Carrusel de Categorías — HACK WEB-KIT (MARGEN EN ELEMENTO) */}
+      {/* Carrusel de Categorías */}
       <section className="mt-12 w-full bg-white sm:mt-16">
         <div className="mx-auto max-w-6xl px-6">
           <h2 className="mb-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
@@ -176,19 +183,16 @@ export default function Home() {
         </div>
         
         <div className="flex snap-x snap-mandatory overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          
+          {/* Espaciador Físico Izquierdo (Garantiza alineación) */}
+          <div 
+            className="shrink-0" 
+            style={{ width: "max(1.5rem, calc(50vw - 552px))" }} 
+            aria-hidden="true" 
+          />
+
           {categories.map((category, index) => (
-            <div 
-              key={index} 
-              className={`group flex shrink-0 snap-start flex-col items-center gap-3 ${
-                index === 0
-                  ? "ml-6 min-[1152px]:ml-[calc(50vw-552px)]"
-                  : "ml-6"
-              } ${
-                index === categories.length - 1
-                  ? "mr-6 min-[1152px]:mr-[calc(50vw-552px)]"
-                  : ""
-              }`}
-            >
+            <div key={index} className="mr-6 group flex shrink-0 snap-start flex-col items-center gap-3">
               <div className="relative h-28 w-28 sm:h-32 sm:w-32">
                 <Image
                   src={category.src}
@@ -202,6 +206,13 @@ export default function Home() {
               </span>
             </div>
           ))}
+
+          {/* Espaciador Físico Derecho */}
+          <div 
+            className="shrink-0" 
+            style={{ width: "max(1.5rem, calc(50vw - 552px))" }} 
+            aria-hidden="true" 
+          />
         </div>
       </section>
 

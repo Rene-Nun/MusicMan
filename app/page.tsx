@@ -112,80 +112,74 @@ export default function Home() {
       </section>
 
       {/* Banners promocionales — altura fija, ancho automático según su proporción real (sin recortar y sin franjas en blanco) */}
-      <section className="mt-6 sm:mt-8">
-        <div className="relative left-1/2 right-1/2 w-screen -translate-x-1/2">
-          <div className="flex snap-x snap-mandatory gap-1 overflow-x-auto px-6 pb-2 sm:px-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-            {banners.map((banner) => (
-              <a
-                key={banner.name}
-                href="#catalogo"
-                className="relative h-52 shrink-0 snap-start overflow-hidden rounded-sm sm:h-60 lg:h-64"
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={banner.src} alt={banner.name} className="h-full w-auto" />
+      <section className="mx-auto mt-6 max-w-6xl bg-white px-6 sm:mt-8">
+        <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          {banners.map((banner) => (
+            <a
+              key={banner.name}
+              href="#catalogo"
+              className="relative h-52 shrink-0 snap-start overflow-hidden rounded-sm sm:h-60 lg:h-64"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={banner.src} alt={banner.name} className="h-full w-auto" />
 
-                {banner.overlay?.variant === "gradient" && (
-                  <div className="absolute inset-0 flex flex-col justify-center gap-2 bg-gradient-to-r from-black/75 via-black/40 to-transparent px-6 sm:px-8">
-                    <h3 className="max-w-[60%] font-display text-lg font-bold leading-snug text-white sm:text-xl lg:text-2xl">
-                      {banner.overlay.title}
-                    </h3>
-                    <p className="max-w-[60%] text-xs text-white/80 sm:text-sm">
-                      {banner.overlay.subtitle}
-                    </p>
-                    <span className="mt-2 inline-flex w-fit items-center gap-2 text-xs font-semibold uppercase tracking-wide text-white sm:text-sm">
-                      {banner.overlay.cta}
-                      <span aria-hidden="true">→</span>
-                    </span>
-                  </div>
-                )}
-
-                {banner.overlay?.variant === "badge" && (
-                  <>
-                    <div className="absolute inset-0 bg-black/40" />
-                    <span className="absolute bottom-4 left-1/2 inline-flex w-fit -translate-x-1/2 items-center gap-1.5 rounded-full bg-white px-4 py-2 text-xs font-semibold uppercase tracking-wide text-neutral-900 sm:text-sm">
-                      {banner.overlay.cta}
-                      <span aria-hidden="true">→</span>
-                    </span>
-                  </>
-                )}
-
-                {banner.overlay?.variant === "cta-only" && (
-                  <span className="absolute bottom-4 right-4 inline-flex w-fit items-center gap-2 text-xs font-semibold uppercase tracking-wide text-white drop-shadow sm:text-sm">
+              {banner.overlay?.variant === "gradient" && (
+                <div className="absolute inset-0 flex flex-col justify-center gap-2 bg-gradient-to-r from-black/75 via-black/40 to-transparent px-6 sm:px-8">
+                  <h3 className="max-w-[60%] font-display text-lg font-bold leading-snug text-white sm:text-xl lg:text-2xl">
+                    {banner.overlay.title}
+                  </h3>
+                  <p className="max-w-[60%] text-xs text-white/80 sm:text-sm">
+                    {banner.overlay.subtitle}
+                  </p>
+                  <span className="mt-2 inline-flex w-fit items-center gap-2 text-xs font-semibold uppercase tracking-wide text-white sm:text-sm">
                     {banner.overlay.cta}
                     <span aria-hidden="true">→</span>
                   </span>
-                )}
-              </a>
-            ))}
-          </div>
+                </div>
+              )}
+
+              {banner.overlay?.variant === "badge" && (
+                <>
+                  <div className="absolute inset-0 bg-black/40" />
+                  <span className="absolute bottom-4 left-1/2 inline-flex w-fit -translate-x-1/2 items-center gap-1.5 rounded-full bg-white px-4 py-2 text-xs font-semibold uppercase tracking-wide text-neutral-900 sm:text-sm">
+                    {banner.overlay.cta}
+                    <span aria-hidden="true">→</span>
+                  </span>
+                </>
+              )}
+
+              {banner.overlay?.variant === "cta-only" && (
+                <span className="absolute bottom-4 right-4 inline-flex w-fit items-center gap-2 text-xs font-semibold uppercase tracking-wide text-white drop-shadow sm:text-sm">
+                  {banner.overlay.cta}
+                  <span aria-hidden="true">→</span>
+                </span>
+              )}
+            </a>
+          ))}
         </div>
       </section>
 
       {/* Carrusel de Categorías (Movido debajo del Hero) */}
-      <section className="mt-12 sm:mt-16">
-        <div className="mx-auto max-w-6xl px-6">
-          <h2 className="mb-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
-            Nuestros productos
-          </h2>
-        </div>
-        <div className="relative left-1/2 right-1/2 w-screen -translate-x-1/2">
-          <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto px-6 pb-4 sm:px-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-            {categories.map((category, index) => (
-              <div key={index} className="group flex shrink-0 snap-start flex-col items-center gap-3">
-                <div className="relative h-28 w-28 sm:h-32 sm:w-32">
-                  <Image
-                    src={category.src}
-                    alt={`Categoría ${category.name}`}
-                    fill
-                    className="object-contain transition-transform duration-300 group-hover:scale-110"
-                  />
-                </div>
-                <span className="text-sm font-medium text-neutral-900">
-                  {category.name}
-                </span>
+      <section className="mx-auto mt-12 max-w-6xl bg-white px-6 sm:mt-16">
+        <h2 className="mb-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          Nuestros productos
+        </h2>
+        <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          {categories.map((category, index) => (
+            <div key={index} className="group flex shrink-0 snap-start flex-col items-center gap-3">
+              <div className="relative h-28 w-28 sm:h-32 sm:w-32">
+                <Image
+                  src={category.src}
+                  alt={`Categoría ${category.name}`}
+                  fill
+                  className="object-contain transition-transform duration-300 group-hover:scale-110"
+                />
               </div>
-            ))}
-          </div>
+              <span className="text-sm font-medium text-neutral-900">
+                {category.name}
+              </span>
+            </div>
+          ))}
         </div>
       </section>
 

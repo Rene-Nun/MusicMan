@@ -88,22 +88,17 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Banners promocionales — cards pequeñas en carrusel, ~2 y fracción visibles en desktop, sin recortar las imágenes */}
+      {/* Banners promocionales — altura fija, ancho automático según su proporción real (sin recortar y sin franjas en blanco) */}
       <section className="mx-auto mt-6 max-w-6xl bg-white px-6 sm:mt-8">
         <div className="flex snap-x snap-mandatory gap-0 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {banners.map((banner) => (
             <a
               key={banner.name}
               href="#catalogo"
-              className="relative h-52 w-[88%] shrink-0 snap-start overflow-hidden rounded-sm sm:h-60 sm:w-[64%] lg:h-64 lg:w-[47%]"
+              className="h-52 shrink-0 snap-start overflow-hidden rounded-sm sm:h-60 lg:h-64"
             >
-              <Image
-                src={banner.src}
-                alt={banner.name}
-                fill
-                sizes="(min-width: 1024px) 47vw, (min-width: 640px) 64vw, 88vw"
-                className="object-contain"
-              />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={banner.src} alt={banner.name} className="h-full w-auto" />
             </a>
           ))}
         </div>

@@ -76,16 +76,17 @@ const rightBleed = "max(1.5rem, calc((100vw - 1152px) / 2 + 1.5rem))";
 // deslizar manualmente. La solución que sí funciona: poner el margen
 // directamente en el PRIMER ELEMENTO REAL (el que tiene snap-start). Como el
 // margen es parte de ese mismo elemento, Safari no lo puede saltar.
-// IMPORTANTE: estos breakpoints deben coincidir EXACTAMENTE con los del
-// hero ("px-0 sm:px-6" — ver más abajo). Antes este valor era
-// "ml-6 lg:ml-16", que no coincidía con el hero en ningún punto: en mobile
-// el hero tiene 0px de inset pero esto tenía 24px, y al cruzar el
-// breakpoint lg (1024px) esto saltaba a 64px mientras el hero se quedaba en
-// 24px. Ese desfase es lo que se ve al cambiar el ancho de la ventana
-// (Slide Over / Split View / pantalla completa en iPad): el carrusel y el
-// hero dejan de coincidir justo al cruzar 1024px de ancho.
-const leftInsetFirstItemClass = "sm:ml-6";
-const rightInsetLastItemClass = "sm:mr-6";
+// IMPORTANTE: en vez de replicar el mismo breakpoint por separado en el
+// hero (con clases Tailwind px-0 sm:px-6) y en los carruseles (con clases
+// Tailwind ml-6/mr-6), lo que causó dos rondas de desalineación porque cada
+// lado resolvía el breakpoint de forma distinta, ahora AMBOS leen la MISMA
+// variable CSS (--container-pad, definida en globals.css — ver
+// instrucciones al final). El hero la usa como padding, los carruseles la
+// usan como margin en el primer/último ítem. Como es la misma variable,
+// literalmente no pueden desalinearse.
+const containerPadStyle = { paddingLeft: "var(--container-pad)", paddingRight: "var(--container-pad)" } as const;
+const firstItemInsetStyle = { marginLeft: "var(--container-pad)" } as const;
+const lastItemInsetStyle = { marginRight: "var(--container-pad)" } as const;
 
 /**
  * Fix para el bug de Safari/iOS donde el navegador reposiciona el scroll
@@ -184,7 +185,7 @@ export default function Home() {
     <main className="min-h-screen bg-white">
       {/* Hero — ahora en formato 16:9 dentro de un contenedor (no a pantalla completa) */}
       <section className="relative bg-white">
-        <div className="mx-auto max-w-6xl px-0 sm:px-6 sm:pt-8">
+        <div className="mx-auto max-w-6xl sm:pt-8" style={containerPadStyle}>
           <div className="relative overflow-hidden rounded-sm lg:aspect-[16/6]">
             {/* Panel izquierdo: fondo de color con una foto pequeña centrada — solo desktop */}
             <div className="hidden bg-red-600 lg:absolute lg:inset-y-0 lg:left-0 lg:flex lg:w-1/2 lg:items-center lg:justify-center">
@@ -248,9 +249,8 @@ export default function Home() {
               <a
                 key={banner.name}
                 href="#catalogo"
-                className={`relative h-52 shrink-0 snap-start overflow-hidden rounded-sm sm:h-60 lg:h-64 ${
-                  index === 0 ? leftInsetFirstItemClass : ""
-                }`}
+                className="relative h-52 shrink-0 snap-start overflow-hidden rounded-sm sm:h-60 lg:h-64"
+                style={index === 0 ? firstItemInsetStyle : undefined}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={banner.src} alt={banner.name} className="h-full w-auto" />
@@ -309,9 +309,8 @@ export default function Home() {
             {categories.map((category, index) => (
               <div
                 key={index}
-                className={`group flex shrink-0 snap-start flex-col items-center gap-3 ${
-                  index === 0 ? leftInsetFirstItemClass : ""
-                }`}
+                className="group flex shrink-0 snap-start flex-col items-center gap-3"
+                style={index === 0 ? firstItemInsetStyle : undefined}
               >
                 <div className="relative h-28 w-28 sm:h-32 sm:w-32">
                   <Image
@@ -369,9 +368,11 @@ export default function Home() {
               {products.map((product, index) => (
                 <div
                   key={product.id}
-                  className={`w-48 shrink-0 snap-start sm:w-56 ${
-                    index === 0 ? leftInsetFirstItemClass : ""
-                  } ${index === products.length - 1 ? "mr-6 lg:mr-16" : ""}`}
+                  className="w-48 shrink-0 snap-start sm:w-56"
+                  style={{
+                    ...(index === 0 ? firstItemInsetStyle : {}),
+                    ...(index === products.length - 1 ? lastItemInsetStyle : {}),
+                  }}
                 >
                   <ProductCard {...product} variant="light" />
                 </div>

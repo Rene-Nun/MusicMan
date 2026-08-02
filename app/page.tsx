@@ -80,21 +80,29 @@ const leftInsetFirstItemClass = "ml-6 lg:ml-16";
 
 /**
  * Fix para el bug de Safari/iOS donde el navegador reposiciona el scroll
- * horizontal de un contenedor con overflow-x-auto justo después de que
- * carga la página, sin importar qué CSS (padding, margin, spacer) se le
- * haya puesto antes del primer elemento.
+ * horizontal de un contenedor con overflow-x-auto (con scroll-snap) después
+ * de que carga la página, sin importar qué CSS (padding, margin, spacer) se
+ * le haya puesto antes del primer elemento.
  *
- * Como es un comportamiento del navegador que ocurre DESPUÉS del render,
- * ningún CSS puede prevenirlo de forma confiable — hay que forzar
- * scrollLeft = 0 con JavaScript después de que el navegador termine de
- * "corregir" el scroll por su cuenta.
+ * La primera versión de este fix solo forzaba scrollLeft = 0 en un puñado
+ * de timers cortos (hasta 150ms). Eso no basta cuando los elementos del
+ * carrusel tienen ancho variable que depende de una imagen (como los
+ * banners, con `w-auto` según el aspect ratio real de la imagen): en cuanto
+ * cada <img> termina de decodificar, el ancho del contenido cambia, el
+ * navegador recalcula el snap, y puede volver a mover el scroll — después
+ * de que nuestros timers ya habían corrido.
  *
- * Se fuerza en 3 momentos porque el reposicionamiento de Safari no siempre
- * ocurre en el mismo punto del ciclo de carga:
- *  1. Inmediatamente (useLayoutEffect, antes del paint)
- *  2. En el siguiente frame (requestAnimationFrame)
- *  3. Con un pequeño retraso (setTimeout), por si Safari ajusta el scroll
- *     después de que las imágenes terminen de cargar/reflow
+ * Esta versión resetea scrollLeft en TODOS los eventos que pueden disparar
+ * ese recálculo:
+ *   1. Inmediatamente (useLayoutEffect, antes del paint)
+ *   2. En el siguiente frame (requestAnimationFrame)
+ *   3. En una serie de timers escalonados (hasta 2s), por si acaso
+ *   4. En el evento `load` de CADA <img> dentro del carrusel
+ *   5. En el evento `load` de la ventana completa
+ *   6. Vía ResizeObserver, si el propio contenedor cambia de tamaño
+ *
+ * Y se "apaga" en cuanto detecta que el usuario tocó o hizo scroll manual
+ * (touchstart / wheel), para no pelearle el control al usuario.
  */
 function useScrollResetFix<T extends HTMLElement>() {
   const ref = useRef<T>(null);
@@ -103,18 +111,55 @@ function useScrollResetFix<T extends HTMLElement>() {
     const el = ref.current;
     if (!el) return;
 
+    let userInteracted = false;
+
     const forceReset = () => {
-      if (el) el.scrollLeft = 0;
+      if (el && !userInteracted) {
+        el.scrollLeft = 0;
+      }
     };
 
+    const markInteracted = () => {
+      userInteracted = true;
+    };
+
+    el.addEventListener("touchstart", markInteracted, { passive: true });
+    el.addEventListener("wheel", markInteracted, { passive: true });
+
+    // 1. Inmediato
     forceReset();
 
+    // 2. Siguiente frame
     const raf = requestAnimationFrame(forceReset);
-    const timeout = setTimeout(forceReset, 150);
+
+    // 3. Timers escalonados
+    const timeouts = [50, 150, 300, 600, 1000, 2000].map((delay) =>
+      setTimeout(forceReset, delay)
+    );
+
+    // 4. Load de cada imagen dentro del carrusel (las que aún no cargan)
+    const imgs = Array.from(el.querySelectorAll("img"));
+    imgs.forEach((img) => {
+      if (!img.complete) {
+        img.addEventListener("load", forceReset);
+      }
+    });
+
+    // 5. Load de la ventana completa
+    window.addEventListener("load", forceReset);
+
+    // 6. Cualquier cambio de tamaño del contenedor
+    const resizeObserver = new ResizeObserver(forceReset);
+    resizeObserver.observe(el);
 
     return () => {
       cancelAnimationFrame(raf);
-      clearTimeout(timeout);
+      timeouts.forEach(clearTimeout);
+      imgs.forEach((img) => img.removeEventListener("load", forceReset));
+      window.removeEventListener("load", forceReset);
+      resizeObserver.disconnect();
+      el.removeEventListener("touchstart", markInteracted);
+      el.removeEventListener("wheel", markInteracted);
     };
   }, []);
 

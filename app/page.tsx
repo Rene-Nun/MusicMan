@@ -61,57 +61,55 @@ const banners = [
 export default function Home() {
   return (
     <main className="min-h-screen bg-white">
-      {/* Hero */}
+      {/* Hero - FULL WIDTH */}
       <section className="relative bg-white">
-        <div className="mx-auto max-w-6xl px-0 sm:px-6 sm:pt-8">
-          <div className="relative overflow-hidden rounded-sm lg:aspect-[16/6]">
-            <div className="hidden bg-red-600 lg:absolute lg:inset-y-0 lg:left-0 lg:flex lg:w-1/2 lg:items-center lg:justify-center">
-              <div className="relative aspect-[4/5] w-1/2 overflow-hidden rounded-sm shadow-2xl">
-                <Image
-                  src="/Smallhero.jpg"
-                  alt="Detalle de guitarra acústica Musicman"
-                  fill
-                  sizes="25vw"
-                  className="object-cover"
-                />
-              </div>
-            </div>
-
-            <div className="relative h-72 sm:h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:h-full lg:w-1/2">
+        <div className="relative overflow-hidden lg:aspect-[16/6]">
+          <div className="hidden bg-red-600 lg:absolute lg:inset-y-0 lg:left-0 lg:flex lg:w-1/2 lg:items-center lg:justify-center">
+            <div className="relative aspect-[4/5] w-1/2 overflow-hidden rounded-sm shadow-2xl">
               <Image
-                src="/Bighero.jpg"
-                alt="Guitarra eléctrica disponible en Musicman"
+                src="/Smallhero.jpg"
+                alt="Detalle de guitarra acústica Musicman"
                 fill
-                priority
-                sizes="(min-width: 1024px) 50vw, 100vw"
+                sizes="25vw"
                 className="object-cover"
               />
             </div>
+          </div>
 
-            <div className="relative z-20 mx-auto max-w-xl bg-white px-6 py-12 text-center sm:px-10 sm:py-16 lg:absolute lg:inset-0 lg:mx-auto lg:flex lg:max-w-2xl lg:flex-col lg:items-center lg:justify-center lg:bg-transparent lg:px-0 lg:py-0 lg:text-center">
-              <h1 className="font-display text-4xl leading-tight text-neutral-900 sm:text-5xl lg:text-white">
-                <span className="block font-light italic">Gibson</span>
-                <span className="block font-bold text-white lg:text-white">Historic</span>
-                <span className="block font-bold">Collection</span>
-                <span className="block font-bold">arrives</span>
-              </h1>
+          <div className="relative h-72 sm:h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:h-full lg:w-1/2">
+            <Image
+              src="/Bighero.jpg"
+              alt="Guitarra eléctrica disponible en Musicman"
+              fill
+              priority
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="object-cover"
+            />
+          </div>
 
-              <a
-                href="#catalogo"
-                className="mx-auto mt-8 inline-flex w-fit items-center gap-2 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:text-[#4CA5E4]"
-              >
-                Saber más
-                <span aria-hidden="true">→</span>
-              </a>
-            </div>
+          <div className="relative z-20 mx-auto max-w-xl bg-white px-6 py-12 text-center sm:px-10 sm:py-16 lg:absolute lg:inset-0 lg:mx-auto lg:flex lg:max-w-2xl lg:flex-col lg:items-center lg:justify-center lg:bg-transparent lg:px-0 lg:py-0 lg:text-center">
+            <h1 className="font-display text-4xl leading-tight text-neutral-900 sm:text-5xl lg:text-white">
+              <span className="block font-light italic">Gibson</span>
+              <span className="block font-bold text-white lg:text-white">Historic</span>
+              <span className="block font-bold">Collection</span>
+              <span className="block font-bold">arrives</span>
+            </h1>
+
+            <a
+              href="#catalogo"
+              className="mx-auto mt-8 inline-flex w-fit items-center gap-2 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:text-[#4CA5E4]"
+            >
+              Saber más
+              <span aria-hidden="true">→</span>
+            </a>
           </div>
         </div>
       </section>
 
-      {/* Banners */}
-      <section className="mx-auto mt-6 max-w-6xl bg-white px-6 sm:mt-8">
+      {/* Banners - FULL WIDTH */}
+      <section className="mt-6 bg-white sm:mt-8">
         <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-          <div className="flex gap-3 px-6 -mx-6">
+          <div className="flex gap-3 px-6">
             {banners.map((banner) => (
               <a
                 key={banner.name}
@@ -157,13 +155,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Categorías */}
-      <section className="mx-auto mt-12 max-w-6xl bg-white px-6 sm:mt-16">
-        <h2 className="mb-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
-          Nuestros productos
-        </h2>
+      {/* Categorías - FULL WIDTH */}
+      <section className="mt-12 bg-white sm:mt-16">
+        <div className="px-6">
+          <h2 className="mb-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
+            Nuestros productos
+          </h2>
+        </div>
         <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-          <div className="flex gap-6 px-6 -mx-6">
+          <div className="flex gap-6 px-6">
             {categories.map((category, index) => (
               <div key={index} className="group flex shrink-0 snap-start flex-col items-center gap-3">
                 <div className="relative h-28 w-28 sm:h-32 sm:w-32">
@@ -183,9 +183,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Banner tienda + productos */}
-      <section className="mx-auto mt-12 max-w-6xl bg-white px-6 sm:mt-16">
-        <div className="overflow-hidden rounded-sm border border-neutral-200 bg-[#79992C]">
+      {/* Banner tienda + productos - FULL WIDTH */}
+      <section className="mt-12 bg-white sm:mt-16">
+        <div className="mx-6 overflow-hidden rounded-sm border border-neutral-200 bg-[#79992C]">
           <div className="grid grid-cols-1 items-center bg-[#117C2E] lg:grid-cols-2">
             <div className="px-6 py-12 sm:px-10 sm:py-16">
               <h2 className="font-display text-2xl font-semibold text-white sm:text-3xl">
@@ -215,7 +215,7 @@ export default function Home() {
 
           <div className="py-10 sm:py-12">
             <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-              <div className="flex gap-6 px-6 -mx-6">
+              <div className="flex gap-6 px-6">
                 {products.map((product) => (
                   <div key={product.id} className="w-48 shrink-0 snap-start sm:w-56">
                     <ProductCard {...product} variant="light" />
@@ -227,8 +227,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Marcas */}
-      <section className="mx-auto mt-12 max-w-6xl bg-white px-6 py-4 sm:mt-16">
+      {/* Marcas - FULL WIDTH */}
+      <section className="mt-12 bg-white px-6 py-4 sm:mt-16">
         <h2 className="mb-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
           Explora por marca
         </h2>
@@ -254,8 +254,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Escaparate */}
-      <section id="catalogo" className="mx-auto max-w-6xl bg-white px-6 py-16 sm:py-20">
+      {/* Escaparate - FULL WIDTH */}
+      <section id="catalogo" className="bg-white px-6 py-16 sm:py-20">
         <div className="mb-10 flex items-end justify-between border-b border-neutral-200 pb-6">
           <div>
             <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">

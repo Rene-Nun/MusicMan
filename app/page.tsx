@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const categories = [
   { name: "Guitarras", src: "/Guitarras.PNG" },
-  { name: "Percusión", src: "/Percusion.PNG" }, // <- Ruta sin acento
+  { name: "Percusión", src: "/Percusion.PNG" },
   { name: "Teclados", src: "/Teclados.PNG" },
   { name: "Sonido", src: "/Sonido.PNG" },
   { name: "Aire", src: "/Aire.PNG" },
@@ -61,11 +61,11 @@ const banners = [
 export default function Home() {
   return (
     <main className="min-h-screen bg-white">
-      {/* Hero — ahora en formato 16:9 dentro de un contenedor (no a pantalla completa) */}
+      {/* Hero */}
       <section className="relative bg-white">
         <div className="mx-auto max-w-6xl px-0 sm:px-6 sm:pt-8">
           <div className="relative overflow-hidden rounded-sm lg:aspect-[16/6]">
-            {/* Panel izquierdo: fondo de color con una foto pequeña centrada — solo desktop */}
+            {/* Panel izquierdo */}
             <div className="hidden bg-red-600 lg:absolute lg:inset-y-0 lg:left-0 lg:flex lg:w-1/2 lg:items-center lg:justify-center">
               <div className="relative aspect-[4/5] w-1/2 overflow-hidden rounded-sm shadow-2xl">
                 <Image
@@ -78,7 +78,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Imagen grande a sangre — mobile: bloque superior; desktop: mitad derecha */}
+            {/* Imagen grande */}
             <div className="relative h-72 sm:h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:h-full lg:w-1/2">
               <Image
                 src="/Bighero.jpg"
@@ -90,7 +90,7 @@ export default function Home() {
               />
             </div>
 
-            {/* Contenido: flujo normal en mobile (debajo de la imagen), anclado abajo y centrado sobre el scrim en desktop */}
+            {/* Contenido */}
             <div className="relative z-20 mx-auto max-w-xl bg-white px-6 py-12 text-center sm:px-10 sm:py-16 lg:absolute lg:inset-0 lg:mx-auto lg:flex lg:max-w-2xl lg:flex-col lg:items-center lg:justify-center lg:bg-transparent lg:px-0 lg:py-0 lg:text-center">
               <h1 className="font-display text-4xl leading-tight text-neutral-900 sm:text-5xl lg:text-white">
                 <span className="block font-light italic">Gibson</span>
@@ -111,9 +111,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Banners promocionales — altura fija, ancho automático según su proporción real (sin recortar y sin franjas en blanco) */}
-      <section className="mx-auto mt-6 max-w-6xl bg-white px-6 sm:mt-8">
-        <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+      {/* Banners promocionales */}
+      <section className="mt-6 w-full bg-white sm:mt-8">
+        <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 px-[max(1.5rem,calc((100vw_-_72rem)_/_2_+_1.5rem))] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {banners.map((banner) => (
             <a
               key={banner.name}
@@ -159,12 +159,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Carrusel de Categorías (Movido debajo del Hero) */}
-      <section className="mx-auto mt-12 max-w-6xl bg-white px-6 sm:mt-16">
-        <h2 className="mb-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
-          Nuestros productos
-        </h2>
-        <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+      {/* Carrusel de Categorías */}
+      <section className="mt-12 w-full bg-white sm:mt-16">
+        <div className="mx-auto max-w-6xl px-6">
+          <h2 className="mb-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
+            Nuestros productos
+          </h2>
+        </div>
+        
+        <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 px-[max(1.5rem,calc((100vw_-_72rem)_/_2_+_1.5rem))] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {categories.map((category, index) => (
             <div key={index} className="group flex shrink-0 snap-start flex-col items-center gap-3">
               <div className="relative h-28 w-28 sm:h-32 sm:w-32">
@@ -213,7 +216,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Carrusel de productos — fondo #79992C, cards en blanco */}
+          {/* Carrusel de productos */}
           <div className="px-6 py-10 sm:px-10 sm:py-12">
             <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
               {products.map((product) => (
@@ -225,7 +228,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
 
       {/* Explora nuestras marcas */}
       <section className="mx-auto mt-12 max-w-6xl bg-white px-6 py-4 sm:mt-16">

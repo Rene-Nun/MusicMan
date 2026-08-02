@@ -58,6 +58,12 @@ const banners = [
   },
 ];
 
+// Padding izquierdo que replica dónde arranca el contenido real
+// (el borde de max-w-6xl centrado + el px-6 del resto de secciones).
+// Se saca de Tailwind y se calcula en JS/inline porque Tailwind no
+// logra compilar un calc() anidado dentro de un max() como clase arbitraria.
+const edgeAlignedPaddingLeft = "max(1.5rem, calc((100vw - 1152px) / 2 + 1.5rem))";
+
 export default function Home() {
   return (
     <main className="min-h-screen bg-white">
@@ -114,7 +120,10 @@ export default function Home() {
       {/* Banners promocionales — full-bleed, primer item alineado al resto del contenido */}
       <section className="mt-6 bg-white sm:mt-8">
         <div className="relative left-1/2 w-screen -translate-x-1/2">
-          <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 pl-[max(1.5rem,calc((100vw_-_1152px)/2_+_1.5rem))] pr-6 sm:pr-8 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <div
+            className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 pr-6 sm:pr-8 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+            style={{ paddingLeft: edgeAlignedPaddingLeft }}
+          >
             {banners.map((banner) => (
               <a
                 key={banner.name}
@@ -167,7 +176,10 @@ export default function Home() {
           Nuestros productos
         </h2>
         <div className="relative left-1/2 w-screen -translate-x-1/2">
-          <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 pl-[max(1.5rem,calc((100vw_-_1152px)/2_+_1.5rem))] pr-6 sm:pr-8 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <div
+            className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 pr-6 sm:pr-8 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+            style={{ paddingLeft: edgeAlignedPaddingLeft }}
+          >
             {categories.map((category, index) => (
               <div key={index} className="group flex shrink-0 snap-start flex-col items-center gap-3">
                 <div className="relative h-28 w-28 sm:h-32 sm:w-32">

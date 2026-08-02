@@ -1,7 +1,18 @@
 import ProductCard from "@/components/ProductCard";
-import BannerCarousel from "@/components/BannerCarousel";
 import { products } from "@/lib/mockData";
 import Image from "next/image";
+
+const categories = [
+  { name: "Guitarras", src: "/Guitarras.PNG" },
+  { name: "Percusión", src: "/Percusion.PNG" }, // <- Ruta sin acento
+  { name: "Teclados", src: "/Teclados.PNG" },
+  { name: "Sonido", src: "/Sonido.PNG" },
+  { name: "Aire", src: "/Aire.PNG" },
+  { name: "Accesorios", src: "/Accesorios.PNG" },
+  { name: "Remplazos", src: "/Remplazos.PNG" },
+  { name: "Mantenimiento", src: "/Mantenimiento.PNG" },
+  { name: "Merch", src: "/Merch.PNG" },
+];
 
 const brands = [
   { name: "Vicfirth", src: "/Vicfirth.PNG" },
@@ -16,6 +27,35 @@ const brands = [
   { name: "Gibson", src: "/Gibson.PNG" },
   { name: "Digitech", src: "/Digitech.PNG" },
   { name: "Pearl", src: "/Pearl.PNG" },
+];
+
+const banners = [
+  {
+    name: "Banner",
+    src: "/Banner.PNG",
+    overlay: {
+      variant: "gradient" as const,
+      title: "Si no lo tenemos, lo conseguimos",
+      subtitle: "Déjanos la búsqueda a nosotros",
+      cta: "Hacer pedido",
+    },
+  },
+  {
+    name: "Fest",
+    src: "/Fest.PNG",
+    overlay: {
+      variant: "badge" as const,
+      cta: "Saber más",
+    },
+  },
+  {
+    name: "Sucursales",
+    src: "/Sucursales.PNG",
+    overlay: {
+      variant: "cta-only" as const,
+      cta: "Ver el mapa",
+    },
+  },
 ];
 
 export default function Home() {
@@ -71,10 +111,86 @@ export default function Home() {
         </div>
       </section>
 
-      <BannerCarousel />
+      {/* Banners promocionales — altura fija, ancho automático según su proporción real (sin recortar y sin franjas en blanco) */}
+      <section className="mt-6 sm:mt-8">
+        <div className="relative left-1/2 right-1/2 w-screen -translate-x-1/2">
+          <div className="flex snap-x snap-mandatory gap-1 overflow-x-auto px-6 pb-2 sm:px-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            {banners.map((banner) => (
+              <a
+                key={banner.name}
+                href="#catalogo"
+                className="relative h-52 shrink-0 snap-start overflow-hidden rounded-sm sm:h-60 lg:h-64"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={banner.src} alt={banner.name} className="h-full w-auto" />
 
-      {/* Banner — compra en línea, recoge en tienda + productos destacados (grid estática, sin carrusel) */}
-      <section className="mx-auto mt-12 max-w-6xl bg-white sm:mt-16">
+                {banner.overlay?.variant === "gradient" && (
+                  <div className="absolute inset-0 flex flex-col justify-center gap-2 bg-gradient-to-r from-black/75 via-black/40 to-transparent px-6 sm:px-8">
+                    <h3 className="max-w-[60%] font-display text-lg font-bold leading-snug text-white sm:text-xl lg:text-2xl">
+                      {banner.overlay.title}
+                    </h3>
+                    <p className="max-w-[60%] text-xs text-white/80 sm:text-sm">
+                      {banner.overlay.subtitle}
+                    </p>
+                    <span className="mt-2 inline-flex w-fit items-center gap-2 text-xs font-semibold uppercase tracking-wide text-white sm:text-sm">
+                      {banner.overlay.cta}
+                      <span aria-hidden="true">→</span>
+                    </span>
+                  </div>
+                )}
+
+                {banner.overlay?.variant === "badge" && (
+                  <>
+                    <div className="absolute inset-0 bg-black/40" />
+                    <span className="absolute bottom-4 left-1/2 inline-flex w-fit -translate-x-1/2 items-center gap-1.5 rounded-full bg-white px-4 py-2 text-xs font-semibold uppercase tracking-wide text-neutral-900 sm:text-sm">
+                      {banner.overlay.cta}
+                      <span aria-hidden="true">→</span>
+                    </span>
+                  </>
+                )}
+
+                {banner.overlay?.variant === "cta-only" && (
+                  <span className="absolute bottom-4 right-4 inline-flex w-fit items-center gap-2 text-xs font-semibold uppercase tracking-wide text-white drop-shadow sm:text-sm">
+                    {banner.overlay.cta}
+                    <span aria-hidden="true">→</span>
+                  </span>
+                )}
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Carrusel de Categorías (Movido debajo del Hero) */}
+      <section className="mt-12 sm:mt-16">
+        <div className="mx-auto max-w-6xl px-6">
+          <h2 className="mb-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
+            Nuestros productos
+          </h2>
+        </div>
+        <div className="relative left-1/2 right-1/2 w-screen -translate-x-1/2">
+          <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto px-6 pb-4 sm:px-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            {categories.map((category, index) => (
+              <div key={index} className="group flex shrink-0 snap-start flex-col items-center gap-3">
+                <div className="relative h-28 w-28 sm:h-32 sm:w-32">
+                  <Image
+                    src={category.src}
+                    alt={`Categoría ${category.name}`}
+                    fill
+                    className="object-contain transition-transform duration-300 group-hover:scale-110"
+                  />
+                </div>
+                <span className="text-sm font-medium text-neutral-900">
+                  {category.name}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Banner — compra en línea, recoge en tienda + carrusel de productos */}
+      <section className="mx-auto mt-12 max-w-6xl bg-white px-6 sm:mt-16">
         <div className="overflow-hidden rounded-sm border border-neutral-200 bg-[#79992C]">
           <div className="grid grid-cols-1 items-center bg-[#117C2E] lg:grid-cols-2">
             <div className="px-6 py-12 sm:px-10 sm:py-16">
@@ -103,16 +219,19 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Productos destacados — grid estática, sin scroll ni snap */}
+          {/* Carrusel de productos — fondo #79992C, cards en blanco */}
           <div className="px-6 py-10 sm:px-10 sm:py-12">
-            <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
+            <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
               {products.map((product) => (
-                <ProductCard key={product.id} {...product} variant="light" />
+                <div key={product.id} className="w-48 shrink-0 snap-start sm:w-56">
+                  <ProductCard {...product} variant="light" />
+                </div>
               ))}
             </div>
           </div>
         </div>
       </section>
+
 
       {/* Explora nuestras marcas */}
       <section className="mx-auto mt-12 max-w-6xl bg-white px-6 py-4 sm:mt-16">

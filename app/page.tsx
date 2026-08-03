@@ -59,10 +59,6 @@ const banners = [
   },
 ];
 
-// Precios de referencia — reemplaza con tus precios reales cuando tengas las
-// fotos limpias del producto (sin el texto/logo del flyer encima). Puse
-// "Nuevo" o "Caliente" nada más donde tenía sentido a partir de las imágenes
-// que mandaste; el Yamaha no lleva etiqueta (es opcional en el componente).
 const featuredProducts = [
   {
     title: "Cort GB-Fusion 4",
@@ -161,7 +157,6 @@ export default function Home() {
 
       {/* Banners promocionales */}
       <section className="mt-6 w-full bg-white sm:mt-8">
-        {/* Aquí está la magia: scroll-pl-6 asegura el snap correcto, y usamos la sintaxis válida con guiones bajos */}
         <div className="flex snap-x snap-mandatory overflow-x-auto pb-2 scroll-pl-6 min-[1152px]:scroll-pl-[calc(50vw_-_552px)] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           
           <div className="w-6 shrink-0 min-[1152px]:w-[calc(50vw_-_552px)]" aria-hidden="true"></div>
@@ -215,7 +210,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Carrusel de destacados — mismo control de scroll-padding que el de banners */}
+      {/* Carrusel de destacados */}
       <section className="mt-12 w-full bg-white sm:mt-16">
         <div className="mx-auto max-w-6xl px-6">
           <h2 className="mb-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
@@ -249,7 +244,6 @@ export default function Home() {
           </h2>
         </div>
         
-        {/* Exactamente el mismo control de scroll-padding */}
         <div className="flex snap-x snap-mandatory overflow-x-auto pb-4 scroll-pl-6 min-[1152px]:scroll-pl-[calc(50vw_-_552px)] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           
           <div className="w-6 shrink-0 min-[1152px]:w-[calc(50vw_-_552px)]" aria-hidden="true"></div>
@@ -309,14 +303,24 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Carrusel de productos */}
-          <div className="px-6 py-10 sm:px-10 sm:py-12">
-            <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-              {products.map((product) => (
-                <div key={product.id} className="w-48 shrink-0 snap-start sm:w-56">
+          {/* Carrusel de productos corregido */}
+          <div className="py-10 sm:py-12">
+            <div className="flex snap-x snap-mandatory overflow-x-auto pb-4 scroll-pl-6 sm:scroll-pl-10 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+              
+              <div className="w-6 shrink-0 sm:w-10" aria-hidden="true"></div>
+
+              {products.map((product, index) => (
+                <div 
+                  key={product.id} 
+                  className={`w-48 shrink-0 snap-start sm:w-56 ${
+                    index !== products.length - 1 ? "mr-6" : ""
+                  }`}
+                >
                   <ProductCard {...product} variant="light" />
                 </div>
               ))}
+
+              <div className="w-6 shrink-0 sm:w-10" aria-hidden="true"></div>
             </div>
           </div>
         </div>

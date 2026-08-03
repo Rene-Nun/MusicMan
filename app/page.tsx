@@ -1,4 +1,5 @@
 import ProductCard from "@/components/ProductCard";
+import ProductCardSimple from "@/components/ProductCardSimple";
 import { products } from "@/lib/mockData";
 import Image from "next/image";
 
@@ -55,6 +56,42 @@ const banners = [
       variant: "cta-only" as const,
       cta: "Ver el mapa",
     },
+  },
+];
+
+// Precios de referencia — reemplaza con tus precios reales cuando tengas las
+// fotos limpias del producto (sin el texto/logo del flyer encima). Puse
+// "Nuevo" o "Caliente" nada más donde tenía sentido a partir de las imágenes
+// que mandaste; el Yamaha no lleva etiqueta (es opcional en el componente).
+const featuredProducts = [
+  {
+    title: "Cort GB-Fusion 4",
+    image: "/productos/cort-gb-fusion-4.jpg",
+    price: 8999,
+    tag: "Nuevo" as const,
+  },
+  {
+    title: "MXR Bass Synth",
+    image: "/productos/mxr-bass-synth.jpg",
+    price: 4299,
+    tag: "Nuevo" as const,
+  },
+  {
+    title: "Casio CT-S300",
+    image: "/productos/casio-ct-s300.jpg",
+    price: 3999,
+    tag: "Caliente" as const,
+  },
+  {
+    title: "Yamaha DTX402",
+    image: "/productos/yamaha-dtx402.jpg",
+    price: 14999,
+  },
+  {
+    title: "Cort Core-DC Mahogany",
+    image: "/productos/cort-core-dc-mahogany.jpg",
+    price: 6499,
+    tag: "Caliente" as const,
   },
 ];
 
@@ -161,6 +198,32 @@ export default function Home() {
                 </span>
               )}
             </a>
+          ))}
+
+          <div className="w-6 shrink-0 min-[1152px]:w-[calc(50vw_-_552px)]" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      {/* Carrusel de destacados — mismo control de scroll-padding que el de banners */}
+      <section className="mt-12 w-full bg-white sm:mt-16">
+        <div className="mx-auto max-w-6xl px-6">
+          <h2 className="mb-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
+            Destacados
+          </h2>
+        </div>
+
+        <div className="flex snap-x snap-mandatory overflow-x-auto pb-4 scroll-pl-6 min-[1152px]:scroll-pl-[calc(50vw_-_552px)] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <div className="w-6 shrink-0 min-[1152px]:w-[calc(50vw_-_552px)]" aria-hidden="true"></div>
+
+          {featuredProducts.map((product, index) => (
+            <div
+              key={product.title}
+              className={`w-48 shrink-0 snap-start sm:w-56 ${
+                index !== featuredProducts.length - 1 ? "mr-6" : ""
+              }`}
+            >
+              <ProductCardSimple {...product} />
+            </div>
           ))}
 
           <div className="w-6 shrink-0 min-[1152px]:w-[calc(50vw_-_552px)]" aria-hidden="true"></div>

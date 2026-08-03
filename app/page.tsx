@@ -214,7 +214,7 @@ export default function Home() {
       <section className="mt-12 w-full bg-white sm:mt-16">
         <div className="mx-auto max-w-6xl px-6">
           <h2 className="mb-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
-            Lo más nuevo
+            Recien llegados
           </h2>
         </div>
 
@@ -239,7 +239,7 @@ export default function Home() {
       {/* Categorías */}
       <section className="mx-auto mt-12 max-w-6xl bg-white px-6 sm:mt-16">
         <h2 className="mb-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
-          Nuestros productos
+          Por categoría
         </h2>
 
         <div className="grid grid-cols-3 gap-x-2 gap-y-10 sm:grid-cols-4 lg:grid-cols-6">

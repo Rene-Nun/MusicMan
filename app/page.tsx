@@ -236,40 +236,30 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Carrusel de Categorías */}
-      <section className="mt-12 w-full bg-white sm:mt-16">
-        <div className="mx-auto max-w-6xl px-6">
-          <h2 className="mb-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
-            Nuestros productos
-          </h2>
-        </div>
-        
-        <div className="flex snap-x snap-mandatory overflow-x-auto pb-4 scroll-pl-6 min-[1152px]:scroll-pl-[calc(50vw_-_552px)] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-          
-          <div className="w-6 shrink-0 min-[1152px]:w-[calc(50vw_-_552px)]" aria-hidden="true"></div>
+      {/* Categorías */}
+      <section className="mx-auto mt-12 max-w-6xl bg-white px-6 sm:mt-16">
+        <h2 className="mb-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          Nuestros productos
+        </h2>
 
+        <div className="grid grid-cols-3 gap-x-2 gap-y-10 sm:grid-cols-4 lg:grid-cols-6">
           {categories.map((category, index) => (
-            <div 
-              key={index} 
-              className={`group flex shrink-0 snap-start flex-col items-center gap-3 ${
-                index !== categories.length - 1 ? "mr-6" : ""
-              }`}
-            >
-              <div className="relative h-28 w-28 sm:h-32 sm:w-32">
-                <Image
-                  src={category.src}
-                  alt={`Categoría ${category.name}`}
-                  fill
-                  className="object-contain transition-transform duration-300 group-hover:scale-110"
-                />
+            <div key={index} className="group flex flex-col items-center gap-3">
+              <div className="relative flex h-36 w-36 items-center justify-center overflow-hidden rounded-full bg-black shadow-sm transition-transform duration-300 group-hover:scale-105 sm:h-44 sm:w-44">
+                <div className="relative h-32 w-32 sm:h-40 sm:w-40">
+                  <Image
+                    src={category.src}
+                    alt={`Categoría ${category.name}`}
+                    fill
+                    className="object-contain"
+                  />
+                </div>
               </div>
               <span className="text-sm font-medium text-neutral-900">
                 {category.name}
               </span>
             </div>
           ))}
-
-          <div className="w-6 shrink-0 min-[1152px]:w-[calc(50vw_-_552px)]" aria-hidden="true"></div>
         </div>
       </section>
 

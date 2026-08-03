@@ -245,15 +245,13 @@ export default function Home() {
         <div className="grid grid-cols-3 gap-x-2 gap-y-10 sm:grid-cols-4 lg:grid-cols-6">
           {categories.map((category, index) => (
             <div key={index} className="group flex flex-col items-center gap-3">
-              <div className="relative flex h-36 w-36 items-center justify-center overflow-hidden rounded-full bg-black shadow-sm transition-transform duration-300 group-hover:scale-105 sm:h-44 sm:w-44">
-                <div className="relative h-32 w-32 sm:h-40 sm:w-40">
-                  <Image
-                    src={category.src}
-                    alt={`Categoría ${category.name}`}
-                    fill
-                    className="object-contain"
-                  />
-                </div>
+              <div className="relative h-36 w-36 sm:h-44 sm:w-44">
+                <Image
+                  src={category.src}
+                  alt={`Categoría ${category.name}`}
+                  fill
+                  className="object-contain transition-transform duration-300 group-hover:scale-110"
+                />
               </div>
               <span className="text-sm font-medium text-neutral-900">
                 {category.name}

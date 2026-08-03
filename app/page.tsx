@@ -214,7 +214,7 @@ export default function Home() {
       <section className="mt-12 w-full bg-white sm:mt-16">
         <div className="mx-auto max-w-6xl px-6">
           <h2 className="mb-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
-            Lo más nuevo
+            Recien llegados
           </h2>
         </div>
 
@@ -239,7 +239,7 @@ export default function Home() {
       {/* Categorías */}
       <section className="mx-auto mt-12 max-w-6xl bg-white px-6 sm:mt-16">
         <h2 className="mb-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
-          Nuestros productos
+          Por categoría
         </h2>
 
         <div className="grid grid-cols-3 gap-x-2 gap-y-10 sm:grid-cols-4 lg:grid-cols-6">
@@ -364,6 +364,38 @@ export default function Home() {
           ))}
 
           <div className="w-6 shrink-0 min-[1152px]:w-[calc(50vw_-_552px)]" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      {/* Ayuda personalizada */}
+      <section className="mx-auto mt-12 max-w-6xl bg-white px-6 pb-16 sm:mt-16 sm:pb-20">
+        <div className="overflow-hidden rounded-sm border border-neutral-200">
+          <div className="grid grid-cols-1 items-center bg-[#4EA5E2] lg:grid-cols-2">
+            <div className="relative h-64 sm:h-80 lg:h-96">
+              <Image
+                src="/Concierto.jpg"
+                alt="Cantante en un escenario durante un concierto"
+                fill
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                className="object-cover"
+              />
+            </div>
+
+            <div className="px-6 py-12 sm:px-10 sm:py-16">
+              <h2 className="font-display text-2xl font-semibold text-white sm:text-3xl">
+                ¿Necesitas ayuda personalizada para comprar?
+              </h2>
+              <p className="mt-3 max-w-md text-sm text-white/80 sm:text-base">
+                Contacta a uno de nuestros especialistas ahora.
+              </p>
+              <a
+                href="#catalogo"
+                className="mt-6 inline-flex w-fit items-center gap-2 rounded-sm bg-white px-6 py-3 text-sm font-semibold uppercase tracking-wide text-neutral-900 transition-colors hover:bg-neutral-100"
+              >
+                Contactar especialista
+              </a>
+            </div>
+          </div>
         </div>
       </section>
     </main>

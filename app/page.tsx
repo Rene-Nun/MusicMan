@@ -93,6 +93,17 @@ const featuredProducts = [
     price: 6499,
     tag: "Caliente" as const,
   },
+  {
+    title: "Gibson SG Standard",
+    image: "/productos/gibson-sg-standard.jpg",
+    price: 32999,
+    tag: "Nuevo" as const,
+  },
+  {
+    title: "Marshall DSL40CR",
+    image: "/productos/marshall-dsl40cr.jpg",
+    price: 15999,
+  },
 ];
 
 export default function Home() {
@@ -208,7 +219,7 @@ export default function Home() {
       <section className="mt-12 w-full bg-white sm:mt-16">
         <div className="mx-auto max-w-6xl px-6">
           <h2 className="mb-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
-            Destacados
+            Lo más nuevo
           </h2>
         </div>
 
@@ -338,23 +349,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Escaparate */}
+      {/* Lo más buscado */}
       <section id="catalogo" className="mx-auto max-w-6xl bg-white px-6 py-16 sm:py-20">
-        <div className="mb-10 flex items-end justify-between border-b border-neutral-200 pb-6">
-          <div>
-            <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
-              Catálogo disponible
-            </h2>
-            <p className="mt-2 text-sm text-neutral-500">
-              {products.length} instrumentos listos para recoger en tienda.
-            </p>
-          </div>
-          <span className="hidden h-2 w-2 rounded-full bg-[#79992C] sm:block" aria-hidden="true" />
-        </div>
+        <h2 className="mb-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          Lo más buscado
+        </h2>
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {products.map((product) => (
-            <ProductCard key={product.id} {...product} />
+        <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
+          {featuredProducts.map((product) => (
+            <ProductCardSimple key={product.title} {...product} />
           ))}
         </div>
       </section>

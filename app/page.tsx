@@ -386,7 +386,7 @@ export default function Home() {
                 ¿Necesitas ayuda personalizada para comprar?
               </h2>
               <p className="mt-3 max-w-md text-sm text-white/80 sm:text-base">
-                Contacta a uno de nuestros especialistas ahora.
+                Contacta a uno de nuestros especialistas ahora
               </p>
               <a
                 href="#catalogo"

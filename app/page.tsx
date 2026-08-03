@@ -66,43 +66,43 @@ const banners = [
 const featuredProducts = [
   {
     title: "Cort GB-Fusion 4",
-    image: "/productos/cort-gb-fusion-4.jpg",
+    image: "/GElectrica.PNG",
     price: 8999,
     tag: "Nuevo" as const,
   },
   {
     title: "MXR Bass Synth",
-    image: "/productos/mxr-bass-synth.jpg",
+    image: "/Synt.PNG",
     price: 4299,
     tag: "Nuevo" as const,
   },
   {
     title: "Casio CT-S300",
-    image: "/productos/casio-ct-s300.jpg",
+    image: "/Teclado.PNG",
     price: 3999,
     tag: "Caliente" as const,
   },
   {
     title: "Yamaha DTX402",
-    image: "/productos/yamaha-dtx402.jpg",
+    image: "/Bateria.PNG",
     price: 14999,
   },
   {
     title: "Cort Core-DC Mahogany",
-    image: "/productos/cort-core-dc-mahogany.jpg",
+    image: "/GAcustica.PNG",
     price: 6499,
     tag: "Caliente" as const,
   },
   {
-    title: "Gibson SG Standard",
-    image: "/productos/gibson-sg-standard.jpg",
-    price: 32999,
+    title: "Line 6 Spider V MKII 120",
+    image: "/Ampli.PNG",
+    price: 8499,
     tag: "Nuevo" as const,
   },
   {
-    title: "Marshall DSL40CR",
-    image: "/productos/marshall-dsl40cr.jpg",
-    price: 15999,
+    title: "LP Discovery Bongo Set",
+    image: "/Bongos.PNG",
+    price: 1299,
   },
 ];
 

@@ -66,16 +66,6 @@ export default function ProductCard({
         <p className={`mt-auto font-display text-xl ${isLight ? "text-neutral-900" : "text-brass"}`}>
           {price.toLocaleString("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 })}
         </p>
-
-        <span
-          className={`mt-1 inline-block w-full rounded-sm px-4 py-3 text-center text-sm font-semibold uppercase tracking-wide ${
-            isLight
-              ? "bg-neutral-900 text-white"
-              : "bg-brass text-ink"
-          }`}
-        >
-          Más información
-        </span>
       </div>
     </article>
   );

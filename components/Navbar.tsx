@@ -389,7 +389,7 @@ function AccountPanel({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
           <button
             type="button"
             onClick={onClose}
-            className="mt-6 w-full rounded-lg bg-red-600 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-red-700"
+            className="mt-6 w-full rounded-lg border border-red-600 py-3.5 text-sm font-semibold text-red-600 transition-colors hover:bg-red-50"
           >
             Cerrar sesión
           </button>

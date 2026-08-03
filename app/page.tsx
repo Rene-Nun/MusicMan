@@ -350,15 +350,28 @@ export default function Home() {
       </section>
 
       {/* Lo más buscado */}
-      <section id="catalogo" className="mx-auto max-w-6xl bg-white px-6 py-16 sm:py-20">
-        <h2 className="mb-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
-          Lo más buscado
-        </h2>
+      <section id="catalogo" className="w-full bg-white py-16 sm:py-20">
+        <div className="mx-auto max-w-6xl px-6">
+          <h2 className="mb-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
+            Lo más buscado
+          </h2>
+        </div>
 
-        <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
-          {featuredProducts.map((product) => (
-            <ProductCardSimple key={product.title} {...product} />
+        <div className="flex snap-x snap-mandatory overflow-x-auto pb-4 scroll-pl-6 min-[1152px]:scroll-pl-[calc(50vw_-_552px)] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <div className="w-6 shrink-0 min-[1152px]:w-[calc(50vw_-_552px)]" aria-hidden="true"></div>
+
+          {featuredProducts.map((product, index) => (
+            <div
+              key={product.title}
+              className={`w-48 shrink-0 snap-start sm:w-56 ${
+                index !== featuredProducts.length - 1 ? "mr-6" : ""
+              }`}
+            >
+              <ProductCardSimple {...product} />
+            </div>
           ))}
+
+          <div className="w-6 shrink-0 min-[1152px]:w-[calc(50vw_-_552px)]" aria-hidden="true"></div>
         </div>
       </section>
     </main>

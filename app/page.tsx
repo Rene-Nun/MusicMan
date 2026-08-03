@@ -373,7 +373,7 @@ export default function Home() {
           <div className="grid grid-cols-1 items-center bg-[#4EA5E2] lg:grid-cols-2">
             <div className="relative h-64 sm:h-80 lg:h-96">
               <Image
-                src="/Concierto.jpg"
+                src="/Concert.png"
                 alt="Cantante en un escenario durante un concierto"
                 fill
                 sizes="(min-width: 1024px) 50vw, 100vw"

@@ -39,27 +39,37 @@ const dropdownMenus = [
 
 type DropdownKey = (typeof dropdownMenus)[number]["key"];
 
+const accountLinks = [
+  { label: "Mis compras", href: "/cuenta/compras", icon: BagIcon },
+  { label: "Lista de deseos", href: "/cuenta/deseos", icon: HeartIcon },
+  { label: "Órdenes personalizadas", href: "/cuenta/personalizadas", icon: ClipboardIcon },
+  { label: "Ajustes", href: "/cuenta/ajustes", icon: GearIcon },
+  { label: "¿Necesitas ayuda?", href: "/ayuda", icon: HelpIcon },
+];
+
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false); // panel móvil (hamburguesa)
   const [openMenu, setOpenMenu] = useState<DropdownKey | null>(null); // mega-menú desktop
   const [mobileExpandedMenu, setMobileExpandedMenu] = useState<DropdownKey | null>(null); // acordeón móvil
+  const [isAccountOpen, setIsAccountOpen] = useState(false); // panel "Mi cuenta"
   const headerRef = useRef<HTMLElement>(null);
 
-  // Cierra los menús con Escape y bloquea el scroll del body mientras el panel móvil está abierto
+  // Cierra los menús con Escape y bloquea el scroll del body mientras algún panel está abierto
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === "Escape") {
         setIsMenuOpen(false);
         setOpenMenu(null);
+        setIsAccountOpen(false);
       }
     }
     document.addEventListener("keydown", handleKeyDown);
-    document.body.style.overflow = isMenuOpen ? "hidden" : "";
+    document.body.style.overflow = isMenuOpen || isAccountOpen ? "hidden" : "";
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "";
     };
-  }, [isMenuOpen]);
+  }, [isMenuOpen, isAccountOpen]);
 
   // Cierra el mega-menú de desktop al hacer clic fuera del header
   useEffect(() => {
@@ -152,13 +162,15 @@ export default function Navbar() {
           <div className="h-5 w-px bg-gray-300" aria-hidden="true" />
 
           <div className="flex items-center gap-4">
-            <Link
-              href="/cuenta"
+            <button
+              type="button"
+              onClick={() => setIsAccountOpen(true)}
               aria-label="Mi cuenta"
+              aria-haspopup="dialog"
               className="text-gray-600 transition-colors hover:text-gray-900"
             >
               <AccountIcon />
-            </Link>
+            </button>
             <Link
               href="/carrito"
               aria-label="Carrito de compras"
@@ -210,14 +222,17 @@ export default function Navbar() {
           <div className="mx-auto max-w-6xl px-6">
             {/* Iconos */}
             <div className="flex items-center gap-6 py-5">
-              <Link
-                href="/cuenta"
-                onClick={() => setIsMenuOpen(false)}
+              <button
+                type="button"
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  setIsAccountOpen(true);
+                }}
                 className="flex items-center gap-2 text-sm font-medium text-gray-900 transition-colors hover:text-brass"
               >
                 <AccountIcon />
                 Mi cuenta
-              </Link>
+              </button>
               <Link
                 href="/carrito"
                 onClick={() => setIsMenuOpen(false)}
@@ -294,7 +309,83 @@ export default function Navbar() {
           </div>
         </div>
       </div>
+
+      {/* Panel "Mi cuenta" */}
+      <AccountPanel isOpen={isAccountOpen} onClose={() => setIsAccountOpen(false)} />
     </header>
+  );
+}
+
+function AccountPanel({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+  return (
+    <div
+      className={`fixed inset-0 z-[60] transition-opacity duration-200 ${
+        isOpen ? "opacity-100" : "pointer-events-none opacity-0"
+      }`}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Mi cuenta"
+    >
+      {/* Backdrop */}
+      <div
+        onClick={onClose}
+        className={`absolute inset-0 bg-black/50 transition-opacity duration-200 ${
+          isOpen ? "opacity-100" : "opacity-0"
+        }`}
+      />
+
+      {/* Panel */}
+      <div
+        className={`absolute right-0 top-0 flex h-full w-full flex-col bg-white shadow-2xl transition-transform duration-300 ease-out sm:w-[420px] ${
+          isOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        {/* Header negro */}
+        <div className="flex items-center justify-between bg-black px-6 py-5">
+          <h2 className="font-display text-xl font-medium text-white">Mi cuenta</h2>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Cerrar"
+            className="flex h-8 w-8 items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+          >
+            <CloseIcon />
+          </button>
+        </div>
+
+        {/* Cuerpo */}
+        <div className="flex flex-1 flex-col overflow-y-auto px-6 py-6">
+          <ul className="space-y-1">
+            {accountLinks.map(({ label, href, icon: Icon }) => (
+              <li key={label}>
+                <Link
+                  href={href}
+                  onClick={onClose}
+                  className="group flex items-center gap-4 rounded-lg px-3 py-4 text-base font-medium text-gray-900 transition-colors hover:bg-gray-50"
+                >
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gray-100 text-gray-700 transition-colors group-hover:bg-brass/10 group-hover:text-brass">
+                    <Icon />
+                  </span>
+                  <span className="flex-1">{label}</span>
+                  <ChevronIcon className="h-4 w-4 -rotate-90 text-gray-400 transition-transform group-hover:translate-x-0.5" />
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          {/* Espaciador para empujar el botón de cerrar sesión al fondo */}
+          <div className="flex-1" />
+
+          <button
+            type="button"
+            onClick={onClose}
+            className="mt-6 w-full rounded-lg bg-red-600 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-red-700"
+          >
+            Cerrar sesión
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -311,6 +402,23 @@ function ChevronIcon({ className = "" }: { className?: string }) {
       className={className}
     >
       <path d="m6 9 6 6 6-6" />
+    </svg>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.75}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="h-5 w-5"
+    >
+      <path d="M18 6 6 18M6 6l12 12" />
     </svg>
   );
 }
@@ -348,6 +456,52 @@ function CartIcon() {
       <circle cx="8" cy="21" r="1" />
       <circle cx="19" cy="21" r="1" />
       <path d="M2.5 2.5h2l2.6 13a2 2 0 0 0 2 1.6h8.4a2 2 0 0 0 2-1.6L21.5 6.5h-16" />
+    </svg>
+  );
+}
+
+function BagIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="h-4.5 w-4.5">
+      <path d="M6 7h12l1 13H5L6 7Z" />
+      <path d="M9 7a3 3 0 0 1 6 0" />
+    </svg>
+  );
+}
+
+function HeartIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="h-4.5 w-4.5">
+      <path d="M12 20s-7-4.4-9.5-8.8C.9 8 2.3 4.7 5.4 4a4.9 4.9 0 0 1 6.6 2 4.9 4.9 0 0 1 6.6-2c3.1.7 4.5 4 3 7.2C19 15.6 12 20 12 20Z" />
+    </svg>
+  );
+}
+
+function ClipboardIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="h-4.5 w-4.5">
+      <rect x="6" y="4" width="12" height="17" rx="1.5" />
+      <path d="M9 4V3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1" />
+      <path d="M9 11h6M9 15h6" />
+    </svg>
+  );
+}
+
+function GearIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="h-4.5 w-4.5">
+      <circle cx="12" cy="12" r="3" />
+      <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z" />
+    </svg>
+  );
+}
+
+function HelpIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="h-4.5 w-4.5">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M9.5 9a2.5 2.5 0 0 1 4.8 1c0 1.7-2.3 1.8-2.3 3.5" />
+      <path d="M12 17.5h.01" />
     </svg>
   );
 }

@@ -14,6 +14,7 @@ const gibsonProducts: Product[] = [
     price: 51999,
     image: "/guitarra1.PNG",
     stock: "en-tienda",
+    href: "/producto/les-paul-standard-60s",
   },
   {
     id: "gibson-sg-standard",

@@ -89,6 +89,15 @@ const gibsonProducts: Product[] = [
   },
 ];
 
+// Reciclado de page.tsx — mismas imágenes que "Por categoría" en el home.
+const tiposDeProducto = [
+  { name: "Guitarras", src: "/Guitarras.PNG" },
+  { name: "Sonido", src: "/Sonido.PNG" },
+  { name: "Accesorios", src: "/Accesorios.PNG" },
+  { name: "Mantenimiento", src: "/Mantenimiento.PNG" },
+  { name: "Merch", src: "/Merch.PNG" },
+];
+
 type TipoFiltro = "todas" | "Guitarra eléctrica" | "Guitarra acústica";
 type DisponibilidadFiltro = "todas" | "en-tienda" | "ultima-unidad";
 type RangoPrecio = "todos" | "menos-30" | "30-50" | "50-70" | "mas-70";
@@ -145,8 +154,8 @@ export default function GibsonPage() {
     <main className="min-h-screen bg-white">
       {/* Encabezado de marca */}
       <section className="border-b border-neutral-200 bg-white">
-        <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-6 py-12 text-center sm:py-16">
-          <div className="relative h-16 w-40 sm:h-20 sm:w-48">
+        <div className="mx-auto flex max-w-6xl items-center gap-4 px-6 py-10 sm:py-12">
+          <div className="relative h-10 w-24 shrink-0 sm:h-12 sm:w-28">
             <Image
               src="/Gibson.PNG"
               alt="Gibson"
@@ -154,13 +163,41 @@ export default function GibsonPage() {
               className="object-contain"
             />
           </div>
-          <h1 className="font-display text-3xl font-semibold text-neutral-900 sm:text-4xl">
+          <h1 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
             Guitarras Gibson
           </h1>
-          <p className="max-w-xl text-sm text-neutral-500">
-            Eléctricas y acústicas Gibson disponibles para recoger en
-            tienda. Filtra por tipo, precio o disponibilidad.
-          </p>
+        </div>
+      </section>
+
+      {/* Tipo de producto */}
+      <section className="border-b border-neutral-200 bg-white">
+        <div className="mx-auto max-w-6xl px-6 py-8">
+          <h2 className="mb-6 text-xs font-semibold uppercase tracking-wide text-neutral-500">
+            Tipo de producto
+          </h2>
+
+          <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-2 scroll-pl-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            {tiposDeProducto.map((tipoProducto, index) => (
+              <div
+                key={tipoProducto.name}
+                className={`group flex shrink-0 snap-start flex-col items-center gap-2 ${
+                  index !== tiposDeProducto.length - 1 ? "mr-6" : ""
+                }`}
+              >
+                <div className="relative h-20 w-20 sm:h-24 sm:w-24">
+                  <Image
+                    src={tipoProducto.src}
+                    alt={tipoProducto.name}
+                    fill
+                    className="object-contain transition-transform duration-300 group-hover:scale-110"
+                  />
+                </div>
+                <span className="text-sm font-medium text-neutral-900">
+                  {tipoProducto.name}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -253,7 +290,7 @@ export default function GibsonPage() {
         {productosFiltrados.length > 0 ? (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {productosFiltrados.map((product) => (
-              <ProductCard key={product.id} {...product} />
+              <ProductCard key={product.id} {...product} variant="light" />
             ))}
           </div>
         ) : (

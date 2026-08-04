@@ -132,14 +132,14 @@ export default function Home() {
       <section className="relative bg-white">
         {/* Hero — mobile / pantallas chicas (< lg) */}
         <div className="lg:hidden">
-          <div className="relative aspect-[3/4] w-full overflow-hidden sm:aspect-[16/10]">
+          <div className="relative aspect-[4/5] w-full overflow-hidden sm:aspect-[16/10]">
             <Image
               src="/Bighero.jpg"
               alt="Guitarra eléctrica disponible en Musicman"
               fill
               priority
               sizes="100vw"
-              className="object-cover"
+              className="object-cover object-top"
             />
 
             {/* Título superpuesto sobre la foto, con degradado para legibilidad */}

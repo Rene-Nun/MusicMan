@@ -144,7 +144,7 @@ export default function Home() {
 
             {/* Título superpuesto sobre la foto, con degradado para legibilidad */}
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent px-6 pb-8 pt-24">
-              <h1 className="font-display text-4xl leading-[0.85] text-white">
+              <h1 className="font-display text-4xl leading-[0.9] text-white">
                 <span className="block font-light italic">Gibson</span>
                 <span className="block font-bold">Historic</span>
                 <span className="block font-bold">Collection</span>
@@ -423,12 +423,12 @@ export default function Home() {
           Explora por marca
         </h2>
 
-        <div className="grid grid-cols-3 gap-x-2 gap-y-10 sm:grid-cols-4 lg:grid-cols-6">
+        <div className="grid grid-cols-3 gap-x-4 gap-y-10 sm:grid-cols-4 sm:gap-x-2 lg:grid-cols-6">
           {brands.map((brand, index) => {
             const content = (
               <>
-                <div className="relative flex h-32 w-32 items-center justify-center overflow-hidden rounded-full bg-black shadow-sm transition-transform duration-300 group-hover:scale-105 sm:h-40 sm:w-40">
-                  <div className="relative h-28 w-28 sm:h-36 sm:w-36">
+                <div className="relative flex h-24 w-24 items-center justify-center overflow-hidden rounded-full bg-black shadow-sm transition-transform duration-300 group-hover:scale-105 sm:h-40 sm:w-40">
+                  <div className="relative h-20 w-20 sm:h-36 sm:w-36">
                     <Image
                       src={brand.src}
                       alt={`Marca ${brand.name}`}

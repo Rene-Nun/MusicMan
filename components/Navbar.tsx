@@ -40,6 +40,18 @@ const dropdownMenus = [
 
 type DropdownKey = (typeof dropdownMenus)[number]["key"];
 
+// Únicos dos ítems con página real por ahora — el resto sigue mandando a
+// "#catalogo" hasta que tengan su propia página. Cuando agregues más,
+// solo hace falta sumar una línea aquí.
+const itemHrefOverrides: Partial<Record<DropdownKey, Record<string, string>>> = {
+  categorias: { Guitarras: "/categorias/guitarras" },
+  marcas: { Gibson: "/marcas/gibson" },
+};
+
+function getItemHref(menuKey: DropdownKey, item: string) {
+  return itemHrefOverrides[menuKey]?.[item] ?? "#catalogo";
+}
+
 const accountLinks = [
   { label: "Mis compras", href: "/cuenta/compras", icon: BagIcon },
   { label: "Lista de deseos", href: "/cuenta/deseos", icon: HeartIcon },
@@ -139,7 +151,7 @@ export default function Navbar() {
                     {menu.items.map((item) => (
                       <Link
                         key={item}
-                        href="#catalogo"
+                        href={getItemHref(menu.key, item)}
                         onClick={() => setOpenMenu(null)}
                         className="text-sm text-gray-700 transition-colors hover:text-brass"
                       >
@@ -279,7 +291,7 @@ export default function Navbar() {
                         {menu.items.map((item) => (
                           <Link
                             key={item}
-                            href="#catalogo"
+                            href={getItemHref(menu.key, item)}
                             onClick={() => {
                               setIsMenuOpen(false);
                               setMobileExpandedMenu(null);

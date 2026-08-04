@@ -16,7 +16,7 @@ const product = {
   category: "Guitarra eléctrica",
   price: 51999,
   image: "/guitarra1.PNG",
-  stock: "en-tienda" as const,
+  stock: "en-tienda" as Product["stock"],
   description:
     "La Les Paul Standard '60s recupera las proporciones y el perfil de mástil delgado que hicieron icónica a la Les Paul original de esa década. Tapa de arce figurado sobre cuerpo de caoba, un par de Burstbucker que entregan el clásico tono cálido y con carácter de Gibson, y acabado en laca de nitrocelulosa que envejece con el instrumento.",
 };

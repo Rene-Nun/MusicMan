@@ -7,6 +7,16 @@ const tagStyles: Record<Tag, string> = {
   Caliente: "bg-[#D4483A] text-white",
 };
 
+export type Product = {
+  id: string;
+  name: string;
+  category: string;
+  price: number;
+  image: string;
+  stock: "en-tienda" | "ultima-unidad" | "agotado" | string;
+  href?: string;
+};
+
 interface ProductCardSimpleProps {
   title: string;
   image: string;

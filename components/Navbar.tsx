@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { useCart } from "@/context/CartContext";
 
 // Mismas categorías y marcas que en page.tsx
 const categories = [
@@ -66,6 +67,7 @@ export default function Navbar() {
   const [mobileExpandedMenu, setMobileExpandedMenu] = useState<DropdownKey | null>(null); // acordeón móvil
   const [isAccountOpen, setIsAccountOpen] = useState(false); // panel "Mi cuenta"
   const headerRef = useRef<HTMLElement>(null);
+  const { itemCount } = useCart();
 
   // Cierra los menús con Escape y bloquea el scroll del body mientras algún panel está abierto
   useEffect(() => {
@@ -191,7 +193,7 @@ export default function Navbar() {
             >
               <CartIcon />
               <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-brass text-[10px] font-semibold text-white">
-                0
+                {itemCount}
               </span>
             </Link>
           </div>
@@ -254,7 +256,7 @@ export default function Navbar() {
                 <CartIcon />
                 Carrito
                 <span className="flex h-4 w-4 items-center justify-center rounded-full bg-brass text-[10px] font-semibold text-white">
-                  0
+                  {itemCount}
                 </span>
               </Link>
             </div>

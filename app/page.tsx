@@ -423,12 +423,12 @@ export default function Home() {
           Explora por marca
         </h2>
 
-        <div className="grid grid-cols-3 gap-x-4 gap-y-10 sm:grid-cols-4 sm:gap-x-2 lg:grid-cols-6">
+                <div className="grid grid-cols-3 gap-x-4 gap-y-10 sm:grid-cols-4 sm:gap-x-2 lg:grid-cols-6">
           {brands.map((brand, index) => {
             const content = (
               <>
-                <div className="relative flex h-24 w-24 items-center justify-center overflow-hidden rounded-full bg-black shadow-sm transition-transform duration-300 group-hover:scale-105 sm:h-40 sm:w-40">
-                  <div className="relative h-20 w-20 sm:h-36 sm:w-36">
+                <div className="relative flex h-28 w-28 items-center justify-center overflow-hidden rounded-full bg-black shadow-sm transition-transform duration-300 group-hover:scale-105 sm:h-40 sm:w-40">
+                  <div className="relative h-24 w-24 sm:h-36 sm:w-36">
                     <Image
                       src={brand.src}
                       alt={`Marca ${brand.name}`}

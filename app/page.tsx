@@ -132,7 +132,7 @@ export default function Home() {
       <section className="relative bg-white">
         {/* Hero — mobile / pantallas chicas (< lg) */}
         <div className="lg:hidden">
-          <div className="relative aspect-[4/5] w-full overflow-hidden sm:aspect-[16/10]">
+          <div className="relative aspect-[1/1] w-full overflow-hidden sm:aspect-[16/10]">
             <Image
               src="/Bighero.jpg"
               alt="Guitarra eléctrica disponible en Musicman"
@@ -144,7 +144,7 @@ export default function Home() {
 
             {/* Título superpuesto sobre la foto, con degradado para legibilidad */}
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent px-6 pb-8 pt-24">
-              <h1 className="font-display text-4xl leading-tight text-white">
+              <h1 className="font-display text-4xl leading-[0.85] text-white">
                 <span className="block font-light italic">Gibson</span>
                 <span className="block font-bold">Historic</span>
                 <span className="block font-bold">Collection</span>

@@ -130,49 +130,98 @@ export default function Home() {
     <main className="min-h-screen bg-white">
       {/* Hero */}
       <section className="relative bg-white">
-        <div className="mx-auto max-w-6xl px-0 sm:px-6 sm:pt-8">
-          <div className="relative overflow-hidden rounded-sm lg:aspect-[16/6]">
-            {/* Panel izquierdo */}
-            <div className="hidden bg-red-600 lg:absolute lg:inset-y-0 lg:left-0 lg:flex lg:w-1/2 lg:items-center lg:justify-center">
-              <div className="relative aspect-[4/5] w-1/2 overflow-hidden rounded-sm shadow-2xl">
-                <Image
-                  src="/Smallhero.jpg"
-                  alt="Detalle de guitarra acústica Musicman"
-                  fill
-                  sizes="25vw"
-                  className="object-cover"
-                />
-              </div>
-            </div>
+        {/* Hero — mobile / pantallas chicas (< lg) */}
+        <div className="lg:hidden">
+          <div className="relative aspect-[3/4] w-full overflow-hidden sm:aspect-[16/10]">
+            <Image
+              src="/Bighero.jpg"
+              alt="Guitarra eléctrica disponible en Musicman"
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover"
+            />
 
-            {/* Imagen grande */}
-            <div className="relative h-72 sm:h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:h-full lg:w-1/2">
-              <Image
-                src="/Bighero.jpg"
-                alt="Guitarra eléctrica disponible en Musicman"
-                fill
-                priority
-                sizes="(min-width: 1024px) 50vw, 100vw"
-                className="object-cover"
-              />
-            </div>
-
-            {/* Contenido */}
-            <div className="relative z-20 mx-auto max-w-xl bg-white px-6 py-12 text-center sm:px-10 sm:py-16 lg:absolute lg:inset-0 lg:mx-auto lg:flex lg:max-w-2xl lg:flex-col lg:items-center lg:justify-center lg:bg-transparent lg:px-0 lg:py-0 lg:text-center">
-              <h1 className="font-display text-4xl leading-tight text-neutral-900 sm:text-5xl lg:text-white">
+            {/* Título superpuesto sobre la foto, con degradado para legibilidad */}
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent px-6 pb-8 pt-24">
+              <h1 className="font-display text-4xl leading-tight text-white">
                 <span className="block font-light italic">Gibson</span>
-                <span className="block font-bold text-white lg:text-white">Historic</span>
+                <span className="block font-bold">Historic</span>
                 <span className="block font-bold">Collection</span>
                 <span className="block font-bold">arrives</span>
               </h1>
+            </div>
+          </div>
 
-              <a
-                href="#catalogo"
-                className="mx-auto mt-8 inline-flex w-fit items-center gap-2 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:text-[#4CA5E4]"
-              >
-                Saber más
-                <span aria-hidden="true">→</span>
-              </a>
+          {/* Bloque inferior de color con la foto pequeña */}
+          <div className="relative bg-red-600 px-6 pb-10 pt-16">
+            {/* CTA flotando justo en la unión entre las dos secciones */}
+            <a
+              href="#catalogo"
+              className="absolute left-1/2 top-0 z-20 inline-flex w-fit -translate-x-1/2 -translate-y-1/2 items-center gap-2 rounded-full bg-white px-5 py-2.5 text-xs font-semibold uppercase tracking-wide text-neutral-900 shadow-lg transition-colors hover:bg-neutral-100"
+            >
+              Saber más
+              <span aria-hidden="true">→</span>
+            </a>
+
+            <div className="relative mx-auto aspect-[4/5] w-40 overflow-hidden rounded-sm shadow-2xl sm:w-48">
+              <Image
+                src="/Smallhero.jpg"
+                alt="Detalle de guitarra acústica Musicman"
+                fill
+                sizes="200px"
+                className="object-cover"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Hero — desktop (lg+), sin cambios respecto a la versión original */}
+        <div className="hidden lg:block">
+          <div className="mx-auto max-w-6xl px-0 sm:px-6 sm:pt-8">
+            <div className="relative overflow-hidden rounded-sm lg:aspect-[16/6]">
+              {/* Panel izquierdo */}
+              <div className="hidden bg-red-600 lg:absolute lg:inset-y-0 lg:left-0 lg:flex lg:w-1/2 lg:items-center lg:justify-center">
+                <div className="relative aspect-[4/5] w-1/2 overflow-hidden rounded-sm shadow-2xl">
+                  <Image
+                    src="/Smallhero.jpg"
+                    alt="Detalle de guitarra acústica Musicman"
+                    fill
+                    sizes="25vw"
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+
+              {/* Imagen grande */}
+              <div className="relative h-72 sm:h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:h-full lg:w-1/2">
+                <Image
+                  src="/Bighero.jpg"
+                  alt="Guitarra eléctrica disponible en Musicman"
+                  fill
+                  priority
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  className="object-cover"
+                />
+              </div>
+
+              {/* Contenido */}
+              <div className="relative z-20 mx-auto max-w-xl bg-white px-6 py-12 text-center sm:px-10 sm:py-16 lg:absolute lg:inset-0 lg:mx-auto lg:flex lg:max-w-2xl lg:flex-col lg:items-center lg:justify-center lg:bg-transparent lg:px-0 lg:py-0 lg:text-center">
+                <h1 className="font-display text-4xl leading-tight text-neutral-900 sm:text-5xl lg:text-white">
+                  <span className="block font-light italic">Gibson</span>
+                  <span className="block font-bold text-white lg:text-white">Historic</span>
+                  <span className="block font-bold">Collection</span>
+                  <span className="block font-bold">arrives</span>
+                </h1>
+
+                <a
+                  href="#catalogo"
+                  className="mx-auto mt-8 inline-flex w-fit items-center gap-2 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:text-[#4CA5E4]"
+                >
+                  Saber más
+                  <span aria-hidden="true">→</span>
+                </a>
+              </div>
             </div>
           </div>
         </div>

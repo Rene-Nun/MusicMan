@@ -60,24 +60,32 @@ const banners = [
   },
 ];
 
-const featuredProducts = [
+type FeaturedProduct = {
+  title: string;
+  image: string;
+  price: number;
+  tag?: "Nuevo" | "Caliente";
+  href?: string;
+};
+
+const featuredProducts: FeaturedProduct[] = [
   {
     title: "Cort GB-Fusion 4",
     image: "/GElectrica.PNG",
     price: 8999,
-    tag: "Nuevo" as const,
+    tag: "Nuevo",
   },
   {
     title: "MXR Bass Synth",
     image: "/Synt.PNG",
     price: 4299,
-    tag: "Nuevo" as const,
+    tag: "Nuevo",
   },
   {
     title: "Casio CT-S300",
     image: "/Teclado.PNG",
     price: 3999,
-    tag: "Caliente" as const,
+    tag: "Caliente",
   },
   {
     title: "Yamaha DTX402",
@@ -88,13 +96,13 @@ const featuredProducts = [
     title: "Cort Core-DC Mahogany",
     image: "/GAcustica.PNG",
     price: 6499,
-    tag: "Caliente" as const,
+    tag: "Caliente",
   },
   {
     title: "Line 6 Spider V MKII 120",
     image: "/Ampli.PNG",
     price: 8499,
-    tag: "Nuevo" as const,
+    tag: "Nuevo",
   },
   {
     title: "LP Discovery Bongo Set",
@@ -102,6 +110,20 @@ const featuredProducts = [
     price: 1299,
   },
 ];
+
+// La misma guitarra de la página de producto — va primero en "Recién
+// llegados" para poder mostrar el flujo completo (home → producto).
+const lesPaulStandard60s: FeaturedProduct = {
+  title: "Les Paul Standard '60s",
+  image: "/guitarra1.PNG",
+  price: 51999,
+  tag: "Nuevo",
+  href: "/producto/les-paul-standard-60s",
+};
+
+// Solo para el carrusel de "Recién llegados" — "Lo más buscado" sigue
+// usando featuredProducts tal cual, sin este producto extra.
+const recienLlegados: FeaturedProduct[] = [lesPaulStandard60s, ...featuredProducts];
 
 export default function Home() {
   return (
@@ -222,16 +244,27 @@ export default function Home() {
         <div className="flex snap-x snap-mandatory overflow-x-auto pb-4 scroll-pl-6 min-[1152px]:scroll-pl-[calc(50vw_-_552px)] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           <div className="w-6 shrink-0 min-[1152px]:w-[calc(50vw_-_552px)]" aria-hidden="true"></div>
 
-          {featuredProducts.map((product, index) => (
-            <div
-              key={product.title}
-              className={`w-48 shrink-0 snap-start sm:w-56 ${
-                index !== featuredProducts.length - 1 ? "mr-6" : ""
-              }`}
-            >
-              <ProductCardSimple {...product} />
-            </div>
-          ))}
+          {recienLlegados.map((product, index) => {
+            const card = (
+              <div
+                className={`w-48 shrink-0 snap-start sm:w-56 ${
+                  index !== recienLlegados.length - 1 ? "mr-6" : ""
+                }`}
+              >
+                <ProductCardSimple {...product} />
+              </div>
+            );
+
+            if (product.href) {
+              return (
+                <Link key={product.title} href={product.href} className="contents">
+                  {card}
+                </Link>
+              );
+            }
+
+            return <div key={product.title}>{card}</div>;
+          })}
 
           <div className="w-6 shrink-0 min-[1152px]:w-[calc(50vw_-_552px)]" aria-hidden="true"></div>
         </div>

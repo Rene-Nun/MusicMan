@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import ProductCard, { type Product } from "@/components/ProductCard";
+import { useCart } from "@/context/CartContext";
 
 // Producto de muestra — tomado del "inventario" que ya armamos para
 // Gibson / Guitarras. Cuando exista la fuente real de datos, esta página
@@ -71,6 +72,23 @@ function formatPrice(value: number) {
 
 export default function ProductoLesPaulPage() {
   const [quantity, setQuantity] = useState(1);
+  const [justAdded, setJustAdded] = useState(false);
+  const { addItem } = useCart();
+
+  const handleAddToCart = () => {
+    addItem(
+      {
+        id: product.id,
+        name: product.name,
+        category: product.category,
+        price: product.price,
+        image: product.image,
+      },
+      quantity
+    );
+    setJustAdded(true);
+    window.setTimeout(() => setJustAdded(false), 2000);
+  };
 
   return (
     <main className="min-h-screen bg-white">
@@ -161,9 +179,14 @@ export default function ProductoLesPaulPage() {
 
               <button
                 type="button"
-                className="flex-1 rounded-sm bg-neutral-900 px-6 py-3.5 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:bg-neutral-800"
+                onClick={handleAddToCart}
+                className={`flex-1 rounded-sm px-6 py-3.5 text-sm font-semibold uppercase tracking-wide text-white transition-colors ${
+                  justAdded
+                    ? "bg-[#117C2E]"
+                    : "bg-neutral-900 hover:bg-neutral-800"
+                }`}
               >
-                Agregar al carrito
+                {justAdded ? "Agregado ✓" : "Agregar al carrito"}
               </button>
             </div>
 

@@ -2,6 +2,7 @@ import ProductCard from "@/components/ProductCard";
 import ProductCardSimple from "@/components/ProductCardSimple";
 import { products } from "@/lib/mockData";
 import Image from "next/image";
+import Link from "next/link";
 
 const categories = [
   { name: "Guitarras", src: "/Guitarras.PNG" },
@@ -25,7 +26,7 @@ const brands = [
   { name: "Casio", src: "/Casio.PNG" },
   { name: "Prs", src: "/Prs.PNG" },
   { name: "Dean", src: "/Dean.PNG" },
-  { name: "Gibson", src: "/Gibson.PNG" },
+  { name: "Gibson", src: "/Gibson.PNG", href: "/marcas/gibson" },
   { name: "Digitech", src: "/Digitech.PNG" },
   { name: "Pearl", src: "/Pearl.PNG" },
 ];
@@ -321,23 +322,43 @@ export default function Home() {
         </h2>
 
         <div className="grid grid-cols-3 gap-x-2 gap-y-10 sm:grid-cols-4 lg:grid-cols-6">
-          {brands.map((brand, index) => (
-            <div key={index} className="group flex flex-col items-center gap-3">
-              <div className="relative flex h-32 w-32 items-center justify-center overflow-hidden rounded-full bg-black shadow-sm transition-transform duration-300 group-hover:scale-105 sm:h-40 sm:w-40">
-                <div className="relative h-28 w-28 sm:h-36 sm:w-36">
-                  <Image
-                    src={brand.src}
-                    alt={`Marca ${brand.name}`}
-                    fill
-                    className="object-contain"
-                  />
+          {brands.map((brand, index) => {
+            const content = (
+              <>
+                <div className="relative flex h-32 w-32 items-center justify-center overflow-hidden rounded-full bg-black shadow-sm transition-transform duration-300 group-hover:scale-105 sm:h-40 sm:w-40">
+                  <div className="relative h-28 w-28 sm:h-36 sm:w-36">
+                    <Image
+                      src={brand.src}
+                      alt={`Marca ${brand.name}`}
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
                 </div>
+                <span className="text-sm font-medium text-neutral-900">
+                  {brand.name}
+                </span>
+              </>
+            );
+
+            if (brand.href) {
+              return (
+                <Link
+                  key={index}
+                  href={brand.href}
+                  className="group flex flex-col items-center gap-3"
+                >
+                  {content}
+                </Link>
+              );
+            }
+
+            return (
+              <div key={index} className="group flex flex-col items-center gap-3">
+                {content}
               </div>
-              <span className="text-sm font-medium text-neutral-900">
-                {brand.name}
-              </span>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 

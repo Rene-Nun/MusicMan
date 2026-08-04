@@ -9,6 +9,7 @@ export type Product = {
   price: number;
   image: string;
   stock: "en-tienda" | "ultima-unidad";
+  href?: string;
 };
 
 type ProductCardProps = Product & {

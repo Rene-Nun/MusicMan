@@ -1,21 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-
-type CartItem = {
-  id: string;
-  name: string;
-  category: string;
-  price: number;
-  image: string;
-  quantity: number;
-};
-
-// Vacío por ahora — cuando conectemos el carrito real, esto se llena desde
-// tu fuente de verdad (Notion, contexto, lo que uses para persistirlo).
-const initialCartItems: CartItem[] = [];
+import { useCart } from "@/context/CartContext";
 
 function formatPrice(value: number) {
   return value.toLocaleString("es-MX", {
@@ -26,27 +13,7 @@ function formatPrice(value: number) {
 }
 
 export default function CarritoPage() {
-  const [items, setItems] = useState<CartItem[]>(initialCartItems);
-
-  const updateQuantity = (id: string, delta: number) => {
-    setItems((prev) =>
-      prev.map((item) =>
-        item.id === id
-          ? { ...item, quantity: Math.max(1, item.quantity + delta) }
-          : item
-      )
-    );
-  };
-
-  const removeItem = (id: string) => {
-    setItems((prev) => prev.filter((item) => item.id !== id));
-  };
-
-  const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
-  const subtotal = items.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  );
+  const { items, updateQuantity, removeItem, itemCount, subtotal } = useCart();
 
   if (items.length === 0) {
     return (

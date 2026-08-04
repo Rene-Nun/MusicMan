@@ -153,7 +153,7 @@ export default function GibsonPage() {
   return (
     <main className="min-h-screen bg-white">
       {/* Encabezado de marca */}
-      <section className="border-b border-neutral-200 bg-white">
+      <section className="bg-white">
         <div className="mx-auto flex max-w-6xl items-center gap-4 px-6 py-10 sm:py-12">
           <div className="relative h-10 w-24 shrink-0 sm:h-12 sm:w-28">
             <Image
@@ -184,7 +184,7 @@ export default function GibsonPage() {
                   index !== tiposDeProducto.length - 1 ? "mr-6" : ""
                 }`}
               >
-                <div className="relative h-20 w-20 sm:h-24 sm:w-24">
+                <div className="relative h-28 w-28 sm:h-32 sm:w-32">
                   <Image
                     src={tipoProducto.src}
                     alt={tipoProducto.name}

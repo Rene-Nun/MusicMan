@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 export type Product = {
   id: string;
@@ -23,18 +24,13 @@ export default function ProductCard({
   price,
   image,
   stock,
+  href,
   variant = "dark",
 }: ProductCardProps) {
   const isLight = variant === "light";
 
-  return (
-    <article
-      className={`group flex flex-col overflow-hidden rounded-sm transition-colors ${
-        isLight
-          ? "bg-white"
-          : "border border-line bg-panel hover:border-brass/50"
-      }`}
-    >
+  const cardContent = (
+    <>
       <div className="relative aspect-square overflow-hidden bg-black/30">
         <Image
           src={image}
@@ -65,6 +61,34 @@ export default function ProductCard({
           {price.toLocaleString("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 })}
         </p>
       </div>
+    </>
+  );
+
+  if (href) {
+    return (
+      <Link href={href} className="group flex flex-col overflow-hidden rounded-sm transition-colors no-underline">
+        <article
+          className={`flex flex-col overflow-hidden rounded-sm transition-colors ${
+            isLight
+              ? "bg-white"
+              : "border border-line bg-panel hover:border-brass/50"
+          }`}
+        >
+          {cardContent}
+        </article>
+      </Link>
+    );
+  }
+
+  return (
+    <article
+      className={`group flex flex-col overflow-hidden rounded-sm transition-colors ${
+        isLight
+          ? "bg-white"
+          : "border border-line bg-panel hover:border-brass/50"
+      }`}
+    >
+      {cardContent}
     </article>
   );
 }
